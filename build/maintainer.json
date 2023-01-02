@@ -593,6 +593,12 @@
     "/bupt/rczp": [
         "nczitzk"
     ],
+    "/bytes": [
+        "meixger"
+    ],
+    "/bytes/": [
+        "meixger"
+    ],
     "/c114/roll": [
         "nczitzk"
     ],
@@ -713,6 +719,9 @@
     "/chinaventure/news/:id?": [
         "yuxinliu-alex"
     ],
+    "/chsi/kydt": [
+        "SunBK201"
+    ],
     "/ciidbnu/:id?": [
         "nczitzk"
     ],
@@ -736,6 +745,21 @@
     ],
     "/cnbeta/topics/:id": [
         "nczitzk"
+    ],
+    "/cnblogs/aggsite/topdiggs": [
+        "hujingnb"
+    ],
+    "/cnblogs/aggsite/topviews": [
+        "hujingnb"
+    ],
+    "/cnblogs/aggsite/headline": [
+        "hujingnb"
+    ],
+    "/cnblogs/cate/:type": [
+        "hujingnb"
+    ],
+    "/cnblogs/pick": [
+        "hujingnb"
     ],
     "/cncf/:cate?": [
         "Fatpandac"
@@ -770,6 +794,9 @@
     ],
     "/codeforces/contests": [
         "Fatpandac"
+    ],
+    "/codeforces/recent-actions": [
+        "ftiasch"
     ],
     "/comicskingdom/:name": [
         "stjohnjohnson"
@@ -2022,6 +2049,9 @@
         "Derekmini",
         "auto-bot-ty"
     ],
+    "/ieee-security/security-privacy": [
+        "ZeddYu"
+    ],
     "/ielts/": [
         "zenxds"
     ],
@@ -2580,6 +2610,9 @@
     "/luogu/user/feed/:uid": [
         "solstice23"
     ],
+    "/luogu/user/blog/:username": [
+        "ftiasch"
+    ],
     "/lvv2/news/:channel/:sort?": [
         "Fatpandac"
     ],
@@ -2594,6 +2627,9 @@
     ],
     "/macfilos/blog": [
         "nczitzk"
+    ],
+    "/mangadex/:id/:lang?": [
+        "vzz64"
     ],
     "/manhuagui/comic/:id/:chapterCnt?": [
         "MegrezZhu"
@@ -2741,6 +2777,9 @@
     ],
     "/ncwu/note": [
         "vuhe"
+    ],
+    "/ndss-symposium/ndss": [
+        "ZeddYu"
     ],
     "/neatdownloadmanager/download/:os?": [
         "nczitzk"
@@ -3332,6 +3371,9 @@
         "Fatpandac",
         "nczitzk"
     ],
+    "/qlu/notice": [
+        "SunBK201"
+    ],
     "/qm120/news/:category?": [
         "nczitzk"
     ],
@@ -3393,6 +3435,12 @@
     ],
     "/rarehistoricalphotos/": [
         "TonyRL"
+    ],
+    "/reactnewsletter": [
+        "meixger"
+    ],
+    "/reactnewsletter/": [
+        "meixger"
     ],
     "/remnote/changelog": [
         "TonyRL"
@@ -3577,6 +3625,9 @@
     ],
     "/sicau/zsjy/:category?": [
         "nczitzk"
+    ],
+    "/sigsac/ccs/": [
+        "ZeddYu"
     ],
     "/simpleinfo/:category?": [
         "haukeng"
@@ -4098,6 +4149,9 @@
         "SettingDust",
         "Halcao"
     ],
+    "/usenix/usenix-security-sympoium": [
+        "ZeddYu"
+    ],
     "/usepanda/feeds/:id": [
         "lyrl"
     ],
@@ -4466,6 +4520,9 @@
     "/xwlb/index": [
         "xfangbao"
     ],
+    "/xys/new": [
+        "wenzhenl"
+    ],
     "/xyzrank/": [
         "nczitzk"
     ],
@@ -4507,6 +4564,9 @@
         "nczitzk"
     ],
     "/ymgal/article/:type?": [
+        "SunBK201"
+    ],
+    "/ymgal/game/release": [
         "SunBK201"
     ],
     "/yoasobi-music/info/:category": [
