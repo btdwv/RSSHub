@@ -2064,7 +2064,10 @@
     "/gov/shenzhen/zzb/:caty/:page?": [
         "zlasd"
     ],
-    "/gov/sichuan/deyang/govpulicinfo/:countyName": [
+    "/gov/sichuan/deyang/govpublicinfo/:countyName/:infoType?": [
+        "zytomorrow"
+    ],
+    "/gov/sichuan/deyang/mztoday/:infoType?": [
         "zytomorrow"
     ],
     "/gov/taiyuan/rsj/:caty/:page?": [
@@ -2280,6 +2283,9 @@
         "hoilc",
         "Fatpandac",
         "nczitzk"
+    ],
+    "/hk01/latest": [
+        "5upernova-heng"
     ],
     "/hk01/issue/:id": [
         "hoilc",
