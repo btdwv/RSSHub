@@ -185,17 +185,29 @@ $ cd RSSHub
 
 Execute the following commands to install dependencies (Do not add the `--production` parameter for development).
 
-Using `yarnv1`
+<code-group>
+<code-block title="pnpm" active>
 
 ```bash
-$ yarn --production
+pnpm install --prod
 ```
 
-or using `npm`
+</code-block>
+<code-block title="yarnv1">
 
 ```bash
-$ npm ci --production
+yarn --production
 ```
+
+</code-block>
+<code-block title="npm">
+
+```bash
+npm install --omit=dev
+```
+
+</code-block>
+</code-group>
 
 ### Launch
 
@@ -356,6 +368,13 @@ Run RSSHub from just $1/month. Includes automatic updates and $5 free starting c
 
 [![Run on PikaPods](https://www.pikapods.com/static/run-button.svg)](https://www.pikapods.com/pods?run=rsshub)
 
+## Deploy to Zeabur
+
+1.  [Sign up for Zeabur](https://dash.zeabur.com)
+2.  Create a new project.
+3.  Create a new service in the project, select deploying from the **marketplace**.
+4.  Add a domain name, if you use a custom domain name, you can refer to [Zeabur's domain name binding document](https://docs.zeabur.com/deploy/domain-binding).
+
 ## Deploy to Google App Engine(GAE)
 
 ### Before You Begin
@@ -510,7 +529,7 @@ resolved by the SOCKS server, recommanded, prevents DNS poisoning or DNS leak), 
 
 #### Proxy options
 
-`PROXY_PROTOCOL`: Using proxy, supports socks, http, https, etc. See [socks-proxy-agent](https://www.npmjs.com/package/socks-proxy-agent) NPM package page and [source](https://github.com/TooTallNate/node-socks-proxy-agent/blob/master/src/agent.ts) for what these protocols mean. See also [cURL OOTW: SOCKS5](https://daniel.haxx.se/blog/2020/05/26/curl-ootw-socks5/) for reference.
+`PROXY_PROTOCOL`: Using proxy, supports socks, http, https, etc. See [socks-proxy-agent](https://www.npmjs.com/package/socks-proxy-agent) NPM package page and [source](https://github.com/TooTallNate/proxy-agents/blob/63adbcefdb4783cc67c0eb90200886b4064e8639/packages/socks-proxy-agent/src/index.ts#L81) for what these protocols mean. See also [cURL OOTW: SOCKS5](https://daniel.haxx.se/blog/2020/05/26/curl-ootw-socks5/) for reference.
 
 `PROXY_HOST`: host or IP of the proxy
 
@@ -699,7 +718,8 @@ See docs of the specified route and `lib/config.js` for detailed information.
 
 -   Iwara:
 
-    -   `IWARA_COOKIE`: Cookie of Iwara User
+    -   `IWARA_USERNAME`: username of Iwara User
+    -   `IWARA_PASSWORD`: password of Iwara User
 
 -   Last.fm
 
