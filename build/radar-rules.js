@@ -2373,7 +2373,8 @@
         target:"/cls/telegraph" },
       { title:"深度",
         docs:"https://docs.rsshub.app/finance.html#cai-lian-she",
-        source:[ "/depth" ],
+        source:[ "/depth",
+          "/" ],
         target:(_, url) => `/cls/depth/${new URL(url).searchParams.get('id')}` },
       { title:"热门文章排行榜",
         docs:"https://docs.rsshub.app/finance.html#cai-lian-she",
@@ -5343,6 +5344,12 @@
         docs:"https://docs.rsshub.app/journal.html#heng-yang-quan-sou-suo-heng-yang-wan-bao",
         source:[ "/" ],
         target:"/hnrb/hywb/:id?" } ] },
+  "ibc.co.jp":{ _name:"IBC 岩手放送",
+    ".":[ { title:"イヤーマイッタマイッタ",
+        docs:"https://docs.rsshub.app/multimedia.html#ibc-yan-shou-fang-song",
+        source:[ "/radio/maitta/audio",
+          "/" ],
+        target:"/ibc/maitta" } ] },
   "icac.org.hk":{ _name:"香港廉政公署",
     ".":[ { title:"新闻公布",
         docs:"https://docs.rsshub.app/government.html#xiang-gang-lian-zheng-gong-shu",
@@ -9274,6 +9281,12 @@
         source:[ "/trending",
           "/" ],
         target:(params, url) => `/pubmed/trending/${new URL(url).searchParams.getAll('filter').join(',')}` } ] },
+  "pumc.edu.cn":{ _name:"北京协和医学院",
+    mdadmission:[ { title:"“4+4”试点班招生网通知公告",
+        docs:"https://docs.rsshub.app/university.html#bei-jing-xie-he-yi-xue-yuan",
+        source:[ "/mdweb/site",
+          "/" ],
+        target:"/pumc/mdadmission" } ] },
   "chiark.greenend.org.uk":{ _name:"PuTTY",
     www:[ { title:"Change Log",
         docs:"https://docs.rsshub.app/program-update.html#putty-change-log",
@@ -9587,6 +9600,12 @@
         docs:"https://docs.rsshub.app/multimedia.html#fa-guo-guo-ji-guang-bo-dian-tai-gun-dong-xin-wen",
         source:[ "/" ],
         target:"/rfi/news" } ] },
+  "right.com.cn":{ _name:"恩山无线论坛",
+    ".":[ { title:"板块",
+        docs:"https://docs.rsshub.app/bbs.html#en-shan-wu-xian-lun-tan",
+        source:[ "/forum",
+          "/" ],
+        target:(params, url) => `/right/forum/${new URL(url).href.match(/\/forum-(\d+)-\d+.html/)[1]}` } ] },
   "rodong.rep.kp":{ _name:"劳动新闻",
     ".":[ { title:"新闻",
         docs:"https://docs.rsshub.app/traditional-media.html#lao-dong-xin-wen",
@@ -11425,6 +11444,14 @@
         target:(params) => {
                     if (params.uid !== 'home' && params.uid !== 'explore' && params.uid !== 'notifications' && params.uid !== 'messages' && params.uid !== 'explore' && params.uid !== 'search') {
                         return '/twitter/collection/:uid/:collectionId';
+                    }
+                } },
+      { title:"推文详情",
+        docs:"https://docs.rsshub.app/social-media.html#twitter",
+        source:"/:id/status/:status",
+        target:(params) => {
+                    if (params.id !== 'home' && params.id !== 'explore' && params.id !== 'notifications' && params.id !== 'messages' && params.id !== 'explore' && params.id !== 'search') {
+                        return '/twitter/tweet/:id/suatus/:status';
                     }
                 } } ] },
   "twreporter.org":{ _name:"報導者",

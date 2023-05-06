@@ -1058,7 +1058,8 @@
         "nczitzk"
     ],
     "/cls/hot": [
-        "5upernova-heng"
+        "5upernova-heng",
+        "nczitzk"
     ],
     "/cls/telegraph/:category?": [
         "nczitzk"
@@ -2591,6 +2592,9 @@
     "/hyqss/hywb/:id?": [
         "nczitzk"
     ],
+    "/ibc/maitta": [
+        "fengkx"
+    ],
     "/icac/news/:lang?": [
         "linbuxiao, TonyRL"
     ],
@@ -4104,6 +4108,9 @@
     "/pubmed/trending/:filters?": [
         "nczitzk"
     ],
+    "/pumc/mdadmission": [
+        "nczitzk"
+    ],
     "/putty/changes": [
         "nczitzk"
     ],
@@ -4294,6 +4301,9 @@
         "zphw"
     ],
     "/rfi/news": [
+        "nczitzk"
+    ],
+    "/right/forum/:id?": [
         "nczitzk"
     ],
     "/rodong/news/:language?": [
@@ -5096,6 +5106,9 @@
     ],
     "/twitter/trends/:woeid?": [
         "sakamossan"
+    ],
+    "/twitter/tweet/:id/status/:status/:original?": [
+        "LarchLiu"
     ],
     "/twitter/user/:id/:routeParams?": [
         "DIYgod",
@@ -6297,7 +6310,6 @@
     "/ui-cn/article": [],
     "/ui-cn/user/:id": [],
     "/juesheng": [],
-    "/maitta": [],
     "/blogs/jingwei.link": [],
     "/blogs/wangyin": [],
     "/blogs/wang54/:id?": [],
@@ -7101,7 +7113,6 @@
     "/gov/wuhan/kjj/:caty": [],
     "/fnal/news/:category?": [],
     "/x410/news": [],
-    "/right/forum/:id?": [],
     "/micmicidol": [],
     "/micmicidol/search/:label": [],
     "/hkgolden/:id?/:limit?/:sort?": [],

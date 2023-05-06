@@ -4399,7 +4399,8 @@
         "title": "深度",
         "docs": "https://docs.rsshub.app/finance.html#cai-lian-she",
         "source": [
-          "/depth"
+          "/depth",
+          "/"
         ]
       },
       {
@@ -10320,6 +10321,20 @@
           "/"
         ],
         "target": "/hnrb/hywb/:id?"
+      }
+    ]
+  },
+  "ibc.co.jp": {
+    "_name": "IBC 岩手放送",
+    ".": [
+      {
+        "title": "イヤーマイッタマイッタ",
+        "docs": "https://docs.rsshub.app/multimedia.html#ibc-yan-shou-fang-song",
+        "source": [
+          "/radio/maitta/audio",
+          "/"
+        ],
+        "target": "/ibc/maitta"
       }
     ]
   },
@@ -17111,6 +17126,20 @@
       }
     ]
   },
+  "pumc.edu.cn": {
+    "_name": "北京协和医学院",
+    "mdadmission": [
+      {
+        "title": "“4+4”试点班招生网通知公告",
+        "docs": "https://docs.rsshub.app/university.html#bei-jing-xie-he-yi-xue-yuan",
+        "source": [
+          "/mdweb/site",
+          "/"
+        ],
+        "target": "/pumc/mdadmission"
+      }
+    ]
+  },
   "chiark.greenend.org.uk": {
     "_name": "PuTTY",
     "www": [
@@ -17713,6 +17742,19 @@
           "/"
         ],
         "target": "/rfi/news"
+      }
+    ]
+  },
+  "right.com.cn": {
+    "_name": "恩山无线论坛",
+    ".": [
+      {
+        "title": "板块",
+        "docs": "https://docs.rsshub.app/bbs.html#en-shan-wu-xian-lun-tan",
+        "source": [
+          "/forum",
+          "/"
+        ]
       }
     ]
   },
@@ -21074,6 +21116,11 @@
         "title": "推文收集",
         "docs": "https://docs.rsshub.app/social-media.html#twitter",
         "source": "/:uid/timelines/:collectionId"
+      },
+      {
+        "title": "推文详情",
+        "docs": "https://docs.rsshub.app/social-media.html#twitter",
+        "source": "/:id/status/:status"
       }
     ]
   },
