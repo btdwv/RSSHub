@@ -148,6 +148,14 @@
     "/36kr/user/:id": [
         "nczitzk"
     ],
+    "/3dmgame/news/:category?": [
+        "zhboner"
+    ],
+    "/3dmgame/:name/:type?": [
+        "sinchang",
+        "jacky2001114",
+        "HenryQW"
+    ],
     "/423down/:category/:type": [
         "Fatpandac"
     ],
@@ -1100,6 +1108,13 @@
     "/cncf/:cate?": [
         "Fatpandac"
     ],
+    "/cneb/yjxw/:category?": [
+        "nczitzk"
+    ],
+    "/cneb/yjxx/:level?/:province?/:city?": [
+        "muzea",
+        "nczitzk"
+    ],
     "/cngal/entry/:id": [
         "chengyuhui"
     ],
@@ -1902,6 +1917,9 @@
     "/github/file/:user/:repo/:branch/:filepath+": [
         "zengxs"
     ],
+    "/github/gist/:gistId": [
+        "TonyRL"
+    ],
     "/github/issue/:user/:repo/:state?/:labels?": [
         "HenryQW",
         "AndreyMZ"
@@ -1977,6 +1995,9 @@
     ],
     "/google/sites/recentChanges/:id": [
         "nczitzk"
+    ],
+    "/gov/cac/:path+": [
+        "drgnchan"
     ],
     "/gov/ccdi/:path+": [
         "bigfei"
@@ -3329,6 +3350,9 @@
     ],
     "/mihoyo/bbs/official/:gids/:type?/:page_size?/:last_id?": [
         "CaoMeiYouRen"
+    ],
+    "/mihoyo/sr/:location?/:category?": [
+        "shinanory"
     ],
     "/mihoyo/ys/:location?/:category?": [
         "nczitzk"
@@ -5999,8 +6023,6 @@
     "/pornhub/:language?/pornstar/:username/:sort?": [],
     "/yande.re/post/popular_recent": [],
     "/yande.re/post/popular_recent/:period": [],
-    "/3dm/:name/:type": [],
-    "/3dm/news": [],
     "/ximalaya/:type/:id/:all?": [],
     "/ximalaya/:type/:id/:all/:shownote?": [],
     "/eztv/torrents/:imdb_id": [],
@@ -6504,8 +6526,6 @@
     "/sans/summit_archive": [],
     "/latexstudio/home": [],
     "/jskou/:type?": [],
-    "/cneb/yjxx": [],
-    "/cneb/guoneinews": [],
     "/mail/imap/:email": [],
     "/network360/jobs": [],
     "/zhilian/:city/:keyword": [],

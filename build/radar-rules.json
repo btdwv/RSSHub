@@ -728,6 +728,28 @@
       }
     ]
   },
+  "3dmgame.com": {
+    "_name": "3DMGame",
+    ".": [
+      {
+        "title": "新闻中心",
+        "docs": "https://docs.rsshub.app/game.html#_3dmgame",
+        "source": [
+          "/news/:category?",
+          "/news"
+        ],
+        "target": "/3dmgame/news/:category?"
+      },
+      {
+        "title": "游戏资讯",
+        "docs": "https://docs.rsshub.app/game.html#_3dmgame",
+        "source": [
+          "/games/:name/:type"
+        ],
+        "target": "/3dmgame/:name/:type?"
+      }
+    ]
+  },
   "423down.com": {
     "_name": "423down",
     "www": [
@@ -4348,6 +4370,19 @@
         ],
         "target": "/github/notifications"
       }
+    ],
+    "gist": [
+      {
+        "title": "Gist Commits",
+        "docs": "https://docs.rsshub.app/programming.html#github",
+        "source": [
+          "/:owner/:gistId/revisions",
+          "/:owner/:gistId/stargazers",
+          "/:owner/:gistId/forks",
+          "/:owner/:gistId"
+        ],
+        "target": "/github/gist/:gistId"
+      }
     ]
   },
   "clickme.net": {
@@ -4570,6 +4605,29 @@
           "/reports"
         ],
         "target": "/cncf/reports"
+      }
+    ]
+  },
+  "cneb.gov.cn": {
+    "_name": "中国国家应急广播",
+    ".": [
+      {
+        "title": "应急新闻",
+        "docs": "https://docs.rsshub.app/forecast.html#zhong-guo-guo-jia-ying-ji-guang-bo",
+        "source": [
+          "/yjxw/:category?",
+          "/"
+        ],
+        "target": "/cneb/yjxw/:category?"
+      },
+      {
+        "title": "预警信息",
+        "docs": "https://docs.rsshub.app/forecast.html#zhong-guo-guo-jia-ying-ji-guang-bo",
+        "source": [
+          "/yjxx",
+          "/"
+        ],
+        "target": "/cneb/yjxx"
       }
     ]
   },
@@ -8098,6 +8156,18 @@
       {
         "title": "北京市共有产权住房租赁服务平台",
         "docs": "https://docs.rsshub.app/government.html#bei-jing-shi-bao-zhang-fang-zhong-xin-you-xian-gong-si",
+        "source": [
+          "/*"
+        ]
+      }
+    ]
+  },
+  "cac.gov.cn": {
+    "_name": "中央网信办",
+    ".": [
+      {
+        "title": "分类",
+        "docs": "https://docs.rsshub.app/government.html#zhong-yang-wang-xin-ban",
         "source": [
           "/*"
         ]
@@ -13989,6 +14059,14 @@
         "source": "/:location/news",
         "target": "/mihoyo/ys/:location"
       }
+    ],
+    "hsr": [
+      {
+        "title": "崩坏：星穹铁道 - 新闻",
+        "docs": "https://docs.rsshub.app/game.html##mi-ha-you",
+        "source": "/:location/news",
+        "target": "/mihoyo/sr/:location"
+      }
     ]
   },
   "mihoyo.com": {
@@ -14005,6 +14083,14 @@
           "/:game/home/53",
           "/:game/home/58"
         ]
+      }
+    ],
+    "sr": [
+      {
+        "title": "崩坏：星穹铁道 - 新闻",
+        "docs": "https://docs.rsshub.app/game.html##mi-ha-you",
+        "source": "/news",
+        "target": "/mihoyo/sr"
       }
     ],
     "ys": [
