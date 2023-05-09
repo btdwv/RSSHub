@@ -14006,6 +14006,27 @@
       }
     ]
   },
+  "medium.com": {
+    "_name": "Medium",
+    ".": [
+      {
+        "title": "个性推荐 - For You",
+        "docs": "https://docs.rsshub.app/blog.html#medium-ge-xing-tui-jian-for-you"
+      },
+      {
+        "title": "个性推荐 - Following",
+        "docs": "https://docs.rsshub.app/blog.html#medium-ge-xing-tui-jian-following"
+      },
+      {
+        "title": "个性推荐 - Tag",
+        "docs": "https://docs.rsshub.app/blog.html#medium-ge-xing-tui-jian-tag"
+      },
+      {
+        "title": "List",
+        "docs": "https://docs.rsshub.app/blog.html#medium-list"
+      }
+    ]
+  },
   "medsci.cn": {
     "_name": "梅斯医学",
     ".": [
@@ -19942,6 +19963,16 @@
           "/"
         ],
         "target": "/sysu/cse"
+      }
+    ],
+    "ygafz": [
+      {
+        "title": "粤港澳发展研究院",
+        "docs": "https://docs.rsshub.app/universities.html#zhong-shan-da-xue",
+        "source": [
+          "/:type?"
+        ],
+        "target": "/sysu/ygafz/:type?"
       }
     ]
   },
