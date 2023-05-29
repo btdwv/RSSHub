@@ -162,6 +162,12 @@ Category of news
 
 <RouteEn author="nczitzk" example="/dayone/blog" path="/dayone/blog"/>
 
+## Deadline
+
+### Latest Article
+
+<RouteEn author="TonyRL" example="/deadline" path="/deadline" radar="1"/>
+
 ## DeepMind
 
 ### Blog
@@ -765,6 +771,16 @@ Compared to the official one, this feed:
 ### News
 
 <RouteEn author="NavePnow" example="/techcrunch/news" path="/techcrunch/news"/>
+
+## TechPowerUp
+
+### Latest Content
+
+<RouteEn author="TonyRL" example="/techpowerup" path="/techpowerup" radar="1" />
+
+### Reviews
+
+<RouteEn author="TonyRL" example="/techpowerup/review/4090" path="/techpowerup/review/:keyword?" :paramsDesc="['Search Keyword']" radar="1" />
 
 ## The Brain
 

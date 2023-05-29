@@ -185,6 +185,22 @@ pageClass: routes
 
 <Route author="nczitzk" example="/asml/press-releases" path="/asml/press-releases"/>
 
+## Bad.news
+
+### 通用
+
+<Route author="nczitzk" example="/bad" path="/bad/:path+" :paramsDesc="['路径，默认为首页热门']">
+
+::: tip 提示
+
+若订阅 [每日热点 - 最新](https://bad.news/tag/每日热点/sort-new)，网址为 [https://bad.news/tag/ 每日热点 /sort-new](https://bad.news/tag/每日热点/sort-new)。截取 `https://bad.news` 到末尾的部分 `/tag/每日热点/sort-new` 作为参数，此时路由为 [`/bad/tag/每日热点/sort-new`](https://rsshub.app/bad/tag/每日热点/sort-new)。
+
+若订阅子分类 [大陆资讯 - 热门](https://bad.news/tag/大陆资讯/sort-hot)，网址为 [https://bad.news/tag/ 大陆资讯 /sort-hot](https://bad.news/tag/大陆资讯/sort-hot)。截取 `https://bad.news` 到末尾的部分 `/tag/大陆资讯/sort-hot` 作为参数，路由为 [`/bad/tag/大陆资讯/sort-hot`](https://rsshub.app/bad/tag/大陆资讯/sort-hot)。
+
+:::
+
+</Route>
+
 ## Bell Labs
 
 ### Event and News
@@ -1544,6 +1560,23 @@ Supported sub-sites:
 ### 精读
 
 <Route author="AlexdanerZe TonyRL" example="/zaker/focusread" path="/zaker/focusread" />
+
+## zyw
+
+### 今日热榜
+
+<Route author="nczitzk" example="/zyw/hot" path="/zyw/hot/:site?" :paramsDesc="['站点，见下表，默认为空，即全部']">
+
+::: tip 提示
+
+全部站点请见 [此处](https://hot.zyw.asia/#/list)
+
+:::
+
+| 哔哩哔哩 | 微博 | 知乎 | 36 氪 | 百度 | 少数派 | IT 之家 | 澎湃新闻 | 今日头条 | 百度贴吧 | 稀土掘金 | 腾讯新闻 |
+| -------- | ---- | ---- | ----- | ---- | ------ | ------- | -------- | -------- | -------- | -------- | -------- |
+
+</Route>
 
 ## 阿里研究院
 
