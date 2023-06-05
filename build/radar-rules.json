@@ -1416,12 +1416,20 @@
     "_name": "AEON",
     "aeon": [
       {
-        "title": "Essays",
+        "title": "Types (Essays, Videos, or Audio)",
         "docs": "https://docs.rsshub.app/new-media.html##aeon",
         "source": [
-          "/"
+          "/:type"
         ],
-        "target": "/aeon/essays"
+        "target": "/aeon/:type"
+      },
+      {
+        "title": "Category",
+        "docs": "https://docs.rsshub.app/new-media.html##aeon",
+        "source": [
+          "/:category"
+        ],
+        "target": "/aeon/category/:category"
       }
     ]
   },
@@ -5638,6 +5646,12 @@
         "title": "最新信息公开",
         "docs": "https://docs.rsshub.app/university.html#dong-hua-da-xue"
       }
+    ],
+    "yjs": [
+      {
+        "title": "研究生信息",
+        "docs": "https://docs.rsshub.app/university.html#dong-hua-da-xue"
+      }
     ]
   },
   "diandong.com": {
@@ -6551,6 +6565,16 @@
   },
   "eastmoney.com": {
     "_name": "东方财富",
+    "data": [
+      {
+        "title": "研究报告",
+        "docs": "https://docs.rsshub.app/finance.html#dong-fang-cai-fu",
+        "source": [
+          "/report/:category"
+        ],
+        "target": "/eastmoney/report/:category"
+      }
+    ],
     "fundbarmob": [
       {
         "title": "天天基金用户动态",

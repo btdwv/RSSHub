@@ -284,7 +284,10 @@
     "/aeaweb/:id": [
         "nczitzk"
     ],
-    "/aeon/essays": [
+    "/aeon/category/:category": [
+        "emdoe"
+    ],
+    "/aeon/:type": [
         "emdoe"
     ],
     "/agefans/detail/:id": [
@@ -1405,6 +1408,9 @@
     "/dhu/xxgk/news": [
         "KiraKiseki"
     ],
+    "/dhu/yjs/zs/:type?": [
+        "fox2049"
+    ],
     "/diandong/news/:cate?": [
         "Fatpandac"
     ],
@@ -1675,6 +1681,9 @@
     ],
     "/eastmoney/ttjj/user/:uid": [
         "zidekuls"
+    ],
+    "/eastmoney/report/:category": [
+        "syzq"
     ],
     "/eastmoney/search/:keyword": [
         "drgnchan"
