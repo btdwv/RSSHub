@@ -899,6 +899,19 @@
       }
     ]
   },
+  "4ksj.com": {
+    "_name": "4k 世界",
+    ".": [
+      {
+        "title": "分类",
+        "docs": "https://docs.rsshub.app/multimedia.html#4k-shi-jie-fen-lei",
+        "source": [
+          "/forum-2-1.html",
+          "/"
+        ]
+      }
+    ]
+  },
   "500px.com.cn": {
     "_name": "500px 摄影社区",
     ".": [
@@ -5376,6 +5389,35 @@
       }
     ]
   },
+  "daily.dev": {
+    "_name": "Daily.dev",
+    ".": [
+      {
+        "title": "Most Discussed",
+        "docs": "https://docs.rsshub.app/en/social-media.html#daily.dev",
+        "source": [
+          "/discussed"
+        ],
+        "target": "/daily/discussed"
+      },
+      {
+        "title": "Most Upvoted",
+        "docs": "https://docs.rsshub.app/en/social-media.html#daily.dev",
+        "source": [
+          "/upvoted"
+        ],
+        "target": "/daily/upvoted"
+      },
+      {
+        "title": "Popular",
+        "docs": "https://docs.rsshub.app/en/social-media.html#daily.dev",
+        "source": [
+          "/popular"
+        ],
+        "target": "/daily"
+      }
+    ]
+  },
   "dapenti.com": {
     "_name": "喷嚏",
     ".": [
@@ -5420,6 +5462,19 @@
           "/:category/*"
         ],
         "target": "/dayanzai/:category"
+      }
+    ]
+  },
+  "dblp.org": {
+    "_name": "DBLP",
+    ".": [
+      {
+        "title": "关键字搜索",
+        "docs": "https://docs.rsshub.app/study.html#dblp",
+        "source": [
+          "/:field"
+        ],
+        "target": "/dblp/:field"
       }
     ]
   },
@@ -5972,6 +6027,20 @@
         "source": [
           "/player/*id"
         ]
+      }
+    ]
+  },
+  "dorohedoro.net": {
+    "_name": "Dorohedoro",
+    ".": [
+      {
+        "title": "News",
+        "docs": "https://docs.rsshub.app/game.html#dorohedoro",
+        "source": [
+          "/news",
+          "/"
+        ],
+        "target": "/dorohedoro/news"
       }
     ]
   },
@@ -15214,16 +15283,13 @@
     ]
   },
   "nationalgeographic.com": {
-    "_name": "国家地理",
-    ".": [
+    "_name": "National Geographic",
+    "www": [
       {
-        "title": "每日一图",
-        "docs": "https://docs.rsshub.app/picture.html#guo-jia-di-li",
-        "source": [
-          "/photo-of-the-day/*",
-          "/"
-        ],
-        "target": "/natgeo/dailyphoto"
+        "title": "Latest Stories",
+        "docs": "https://docs.rsshub.app/traditional-media.html#hua-shi-xin-wen",
+        "source": "/pages/topic/latest-stories",
+        "target": "/nationalgeographic/latest-stories"
       }
     ]
   },
@@ -15412,6 +15478,30 @@
           "/"
         ],
         "target": "/neatdownloadmanager/download/:os?"
+      }
+    ]
+  },
+  "nenu.edu.cn": {
+    "_name": "东北师范大学",
+    "sohac": [
+      {
+        "title": "历史文化学院",
+        "docs": "https://docs.rsshub.app/university.html#dong-bei-shi-fan-da-xue-li-shi-wen-hua-xue-yuan",
+        "source": [
+          "/index/xyxx.htm",
+          "/index/tzgg.htm",
+          "/"
+        ]
+      }
+    ],
+    "yjsy": [
+      {
+        "title": "研究生院",
+        "docs": "https://docs.rsshub.app/university.html#dong-bei-shi-fan-da-xue-yan-jiu-sheng-yuan",
+        "source": [
+          "/tzgg.htm",
+          "/"
+        ]
       }
     ]
   },
@@ -18173,6 +18263,19 @@
           "/"
         ],
         "target": "/rarehistoricalphotos"
+      }
+    ]
+  },
+  "rattibha.com": {
+    "_name": "رتبها - Rattibha",
+    ".": [
+      {
+        "title": "User Threads",
+        "docs": "https://docs.rsshub.app/en/social-media.html#rattibha",
+        "source": [
+          "/:user"
+        ],
+        "target": "/rattibha/user/:user"
       }
     ]
   },
@@ -24913,6 +25016,15 @@
     ".": [
       {
         "title": "文章",
+        "docs": "https://docs.rsshub.app/blog.html#zhu-bai",
+        "source": [
+          "/"
+        ]
+      }
+    ],
+    "analy": [
+      {
+        "title": "TOP 20",
         "docs": "https://docs.rsshub.app/blog.html#zhu-bai",
         "source": [
           "/"
