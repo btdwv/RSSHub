@@ -12968,6 +12968,16 @@
         ],
         "target": "/jin10"
       }
+    ],
+    "xnews": [
+      {
+        "title": "主题文章",
+        "docs": "https://docs.rsshub.app/finance.html#jin-shi-shu-ju",
+        "source": [
+          "/topic/:id"
+        ],
+        "target": "/jin10/topic/:id"
+      }
     ]
   },
   "jisilu.cn": {
@@ -19025,6 +19035,19 @@
         "docs": "https://docs.rsshub.app/university.html#shan-dong-ke-ji-da-xue-yan-jiu-sheng-zhao-sheng-wang",
         "source": [
           "/zhaosheng",
+          "/"
+        ]
+      }
+    ]
+  },
+  "sdzk.cn": {
+    "_name": "山东省教育招生考试院",
+    ".": [
+      {
+        "title": "新闻",
+        "docs": "https://docs.rsshub.app/study.html#shan-dong-sheng-jiao-yu-zhao-sheng-kao-shi-yuan-xin-wen",
+        "source": [
+          "/NewsList.aspx",
           "/"
         ]
       }

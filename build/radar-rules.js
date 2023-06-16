@@ -6839,7 +6839,11 @@
     ".":[ { title:"市场快讯",
         docs:"https://docs.rsshub.app/finance.html#jin-shi-shu-ju",
         source:[ "/" ],
-        target:"/jin10" } ] },
+        target:"/jin10" } ],
+    xnews:[ { title:"主题文章",
+        docs:"https://docs.rsshub.app/finance.html#jin-shi-shu-ju",
+        source:[ "/topic/:id" ],
+        target:"/jin10/topic/:id" } ] },
   "jisilu.cn":{ _name:"集思录",
     ".":[ { title:"广场",
         docs:"https://docs.rsshub.app/bbs.html#ji-si-lu-guang-chang",
@@ -10358,6 +10362,16 @@
         source:[ "/zhaosheng",
           "/" ],
         target:(params, url) => `/sdust/yjsy/zhaosheng/${new URL(url).href.match(/zhaosheng\/(.*)\.htm/)[1]}` } ] },
+  "sdzk.cn":{ _name:"山东省教育招生考试院",
+    ".":[ { title:"新闻",
+        docs:"https://docs.rsshub.app/study.html#shan-dong-sheng-jiao-yu-zhao-sheng-kao-shi-yuan-xin-wen",
+        source:[ "/NewsList.aspx",
+          "/" ],
+        target:(params, url) => {
+                    const bcid = new URL(url).searchParams.get('BCID');
+                    const cid = new URL(url).searchParams.get('CID');
+                    return `/sdzk${bcid ? `/${bcid}${cid ? `/${cid}` : ''}` : ''}`;
+                } } ] },
   "secrss.com":{ _name:"安全内参",
     ".":[ { title:"分类",
         docs:"https://docs.rsshub.app/programming.html#an-quan-nei-can",
