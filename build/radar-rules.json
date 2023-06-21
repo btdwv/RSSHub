@@ -773,6 +773,15 @@
           "/"
         ],
         "target": "/36kr/search/newsflashes/:keyword"
+      },
+      {
+        "title": "资讯热榜",
+        "docs": "https://docs.rsshub.app/new-media.html#_36kr-zi-xun-re-bang",
+        "source": [
+          "/hot-list/:category",
+          "/"
+        ],
+        "target": "/36kr/hot-list/:category"
       }
     ]
   },
@@ -8593,6 +8602,19 @@
           "/webapp/cs2020/email/*"
         ],
         "target": "/gov/hunan/changsha/major-email"
+      }
+    ]
+  },
+  "chinatax.gov.cn": {
+    "_name": "国家税务总局",
+    "www": [
+      {
+        "title": "国家税务总局 - 最新文件",
+        "docs": "https://docs.rsshub.app/government.html#guo-jia-shui-wu-zong-ju",
+        "source": [
+          "/*"
+        ],
+        "target": "/gov/chinatax/latest"
       }
     ]
   },

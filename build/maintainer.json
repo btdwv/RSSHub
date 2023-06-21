@@ -132,6 +132,9 @@
     "/35photo/new": [
         "nczitzk"
     ],
+    "/36kr/hot-list/:category?": [
+        "nczitzk"
+    ],
     "/36kr/information/:category?": [
         "nczitzk"
     ],
@@ -2116,6 +2119,10 @@
     ],
     "/gov/ccdi/:path+": [
         "bigfei"
+    ],
+    "/gov/chinatax/latest": [
+        "nczitzk",
+        "fuzy112"
     ],
     "/gov/cmse/xwzx/zhxw": [
         "nczitzk"
@@ -7037,7 +7044,6 @@
     "/porn-images-xxx/:type?/:name?": [],
     "/dcinside/board/:id": [],
     "/egameqq/room/:id": [],
-    "/gov/chinatax/latest": [],
     "/lizhi/user/:id": [],
     "/boston/:tag?": [],
     "/changku": [],
