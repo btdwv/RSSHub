@@ -941,6 +941,9 @@
     "/cas/iee/kydt": [
         "nczitzk"
     ],
+    "/cas/is/:path+": [
+        "Misaka13514"
+    ],
     "/cas/mesalab/kb": [
         "renzhexigua"
     ],
@@ -1306,6 +1309,9 @@
     ],
     "/cuc/yz": [
         "niuyi1017"
+    ],
+    "/curiouscat/user/:id": [
+        "lucasew"
     ],
     "/curius/links/:name": [
         "Ovler-Young"
@@ -1971,6 +1977,9 @@
     "/gcores/category/:category": [
         "MoguCloud",
         "StevenRCE0"
+    ],
+    "/gcores/collections/:collection": [
+        "kudryavka1013"
     ],
     "/gcores/radios/:category?": [
         "eternasuno"
@@ -5068,6 +5077,9 @@
     "/taiwannews/hot/:lang?": [
         "TonyRL"
     ],
+    "/tangshufang/:category?": [
+        "nczitzk"
+    ],
     "/taobao/zhongchou/:type?": [
         "xyqfer",
         "Fatpandac"
@@ -7095,7 +7107,6 @@
     "/jlu/oa": [],
     "/hfut/tzgg": [],
     "/onejav/:type/:key?": [],
-    "/curiouscat/user/:id": [],
     "/newsmth/account/:id": [],
     "/newsmth/section/:section": [],
     "/kotaku/story/:type": [],
