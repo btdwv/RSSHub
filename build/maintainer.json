@@ -5149,6 +5149,9 @@
     "/szu/yz/:type?": [
         "NagaruZ"
     ],
+    "/tachidesk-server/manga/:id/:site?": [
+        "btdwv587"
+    ],
     "/taiwannews/hot/:lang?": [
         "TonyRL"
     ],

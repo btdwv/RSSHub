@@ -21389,6 +21389,15 @@
       }
     ]
   },
+  "tachidesk-server.com": {
+    "_name": "tachidesk-server",
+    "manga": [
+      {
+        "title": "manga",
+        "docs": "https://docs.rsshub.app/picture.html#tachidesk-server"
+      }
+    ]
+  },
   "taiwannews.com.tw": {
     "_name": "台灣英文新聞",
     ".": [
