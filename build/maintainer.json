@@ -374,6 +374,12 @@
     "/aliresearch/information/:type?": [
         "nczitzk"
     ],
+    "/alistapart/": [
+        "Rjnishant530"
+    ],
+    "/alistapart/:topic": [
+        "Rjnishant530"
+    ],
     "/aliyun/database_month": [
         "junbaor"
     ],
@@ -1766,6 +1772,9 @@
     ],
     "/economist/:endpoint": [
         "ImSingee"
+    ],
+    "/ecust/jwc/:category?": [
+        "lxl66566"
     ],
     "/ecust/jxjy/news": [
         "jialinghui"
@@ -4553,6 +4562,12 @@
     "/qq88/:category?": [
         "nczitzk"
     ],
+    "/qqorw/:category?": [
+        "nczitzk"
+    ],
+    "/qqorw": [
+        "nczitzk"
+    ],
     "/quicker/qa/:category?/:state?": [
         "Cesaryuan",
         "nczitzk"
@@ -4878,6 +4893,18 @@
     "/setn/:category?": [
         "nczitzk"
     ],
+    "/seu/cse/:type?": [
+        "LogicJake"
+    ],
+    "/seu/radio/academic": [
+        "HenryQW"
+    ],
+    "/seu/yjs": [
+        "Denkiyohou"
+    ],
+    "/seu/yzb/:type": [
+        "fuzy112"
+    ],
     "/shcstheatre/programs": [
         "fuzy112"
     ],
@@ -4989,6 +5016,9 @@
     ],
     "/slowmist/:type?": [
         "AtlasQuan"
+    ],
+    "/smashingmagazine/:category?": [
+        "Rjnishant530"
     ],
     "/smzdm/article/:uid": [
         "xfangbao"
@@ -6576,9 +6606,6 @@
     "/bjtu/gs/:type": [],
     "/dpu/jiaowu/news/:type?": [],
     "/dpu/wlfw/news/:type?": [],
-    "/seu/radio/academic": [],
-    "/seu/yzb/:type": [],
-    "/seu/cse/:type?": [],
     "/njtech/jwc": [],
     "/hhu/libNews": [],
     "/hhu/libNewsc": [],
