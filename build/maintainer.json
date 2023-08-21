@@ -347,6 +347,10 @@
     "/aijishu/u/:name": [
         "bigfei"
     ],
+    "/aip/:pub/:jrn": [
+        "Derekmini",
+        "auto-bot-ty"
+    ],
     "/airchina/announcement": [
         "LandonLi"
     ],
@@ -4122,6 +4126,9 @@
         "gylidian",
         "nczitzk"
     ],
+    "/nwafu/:type?": [
+        "karinido"
+    ],
     "/nyaa/search/:query?": [
         "Lava-Swimmer",
         "noname1776"
@@ -4787,14 +4794,6 @@
     ],
     "/sciencenet/user/:id": [
         "nczitzk"
-    ],
-    "/scitation/:pub/:jrn": [
-        "Derekmini",
-        "auto-bot-ty"
-    ],
-    "/scitation/:pub/:jrn/:sec": [
-        "Derekmini",
-        "auto-bot-ty"
     ],
     "/scmp/:category_id": [
         "proletarius101"
@@ -6121,6 +6120,9 @@
         "DIYgod",
         "bigfei"
     ],
+    "/xiaote/news": [
+        "wxsimon"
+    ],
     "/xiaoyuzhou/": [
         "prnake",
         "Maecenas"
@@ -6467,6 +6469,9 @@
     "/zhihu/weekly": [
         "LogicJake"
     ],
+    "/zhihu/xhu/topic/:topicId": [
+        "JimenezLi"
+    ],
     "/zhihu/zhuanlan/:id": [
         "DIYgod"
     ],
@@ -6687,15 +6692,6 @@
     "/sctu/xgxy/:id": [],
     "/sctu/jwc/:type?": [],
     "/sctu/jwc/:type/:id": [],
-    "/nwafu/news": [],
-    "/nwafu/jiaowu": [],
-    "/nwafu/gs": [],
-    "/nwafu/lib": [],
-    "/nwafu/nic": [],
-    "/nwafu/54youth": [],
-    "/nwafu/jcc": [],
-    "/nwafu/yjshy": [],
-    "/nwafu/cie": [],
     "/ynu/grs/zytz": [],
     "/ynu/grs/qttz/:category": [],
     "/ynu/jwc/:category": [],
