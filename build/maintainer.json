@@ -553,10 +553,10 @@
     "/baidu/gushitong/index": [
         "CaoMeiYouRen"
     ],
-    "/baidu/tieba/forum/:kw": [
+    "/baidu/tieba/forum/good/:kw/:cid?/:sortBy?": [
         "u3u"
     ],
-    "/baidu/tieba/forum/good/:kw/:cid?": [
+    "/baidu/tieba/forum/:kw/:sortBy?": [
         "u3u"
     ],
     "/baidu/tieba/post/:id": [
@@ -1497,6 +1497,9 @@
     "/discord/channel/:channelId": [
         "TonyRL"
     ],
+    "/discourse/:configId/posts": [
+        "dzx-dzx"
+    ],
     "/disinfo/publications": [
         "nczitzk"
     ],
@@ -1511,6 +1514,9 @@
     ],
     "/distill/": [
         "nczitzk"
+    ],
+    "/dlnews/:category?": [
+        "Rjnishant530"
     ],
     "/dlsite/campaign/:type/:free?": [
         "cssxsh"
@@ -3857,10 +3863,10 @@
     "/newsmarket/:category?": [
         "nczitzk"
     ],
-    "/newzmz/:category?": [
+    "/newzmz/:category?/:downLinkType?": [
         "nczitzk"
     ],
-    "/newzmz/:id?": [
+    "/newzmz/:id?/:downLinkType?": [
         "nczitzk"
     ],
     "/nextapple/realtime/:category?": [
@@ -5600,6 +5606,9 @@
     "/tongji/yjs": [
         "shengmaosu"
     ],
+    "/tophub/:id": [
+        "LogicJake"
+    ],
     "/topys/:keyword?": [
         "nczitzk"
     ],
@@ -6469,7 +6478,16 @@
     "/zhihu/weekly": [
         "LogicJake"
     ],
+    "/zhihu/xhu/collection/:id": [
+        "JimenezLi"
+    ],
+    "/zhihu/xhu/question/:questionId/:sortBy?": [
+        "JimenezLi"
+    ],
     "/zhihu/xhu/topic/:topicId": [
+        "JimenezLi"
+    ],
+    "/zhihu/xhu/zhuanlan/:id": [
         "JimenezLi"
     ],
     "/zhihu/zhuanlan/:id": [
@@ -6873,7 +6891,6 @@
     "/blogs/wang54/:id?": [],
     "/blogs/wordpress/:domain/:https?": [],
     "/xici/:id?": [],
-    "/tophub/:id": [],
     "/vgtime/news": [],
     "/vgtime/release": [],
     "/vgtime/keyword/:keyword": [],
