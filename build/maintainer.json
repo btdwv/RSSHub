@@ -2463,6 +2463,9 @@
         "HenryQW"
     ],
     "/fudan/cce": [],
+    "/fuliba/latest": [
+        "shinemoon"
+    ],
     "/fulinian/:caty?": [],
     "/furaffinity/browse/:nsfw?": [],
     "/furaffinity/commissions/:username": [],
@@ -4333,6 +4336,27 @@
     ],
     "/lofter/user/:name?": [
         "hondajojo",
+        "nczitzk"
+    ],
+    "/logclub/columnist/articleList/:id": [
+        "nczitzk"
+    ],
+    "/logclub/company/:id": [
+        "nczitzk"
+    ],
+    "/logclub/lc_report/:id?": [
+        "nczitzk"
+    ],
+    "/logclub/news/:id?": [
+        "nczitzk"
+    ],
+    "/logclub/original": [
+        "nczitzk"
+    ],
+    "/logclub/recruit": [
+        "nczitzk"
+    ],
+    "/logclub/tender": [
         "nczitzk"
     ],
     "/logonews": [
