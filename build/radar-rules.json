@@ -8186,6 +8186,14 @@
         "source": "/jobs/intern",
         "target": "/jobs/intern"
       }
+    ],
+    "book": [
+      {
+        "title": "读书论坛",
+        "docs": "https://docs.rsshub.app/routes/social-media#dou-ban",
+        "source": "/:id/discussion",
+        "target": "/:id/discussion"
+      }
     ]
   },
   "douyin.com": {
@@ -24196,6 +24204,25 @@
       }
     ]
   },
+  "showstart.com": {
+    "_name": "秀动网",
+    "www": [
+      {
+        "title": "演出更新",
+        "docs": "https://docs.rsshub.app/routes/shopping#xiu-dong-wang-yan-chu-geng-xin",
+        "source": [
+          "/event/list"
+        ]
+      },
+      {
+        "title": "演出搜索",
+        "docs": "https://docs.rsshub.app/routes/shopping#xiu-dong-wang-yan-chu-sou-suo",
+        "source": [
+          "/event/list"
+        ]
+      }
+    ]
+  },
   "shu.edu.cn": {
     "_name": "上海大学",
     "jwb": [
@@ -29545,10 +29572,90 @@
         "title": "数字媒体",
         "docs": "https://docs.rsshub.app/routes/traditional-media#xia-men-wang-shu-zi-mei-ti",
         "source": [
-          "/:id",
-          "/"
+          "/:id"
         ],
         "target": "/xmnn/epaper/:id"
+      }
+    ],
+    "news": [
+      {
+        "title": "新闻",
+        "docs": "https://docs.rsshub.app/routes/traditional-media#xia-men-wang-xin-wen",
+        "source": [
+          "/:category*"
+        ]
+      },
+      {
+        "title": "厦门新闻发布",
+        "docs": "https://docs.rsshub.app/routes/traditional-media#xia-men-wang-xin-wen",
+        "source": [
+          "/xmxwfb"
+        ],
+        "target": "/xmnn/news/xmxwfb"
+      },
+      {
+        "title": "厦门新闻",
+        "docs": "https://docs.rsshub.app/routes/traditional-media#xia-men-wang-xin-wen",
+        "source": [
+          "/xmxw"
+        ],
+        "target": "/xmnn/news/xmxw"
+      },
+      {
+        "title": "本网快报",
+        "docs": "https://docs.rsshub.app/routes/traditional-media#xia-men-wang-xin-wen",
+        "source": [
+          "/bwkb"
+        ],
+        "target": "/xmnn/news/bwkb"
+      },
+      {
+        "title": "厦门网眼",
+        "docs": "https://docs.rsshub.app/routes/traditional-media#xia-men-wang-xin-wen",
+        "source": [
+          "/xmwy"
+        ],
+        "target": "/xmnn/news/xmwy"
+      },
+      {
+        "title": "福建新闻",
+        "docs": "https://docs.rsshub.app/routes/traditional-media#xia-men-wang-xin-wen",
+        "source": [
+          "/fjxw"
+        ],
+        "target": "/xmnn/news/fjxw"
+      },
+      {
+        "title": "国内新闻",
+        "docs": "https://docs.rsshub.app/routes/traditional-media#xia-men-wang-xin-wen",
+        "source": [
+          "/gnxw"
+        ],
+        "target": "/xmnn/news/gnxw"
+      },
+      {
+        "title": "国际新闻",
+        "docs": "https://docs.rsshub.app/routes/traditional-media#xia-men-wang-xin-wen",
+        "source": [
+          "/gjxw"
+        ],
+        "target": "/xmnn/news/gjxw"
+      },
+      {
+        "title": "台海新闻",
+        "docs": "https://docs.rsshub.app/routes/traditional-media#xia-men-wang-xin-wen",
+        "source": [
+          "/thxw"
+        ],
+        "target": "/xmnn/news/thxw"
+      },
+      {
+        "title": "社会新闻",
+        "docs": "https://docs.rsshub.app/routes/traditional-media#xia-men-wang-xin-wen",
+        "source": [
+          "/shxw"
+        ],
+        "target": "/xmnn/news/shxw"
       }
     ]
   },
