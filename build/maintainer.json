@@ -3020,6 +3020,12 @@
         "Fatpandac"
     ],
     "/gov/province/:name/:category": [],
+    "/gov/safe/bussiness/:site?": [
+        "nczitzk"
+    ],
+    "/gov/safe/complaint/:site?": [
+        "nczitzk"
+    ],
     "/gov/samr/xgzlyhd/:category?/:department?": [
         "nczitzk"
     ],
@@ -4712,6 +4718,9 @@
         "fifteen42",
         "rde9",
         "nczitzk"
+    ],
+    "/missav/new": [
+        "TonyRL"
     ],
     "/missevan/drama/:id": [],
     "/missevan/drama/latest": [],
