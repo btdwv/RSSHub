@@ -4533,6 +4533,9 @@
     "/nber/news": [
         "5upernova-heng"
     ],
+    "/ncc-cma/cmdp/image/:id?": [
+        "nczitzk"
+    ],
     "/ncepu/master/:type": [
         "nilleo"
     ],
@@ -6089,6 +6092,9 @@
     ],
     "/sspu/jwc/:listId": [
         "TonyRL"
+    ],
+    "/sspu/pe/:id?": [
+        "nczitzk"
     ],
     "/ssydt/article/:id?": [],
     "/startuplatte/:category?": [
