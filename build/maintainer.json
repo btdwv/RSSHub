@@ -7330,6 +7330,9 @@
         "sanmmm",
         "nczitzk"
     ],
+    "/yicai/dt/:column?/:category?": [
+        "nczitzk"
+    ],
     "/yicai/feed/:id?": [
         "nczitzk"
     ],
