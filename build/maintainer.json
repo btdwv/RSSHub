@@ -3253,6 +3253,9 @@
     "/houxu/memory": [
         "nczitzk"
     ],
+    "/hoyolab/news/:language/:gids/:type": [
+        "ZenoTian"
+    ],
     "/hpoi/bannerItem": [
         "DIYgod"
     ],
@@ -6631,6 +6634,9 @@
     "/treasury/press-releases/:category?/:title?": [],
     "/trending/:keywords/:numberOfDays?": [
         "Jkker"
+    ],
+    "/trendingpapers/papers/:category?/:time?/:cited?": [
+        "CookiePieWw"
     ],
     "/tribalfootball": [
         "Rongronggg9"
