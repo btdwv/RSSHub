@@ -13414,6 +13414,17 @@
       }
     ]
   },
+  "suzhou.gov.cn": {
+    "_name": "苏州市政府",
+    "www": [
+      {
+        "title": "政府新闻",
+        "docs": "https://docs.rsshub.app/routes/government#su-zhou-shi-ren-min-zheng-fu",
+        "source": "/szsrmzf/:uid/nav_list.shtml",
+        "target": "/gov/suzhou/news/:uid"
+      }
+    ]
+  },
   "sz.gov.cn": {
     "_name": "深圳政府在线移动门户",
     "hrss": [
@@ -29452,6 +29463,14 @@
           "/blog/:language/category/widgets/"
         ],
         "target": "/tradingview/blog/:language/category/widgets"
+      },
+      {
+        "title": "Desktop releases and release notes",
+        "docs": "https://docs.rsshub.app/routes/program-update#tradingview-desktop-releases-and-release-notes",
+        "source": [
+          "/support/solutions/43000673888-tradingview-desktop-releases-and-release-notes/"
+        ],
+        "target": "/tradingview/desktop"
       }
     ]
   },
@@ -33731,17 +33750,6 @@
         "title": "search",
         "docs": "https://docs.rsshub.app/routes/game#steam",
         "source": "/search/"
-      }
-    ]
-  },
-  "suzhou.gov.cn": {
-    "_name": "苏州市政府",
-    "www": [
-      {
-        "title": "政府新闻",
-        "docs": "https://docs.rsshub.app/routes/government#su-zhou-shi-ren-min-zheng-fu",
-        "source": "/szsrmzf/:uid/nav_list.shtml",
-        "target": "/gov/suzhou/news/:uid"
       }
     ]
   },
