@@ -1,5 +1,21 @@
 # 🎨️ 设计
 
+## 1x.com <Site url="1x.com"/>
+
+1x.com • In Pursuit of the Sublime. Browse 200,000 curated photos from photographers all over the world.
+
+### Gallery <Site url="1x.com" size="sm" />
+
+<Route namespace="1x" :data='{"path":"/:category{.+}?","name":"Gallery","url":"1x.com","maintainers":["nczitzk"],"example":"/1x/latest/awarded","parameters":{"category":"Category, Latest Awarded by default"},"description":"::: tip\nFill in the field in the path with the part of the corresponding page URL after `https://1x.com/gallery/` or `https://1x.com/photo/`. Here are the examples:\n\nIf you subscribe to [Abstract Awarded](https://1x.com/gallery/abstract/awarded), you should fill in the path with the part `abstract/awarded` from the page URL `https://1x.com/gallery/abstract/awarded`. In this case, the route will be [`/1x/abstract/awarded`](https://rsshub.app/1x/abstract/awarded).\n    \nIf you subscribe to [Wildlife Published](https://1x.com/gallery/wildlife/published), you should fill in the path with the part `wildlife/published` from the page URL `https://1x.com/gallery/wildlife/published`. In this case, the route will be [`/1x/wildlife/published`](https://rsshub.app/1x/wildlife/published).\n:::","categories":["design","picture"],"features":{"requireConfig":false,"requirePuppeteer":false,"antiCrawler":false,"supportRadar":true,"supportBT":false,"supportPodcast":false,"supportScihub":false},"radar":[{"source":["/gallery/:category*","/photos/:category*"],"target":"/1x/:category"}],"location":"index.ts"}' :test='undefined' />
+
+::: tip
+Fill in the field in the path with the part of the corresponding page URL after `https://1x.com/gallery/` or `https://1x.com/photo/`. Here are the examples:
+
+If you subscribe to [Abstract Awarded](https://1x.com/gallery/abstract/awarded), you should fill in the path with the part `abstract/awarded` from the page URL `https://1x.com/gallery/abstract/awarded`. In this case, the route will be [`/1x/abstract/awarded`](https://rsshub.app/1x/abstract/awarded).
+    
+If you subscribe to [Wildlife Published](https://1x.com/gallery/wildlife/published), you should fill in the path with the part `wildlife/published` from the page URL `https://1x.com/gallery/wildlife/published`. In this case, the route will be [`/1x/wildlife/published`](https://rsshub.app/1x/wildlife/published).
+:::
+
 ## Behance <Site url="www.behance.net"/>
 
 ### User Works <Site url="www.behance.net" size="sm" />
@@ -84,7 +100,7 @@ Behance user's profile URL, like [https://www.behance.net/mishapetrick](https://
 
 ### 最新 H5 <Site url="iguoguo.net" size="sm" />
 
-<Route namespace="iguoguo" :data='{"path":"/html5","categories":["design"],"example":"/iguoguo/html5","parameters":{},"features":{"requireConfig":false,"requirePuppeteer":false,"antiCrawler":false,"supportBT":false,"supportPodcast":false,"supportScihub":false},"name":"最新 H5","maintainers":["yuxinliu-alex"],"location":"index.ts"}' :test='{"code":1,"message":"Test timed out in 10000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\"."}' />
+<Route namespace="iguoguo" :data='{"path":"/html5","categories":["design"],"example":"/iguoguo/html5","parameters":{},"features":{"requireConfig":false,"requirePuppeteer":false,"antiCrawler":false,"supportBT":false,"supportPodcast":false,"supportScihub":false},"name":"最新 H5","maintainers":["yuxinliu-alex"],"location":"index.ts"}' :test='{"code":0}' />
 
 ## 站酷 <Site url="www.zcool.com.cn"/>
 
@@ -220,7 +236,7 @@ Behance user's profile URL, like [https://www.behance.net/mishapetrick](https://
 
 ### 作品总榜单 <Site url="www.zcool.com.cn" size="sm" />
 
-<Route namespace="zcool" :data='{"path":"/top/:type","categories":["design"],"example":"/zcool/top/design","parameters":{"type":"推荐类型,详见下面的表格"},"features":{"requireConfig":false,"requirePuppeteer":false,"antiCrawler":false,"supportBT":false,"supportPodcast":false,"supportScihub":false},"name":"作品总榜单","maintainers":["yuuow"],"description":"榜单类型\n\n  | design   | article  |\n  | -------- | -------- |\n  | 作品榜单 | 文章榜单 |","location":"top.ts"}' :test='{"code":0}' />
+<Route namespace="zcool" :data='{"path":"/top/:type","categories":["design"],"example":"/zcool/top/design","parameters":{"type":"推荐类型,详见下面的表格"},"features":{"requireConfig":false,"requirePuppeteer":false,"antiCrawler":false,"supportBT":false,"supportPodcast":false,"supportScihub":false},"name":"作品总榜单","maintainers":["yuuow"],"description":"榜单类型\n\n  | design   | article  |\n  | -------- | -------- |\n  | 作品榜单 | 文章榜单 |","location":"top.ts"}' :test='{"code":1,"message":"Test timed out in 10000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\"."}' />
 
 榜单类型
 
