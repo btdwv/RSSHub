@@ -1,5 +1,11 @@
 {
-    "framework": null,
-    "github": { "silent": true },
-    "routes": [{ "src": "/.*", "dest": "/api/vercel.ts" }]
+  "framework": null,
+  "github": { "silent": true },
+  "routes": [{ "src": "/.*", "dest": "/api/vercel.ts" }],
+  "git": {
+    "deploymentEnabled": {
+      "gh-pages": false,
+      "master": false
+    }
+  }
 }
