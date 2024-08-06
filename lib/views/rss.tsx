@@ -11,9 +11,9 @@ const RSS: FC<{ data: Data }> = ({ data }) => {
                 <title>{data.title || 'RSSHub'}</title>
                 <link>{data.link || 'https://docs.rsshub.app'}</link>
                 <atom:link href={data.atomlink} rel="self" type="application/rss+xml" />
-                <description>{data.description || data.title} - Made with love by RSSHub(https://github.com/DIYgod/RSSHub)</description>
+                <description>{data.description || data.title} - Powered by RSSHub</description>
                 <generator>RSSHub</generator>
-                <webMaster>i@diygod.me (DIYgod)</webMaster>
+                <webMaster>contact@rsshub.app (RSSHub)</webMaster>
                 {data.itunes_author && <itunes:author>{data.itunes_author}</itunes:author>}
                 {data.itunes_category && <itunes:category text={data.itunes_category} />}
                 {data.itunes_author && <itunes:explicit>{data.itunes_explicit || 'false'}</itunes:explicit>}
@@ -35,6 +35,7 @@ const RSS: FC<{ data: Data }> = ({ data }) => {
                         <guid isPermaLink="false">{item.guid || item.link || item.title}</guid>
                         {item.pubDate && <pubDate>{item.pubDate}</pubDate>}
                         {item.author && <author>{item.author}</author>}
+                        {item.image && <enclosure url={item.image} type="image/jpeg" />}
                         {item.itunes_item_image && <itunes:image href={item.itunes_item_image} />}
                         {item.enclosure_url && <enclosure url={item.enclosure_url} length={item.enclosure_length} type={item.enclosure_type} />}
                         {item.itunes_duration && <itunes:duration>{item.itunes_duration}</itunes:duration>}

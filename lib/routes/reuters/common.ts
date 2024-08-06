@@ -1,4 +1,4 @@
-import { Route } from '@/types';
+import { Route, ViewType } from '@/types';
 import { getCurrentPath } from '@/utils/helpers';
 const __dirname = getCurrentPath(import.meta.url);
 
@@ -11,7 +11,8 @@ import path from 'node:path';
 
 export const route: Route = {
     path: '/:category/:topic?',
-    categories: ['traditional-media'],
+    categories: ['traditional-media', 'popular'],
+    view: ViewType.Articles,
     example: '/reuters/world/us',
     parameters: { category: 'find it in the URL, or tables below', topic: 'find it in the URL, or tables below' },
     features: {

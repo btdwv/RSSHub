@@ -1,5 +1,5 @@
-import 'dotenv/config';
 import randUserAgent from '@/utils/rand-user-agent';
+import 'dotenv/config';
 import { ofetch } from 'ofetch';
 
 let envs = process.env;
@@ -39,8 +39,8 @@ export type Config = {
         port?: string;
         auth?: string;
         url_regex: string;
+        strategy: 'on_retry' | 'all';
     };
-    proxyStrategy: string;
     pacUri?: string;
     pacScript?: string;
     accessKey?: string;
@@ -154,7 +154,6 @@ export type Config = {
         username?: string;
         password?: string;
         bearertoken?: string;
-        iap_receipt?: string;
     };
     instagram: {
         username?: string;
@@ -168,6 +167,9 @@ export type Config = {
     };
     javdb: {
         session?: string;
+    };
+    keylol: {
+        cookie?: string;
     };
     lastfm: {
         api_key?: string;
@@ -233,6 +235,9 @@ export type Config = {
     qingting: {
         id?: string;
     };
+    readwise: {
+        accessToken?: string;
+    };
     saraba1st: {
         cookie?: string;
     };
@@ -250,19 +255,23 @@ export type Config = {
         clientSecret?: string;
         refreshToken?: string;
     };
+    sspai: {
+        bearertoken?: string;
+    };
     telegram: {
         token?: string;
     };
     tophub: {
         cookie?: string;
     };
+    tsdm39: {
+        cookie: string;
+    };
     twitter: {
-        oauthTokens?: string[];
-        oauthTokenSecrets?: string[];
-        username?: string;
-        password?: string;
-        authenticationSecret?: string;
-        cookie?: string;
+        username?: string[];
+        password?: string[];
+        authenticationSecret?: string[];
+        authToken?: string[];
     };
     weibo: {
         app_key?: string;
@@ -282,6 +291,10 @@ export type Config = {
     };
     ximalaya: {
         token?: string;
+    };
+    xsijishe: {
+        cookie?: string;
+        userAgent?: string;
     };
     xueqiu: {
         cookies?: string;
@@ -388,8 +401,8 @@ const calculateValue = () => {
             port: envs.PROXY_PORT,
             auth: envs.PROXY_AUTH,
             url_regex: envs.PROXY_URL_REGEX || '.*',
+            strategy: envs.PROXY_STRATEGY || 'all', // all / on_retry
         },
-        proxyStrategy: envs.PROXY_STRATEGY || 'all', // all / on_retry
         pacUri: envs.PAC_URI,
         pacScript: envs.PAC_SCRIPT,
         // access control
@@ -510,7 +523,6 @@ const calculateValue = () => {
             username: envs.INITIUM_USERNAME,
             password: envs.INITIUM_PASSWORD,
             bearertoken: envs.INITIUM_BEARER_TOKEN,
-            iap_receipt: envs.INITIUM_IAP_RECEIPT,
         },
         instagram: {
             username: envs.IG_USERNAME,
@@ -524,6 +536,9 @@ const calculateValue = () => {
         },
         javdb: {
             session: envs.JAVDB_SESSION,
+        },
+        keylol: {
+            cookie: envs.KEYLOL_COOKIE,
         },
         lastfm: {
             api_key: envs.LASTFM_API_KEY,
@@ -589,6 +604,9 @@ const calculateValue = () => {
         qingting: {
             id: envs.QINGTING_ID,
         },
+        readwise: {
+            accessToken: envs.READWISE_ACCESS_TOKEN,
+        },
         saraba1st: {
             cookie: envs.SARABA1ST_COOKIE,
         },
@@ -606,6 +624,9 @@ const calculateValue = () => {
             clientSecret: envs.SPOTIFY_CLIENT_SECRET,
             refreshToken: envs.SPOTIFY_REFRESHTOKEN,
         },
+        sspai: {
+            bearertoken: envs.SSPAI_BEARERTOKEN,
+        },
         telegram: {
             token: envs.TELEGRAM_TOKEN,
             session: envs.TELEGRAM_SESSION,
@@ -616,13 +637,14 @@ const calculateValue = () => {
         tophub: {
             cookie: envs.TOPHUB_COOKIE,
         },
+        tsdm39: {
+            cookie: envs.TSDM39_COOKIES,
+        },
         twitter: {
-            oauthTokens: envs.TWITTER_OAUTH_TOKEN?.split(','),
-            oauthTokenSecrets: envs.TWITTER_OAUTH_TOKEN_SECRET?.split(','),
-            username: envs.TWITTER_USERNAME,
-            password: envs.TWITTER_PASSWORD,
-            authenticationSecret: envs.TWITTER_AUTHENTICATION_SECRET,
-            cookie: envs.TWITTER_COOKIE,
+            username: envs.TWITTER_USERNAME?.split(','),
+            password: envs.TWITTER_PASSWORD?.split(','),
+            authenticationSecret: envs.TWITTER_AUTHENTICATION_SECRET?.split(','),
+            authToken: envs.TWITTER_AUTH_TOKEN?.split(','),
         },
         weibo: {
             app_key: envs.WEIBO_APP_KEY,
@@ -642,6 +664,10 @@ const calculateValue = () => {
         },
         ximalaya: {
             token: envs.XIMALAYA_TOKEN,
+        },
+        xsijishe: {
+            cookie: envs.XSIJISHE_COOKIE,
+            user_agent: envs.XSIJISHE_USER_AGENT,
         },
         xueqiu: {
             cookies: envs.XUEQIU_COOKIES,
@@ -692,6 +718,26 @@ calculateValue();
         } catch (error) {
             logger.error('Remote config load failed.', error);
         }
+    }
+
+    if (!envs.DISABLE_UMAMI && envs.NODE_ENV === 'production') {
+        ofetch('https://umami.rss3.io/api/send', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                'user-agent': TRUE_UA,
+            },
+            body: JSON.stringify({
+                payload: {
+                    hostname: 'rsshub.app',
+                    language: 'en-US',
+                    referrer: 'rsshub.app',
+                    url: 'rsshub.app',
+                    website: '239067cd-231f-4a3f-a478-cced11a84876',
+                },
+                type: 'event',
+            }),
+        });
     }
 })();
 

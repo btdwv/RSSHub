@@ -10,7 +10,7 @@ export const route: Route = {
     features: {
         requireConfig: [
             {
-                name: 'TWITTER_COOKIE',
+                name: 'TWITTER_AUTH_TOKEN',
                 description: 'Please see above for details.',
             },
         ],
@@ -38,7 +38,7 @@ async function handler(ctx) {
 
     return {
         title: `Twitter Likes - ${id}`,
-        link: `https://twitter.com/${id}/likes`,
+        link: `https://x.com/${id}/likes`,
         item: utils.ProcessFeed(ctx, {
             data,
         }),
