@@ -17393,6 +17393,19 @@
       }
     ]
   },
+  "oct0pu5.cn": {
+    "_name": "Oct0pu5 blog",
+    ".": [
+      {
+        "title": "Oct的小破站",
+        "docs": "https://docs.rsshub.app/routes/blog",
+        "source": [
+          "/"
+        ],
+        "target": "/oct0pu5/"
+      }
+    ]
+  },
   "0daily.com": {
     "_name": "Odaily 星球日报",
     ".": [
@@ -19367,6 +19380,52 @@
           "/"
         ],
         "target": "/scvtc/xygg"
+      }
+    ]
+  },
+  "sdu.edu.cn": {
+    "_name": "山东大学",
+    "www.cs": [
+      {
+        "title": "计算机科学与技术学院通知",
+        "docs": "https://docs.rsshub.app/routes/university",
+        "source": [
+          "/",
+          "/xygg.htm"
+        ],
+        "target": "/sdu/cs/index/announcement"
+      },
+      {
+        "title": "计算机科学与技术学院通知",
+        "docs": "https://docs.rsshub.app/routes/university",
+        "source": [
+          "/xsbg.htm"
+        ],
+        "target": "/sdu/cs/index/academic"
+      },
+      {
+        "title": "计算机科学与技术学院通知",
+        "docs": "https://docs.rsshub.app/routes/university",
+        "source": [
+          "/kjjx.htm"
+        ],
+        "target": "/sdu/cs/index/technology"
+      },
+      {
+        "title": "计算机科学与技术学院通知",
+        "docs": "https://docs.rsshub.app/routes/university",
+        "source": [
+          "/bkjy.htm"
+        ],
+        "target": "/sdu/cs/index/undergraduate"
+      },
+      {
+        "title": "计算机科学与技术学院通知",
+        "docs": "https://docs.rsshub.app/routes/university",
+        "source": [
+          "/yjsjy.htm"
+        ],
+        "target": "/sdu/cs/index/postgraduate"
       }
     ]
   },
