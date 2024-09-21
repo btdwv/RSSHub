@@ -55051,6 +55051,29 @@
     "name": "前瞻网",
     "url": "qianzhan.com"
   },
+  "qiche365": {
+    "routes": {
+      "/recall/:channel": {
+        "path": "/recall/:channel",
+        "name": "汽车召回",
+        "example": "/qiche365/recall/1",
+        "parameters": {
+          "channel": "频道，见下表"
+        },
+        "description": "| 国内召回新闻 | 国内召回公告 | 国外召回新闻 | 国外召回公告 |\n  | ------------ | ------------ | ------------ | ------------ |\n  | 1            | 2            | 3            | 4            |",
+        "categories": [
+          "government"
+        ],
+        "maintainers": [
+          "huanfe1"
+        ],
+        "url": "qiche365.org.cn/index/recall/index.html",
+        "location": "recall.ts"
+      }
+    },
+    "name": "汽车召回网",
+    "url": "qiche365.org.cn"
+  },
   "qidian": {
     "routes": {
       "/author/:id": {
@@ -64440,6 +64463,35 @@
         ],
         "description": "#### 研究生通知 {#xi-nan-jiao-tong-da-xue-jiao-tong-yun-shu-yu-wu-liu-xue-yuan-yan-jiu-sheng-tong-zhi}",
         "location": "jtys/yjs.ts"
+      },
+      "/scai/bks": {
+        "path": "/scai/bks",
+        "categories": [
+          "university"
+        ],
+        "example": "/swjtu/scai/bks",
+        "parameters": {},
+        "features": {
+          "requireConfig": false,
+          "requirePuppeteer": false,
+          "antiCrawler": true,
+          "supportBT": false,
+          "supportPodcast": false,
+          "supportScihub": false
+        },
+        "radar": [
+          {
+            "source": [
+              "scai.swjtu.edu.cn/"
+            ]
+          }
+        ],
+        "name": "计算机与人工智能学院",
+        "description": "本科生教育",
+        "maintainers": [
+          "AzureG03"
+        ],
+        "location": "scai/bks.ts"
       }
     },
     "name": "西南交通大学",
