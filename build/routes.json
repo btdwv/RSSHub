@@ -5383,14 +5383,28 @@
   },
   "asus": {
     "routes": {
-      "/bios/:model": {
-        "path": "/bios/:model",
+      "/bios/:model/:lang?": {
+        "path": "/bios/:model/:lang?",
         "categories": [
           "program-update"
         ],
-        "example": "/asus/bios/RT-AX88U",
+        "example": "/asus/bios/RT-AX88U/zh",
         "parameters": {
-          "model": "Model, can be found in product page"
+          "model": "Model, can be found in product page",
+          "lang": {
+            "description": "Language, provide access routes for other parts of the world",
+            "options": [
+              {
+                "label": "Chinese",
+                "value": "zh"
+              },
+              {
+                "label": "English",
+                "value": "en"
+              }
+            ],
+            "default": "zh"
+          }
         },
         "features": {
           "requireConfig": false,
@@ -72859,8 +72873,16 @@
       },
       "/news/:category{.+}?": {
         "path": "/news/:category{.+}?",
-        "name": "Unknown",
+        "categories": [
+          "university"
+        ],
+        "example": "/whu/news",
+        "parameters": {
+          "category": "新闻栏目，可选"
+        },
+        "name": "新闻网",
         "maintainers": [],
+        "description": "\ncategory 参数可选，范围如下:\n\n| 新闻栏目 | 武大资讯 | 学术动态 | 珞珈影像 | 武大视频 |\n| -------- | -------- | -------- | -------- | -------- |\n| 参数     |  0 或 `wdzx/wdyw`  | 1 或 `kydt` | 2 或 `stkj/ljyx` | 3 或 `stkj/wdsp` |\n\n此外 route 后可以加上 `?limit=n` 的查询参数，表示只获取前 n 条新闻；如果不指定默认为 10。\n",
         "location": "news.ts"
       },
       "/rsgis/:type/:sub?": {
