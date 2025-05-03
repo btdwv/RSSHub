@@ -4,11 +4,8 @@ import ofetch from '@/utils/ofetch';
 import { parseDate } from '@/utils/parse-date';
 import timezone from '@/utils/timezone';
 import md5 from '@/utils/md5';
-import path from 'path';
-import { getCurrentPath } from '@/utils/helpers';
+import path from 'node:path';
 import { art } from '@/utils/render';
-
-const __dirname = getCurrentPath(import.meta.url);
 
 interface User {
     follow_type: number;
@@ -93,7 +90,7 @@ interface Community {
     serverTime: number;
 }
 
-const render = (data) => art(path.join(__dirname, 'templates', 'community-description.art'), data);
+const render = (data) => art(path.join(__dirname, 'templates/community-description.art'), data);
 
 export const route: Route = {
     path: '/community',

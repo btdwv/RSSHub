@@ -3,11 +3,8 @@ import cache from '@/utils/cache';
 import ofetch from '@/utils/ofetch';
 import { load } from 'cheerio';
 import { parseDate } from '@/utils/parse-date';
-import path from 'path';
+import path from 'node:path';
 import { art } from '@/utils/render';
-import { getCurrentPath } from '@/utils/helpers';
-
-const __dirname = getCurrentPath(import.meta.url);
 
 const domain = 'theblockbeats.info';
 const rootUrl = `https://www.${domain}`;
@@ -80,12 +77,12 @@ export const route: Route = {
         },
     ],
     description: `|    快讯   |   文章  |
-  | :-------: | :-----: |
-  | newsflash | article |
+| :-------: | :-----: |
+| newsflash | article |
 
-  | 全部 | 深度 | 精选 | 热点追踪 |
-  | :--: | :--: | :--: | :---: |
-  |     | -2  | 1    |  2     |`,
+| 全部 | 深度 | 精选 | 热点追踪 |
+| :--: | :--: | :--: | :---: |
+|     | -2  | 1    |  2     |`,
 };
 
 async function handler(ctx) {

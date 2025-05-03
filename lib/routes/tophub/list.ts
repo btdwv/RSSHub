@@ -1,6 +1,4 @@
 import { Route } from '@/types';
-import { getCurrentPath } from '@/utils/helpers';
-const __dirname = getCurrentPath(import.meta.url);
 
 import got from '@/utils/got';
 import { load } from 'cheerio';
@@ -10,7 +8,7 @@ import { art } from '@/utils/render';
 
 export const route: Route = {
     path: '/list/:id',
-    categories: ['new-media'],
+    categories: ['new-media', 'popular'],
     example: '/tophub/list/Om4ejxvxEN',
     parameters: { id: '榜单id，可在 URL 中找到' },
     features: {
@@ -35,7 +33,7 @@ export const route: Route = {
     name: '榜单列表',
     maintainers: ['akynazh'],
     handler,
-    description: `:::tip
+    description: `::: tip
 将榜单条目集合到一个列表中，可避免推送大量条目，更符合阅读习惯且有热度排序，推荐使用。
 :::`,
 };

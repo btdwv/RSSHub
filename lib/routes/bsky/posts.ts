@@ -1,13 +1,11 @@
 import { Route, ViewType } from '@/types';
-import { getCurrentPath } from '@/utils/helpers';
-const __dirname = getCurrentPath(import.meta.url);
 
 import cache from '@/utils/cache';
 import { parseDate } from '@/utils/parse-date';
 import { resolveHandle, getProfile, getAuthorFeed } from './utils';
 import { art } from '@/utils/render';
 import path from 'node:path';
-import querystring from 'querystring';
+import querystring from 'node:querystring';
 
 export const route: Route = {
     path: '/profile/:handle/:routeParams?',
@@ -63,7 +61,6 @@ async function handler(ctx) {
             text: post.record.text.replaceAll('\n', '<br>'),
             embed: post.embed,
             // embed.$type "app.bsky.embed.record#view" and "app.bsky.embed.recordWithMedia#view" are not handled
-            // "app.bsky.embed.video#view" is rendered as image
         }),
         author: post.author.displayName,
         pubDate: parseDate(post.record.createdAt),
@@ -82,9 +79,10 @@ async function handler(ctx) {
         title: `${profile.displayName} (@${profile.handle}) — Bluesky`,
         description: profile.description?.replaceAll('\n', ' '),
         link: `https://bsky.app/profile/${profile.handle}`,
-        image: profile.banner,
+        image: profile.avatar,
         icon: profile.avatar,
         logo: profile.avatar,
         item: items,
+        allowEmpty: true,
     };
 }

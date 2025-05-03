@@ -2,7 +2,6 @@ import cache from '@/utils/cache';
 import ofetch from '@/utils/ofetch';
 import { parseDate } from '@/utils/parse-date';
 import { load } from 'cheerio';
-import asyncPool from 'tiny-async-pool';
 
 export function removeDuplicateByKey(items, key: string) {
     return [...new Map(items.map((x) => [x[key], x])).values()];
@@ -38,6 +37,7 @@ export function fetchArticle(item) {
             $('div.Enhancement').remove();
             const section = $("meta[property='article:section']").attr('content');
             return {
+                ...item,
                 title: ldjson.headline,
                 pubDate: parseDate(ldjson.datePublished),
                 updated: parseDate(ldjson.dateModified),
@@ -45,26 +45,22 @@ export function fetchArticle(item) {
                 category: [...(section ? [section] : []), ...(ldjson.keywords ?? [])],
                 guid: $("meta[name='brightspot.contentId']").attr('content'),
                 author: ldjson.author,
-                ...item,
             };
         } else {
             // Live
             ldjson = rawLdjson;
 
+            const url = new URL(item.link);
+            const description = url.hash ? $(url.hash).parent().find('.LiveBlogPost-body').html() : ldjson.description;
+            const pubDate = url.hash ? parseDate(Number.parseInt($(url.hash).parent().attr('data-posted-date-timestamp'), 10)) : parseDate(ldjson.coverageStartTime);
+
             return {
-                category: ldjson.keywords,
-                pubDate: parseDate(ldjson.coverageStartTime),
-                description: ldjson.description,
-                guid: $("meta[name='brightspot.contentId']").attr('content'),
                 ...item,
+                category: ldjson.keywords,
+                pubDate,
+                description,
+                guid: $("meta[name='brightspot.contentId']").attr('content'),
             };
         }
     });
-}
-export async function asyncPoolAll<IN, OUT>(poolLimit: number, array: readonly IN[], iteratorFn: (generator: IN) => Promise<OUT>) {
-    const results: Awaited<OUT[]> = [];
-    for await (const result of asyncPool(poolLimit, array, iteratorFn)) {
-        results.push(result);
-    }
-    return results;
 }

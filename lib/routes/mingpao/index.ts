@@ -1,6 +1,4 @@
 import { Route } from '@/types';
-import { getCurrentPath } from '@/utils/helpers';
-const __dirname = getCurrentPath(import.meta.url);
 
 import cache from '@/utils/cache';
 import ofetch from '@/utils/ofetch';
@@ -112,6 +110,12 @@ async function handler(ctx) {
                 });
 
                 const $ = cheerio.load(response);
+                const topVideo = $('#topvideo').length
+                    ? $('#topvideo iframe')
+                          .toArray()
+                          .map((e) => $(e).attr('href', $(e).attr('src')))
+                          .map((e) => fixFancybox(e, $))
+                    : [];
                 const fancyboxImg = $('a.fancybox').length ? $('a.fancybox') : $('a.fancybox-buttons');
 
                 // remove unwanted elements
@@ -125,7 +129,7 @@ async function handler(ctx) {
                 item.category = item.categories;
 
                 // fix fancybox image
-                let fancybox = fancyboxImg.toArray().map((e) => fixFancybox(e, $));
+                let fancybox = [...topVideo, ...fancyboxImg.toArray().map((e) => fixFancybox(e, $))];
                 const script = $('script')
                     .toArray()
                     .find((e) => $(e).text()?.includes("$('#lower').prepend('"));
@@ -154,7 +158,7 @@ async function handler(ctx) {
 
                 item.description = renderDesc(fancybox, $('.txt4').html() ?? $('.article_content.line_1_5em').html() ?? $('.txt3').html());
                 item.pubDate = parseDate(item.pubDate);
-                item.guid = item.link.includes('?') ? item.link : item.link.substring(0, item.link.lastIndexOf('/'));
+                item.guid = item.link.includes('?') ? item.link : item.link.slice(0, item.link.lastIndexOf('/'));
 
                 return item;
             })
