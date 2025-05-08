@@ -2265,6 +2265,9 @@
     "nczitzk"
   ],
   "/e-hentai/:what?/:id?/:needTorrents?/:needImages?": [],
+  "/ea/apex-news/:lang?/:type?": [
+    "IceChestnut"
+  ],
   "/eagle/blog/:cate?/:language?": [
     "Fatpandac"
   ],
@@ -6298,7 +6301,9 @@
   "/rfa/:language?/:channel?/:subChannel?": [
     "zphw"
   ],
-  "/rfi/:path{.+}?": [],
+  "/rfi/:path{.+}?": [
+    "nczitzk"
+  ],
   "/right/forum/:id?": [
     "nczitzk"
   ],
