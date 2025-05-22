@@ -582,6 +582,9 @@
   "/apple/podcast/:id/:region?": [
     "Acring"
   ],
+  "/apple/security-releases/:language?": [
+    "nczitzk"
+  ],
   "/appleinsider/:category?": [
     "nczitzk"
   ],
@@ -8263,6 +8266,9 @@
   ],
   "/xjtu/dean/:subpath{.+}": [
     "hoilc"
+  ],
+  "/xjtu/ee/jzxx/:category?": [
+    "riverflows2333"
   ],
   "/xjtu/ee/:id?": [
     "DylanXie123"
