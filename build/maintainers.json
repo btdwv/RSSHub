@@ -714,6 +714,9 @@
   "/bandcamp/weekly": [
     "nczitzk"
   ],
+  "/bandisoft/history/:id?/:language?": [
+    "nczitzk"
+  ],
   "/bangumi.moe/*": [
     "nczitzk"
   ],
@@ -4863,6 +4866,9 @@
   ],
   "/mercari/:sort/:order/:status/:keyword": [
     "yana9i"
+  ],
+  "/meta/ai/blog": [
+    "TonyRL"
   ],
   "/metacritic/:type?/:sort?/:filter?": [],
   "/meteor/boards": [
