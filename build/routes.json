@@ -5828,8 +5828,7 @@
       "/:type": {
         "path": "/:type",
         "categories": [
-          "new-media",
-          "popular"
+          "new-media"
         ],
         "example": "/aeon/essays",
         "parameters": {
@@ -13585,8 +13584,7 @@
       "/user/article/:uid": {
         "path": "/user/article/:uid",
         "categories": [
-          "social-media",
-          "popular"
+          "social-media"
         ],
         "example": "/bilibili/user/article/334958638",
         "parameters": {
@@ -53612,7 +53610,8 @@
           "id": "南方周末频道 id, 可在该频道的 URL 中找到（即 https://www.infzm.com/contents?term_id=:id)"
         },
         "categories": [
-          "traditional-media"
+          "traditional-media",
+          "popular"
         ],
         "example": "/infzm/1",
         "radar": [
@@ -56429,7 +56428,8 @@
       "/:important?": {
         "path": "/:important?",
         "categories": [
-          "finance"
+          "finance",
+          "popular"
         ],
         "view": 5,
         "example": "/jin10",
@@ -99689,7 +99689,8 @@
       "/featured": {
         "path": "/featured",
         "categories": [
-          "new-media"
+          "new-media",
+          "popular"
         ],
         "example": "/thepaper/featured",
         "parameters": {},
@@ -99823,8 +99824,7 @@
       "/:term?": {
         "path": "/:term?",
         "categories": [
-          "new-media",
-          "popular"
+          "new-media"
         ],
         "example": "/thepetcity",
         "parameters": {
@@ -114542,8 +114542,7 @@
       "/top20": {
         "path": "/top20",
         "categories": [
-          "blog",
-          "popular"
+          "blog"
         ],
         "example": "/zhubai/top20",
         "parameters": {},
