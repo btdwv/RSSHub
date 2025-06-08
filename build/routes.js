@@ -12836,6 +12836,124 @@ export default {
     "url": "bangumi.tv",
     "lang": "zh-CN"
   },
+  "banyuetan": {
+    "routes": {
+      "/:id?": {
+        "path": "/:id?",
+        "name": "栏目",
+        "url": "www.banyuetan.org",
+        "maintainers": [
+          "nczitzk"
+        ],
+        "example": "/banyuetan/jinritan",
+        "parameters": {
+          "id": {
+            "description": "栏目 ID，默认为 `jinritan`，即今日谈，可在对应分类页 URL 中找到",
+            "options": [
+              {
+                "label": "今日谈",
+                "value": "jinritan"
+              },
+              {
+                "label": "时政讲解",
+                "value": "shizhengjiangjie"
+              },
+              {
+                "label": "评论",
+                "value": "banyuetanpinglun"
+              },
+              {
+                "label": "基层治理",
+                "value": "jicengzhili"
+              },
+              {
+                "label": "文化",
+                "value": "wenhua"
+              },
+              {
+                "label": "教育",
+                "value": "jiaoyu"
+              }
+            ]
+          }
+        },
+        "description": ":::tip\n订阅 [今日谈](http://www.banyuetan.org/byt/jinritan/)，其源网址为 `http://www.banyuetan.org/byt/jinritan/`，请参考该 URL 指定部分构成参数，此时路由为 [`/banyuetan/jinritan`](https://rsshub.app/banyuetan/jinritan)。\n:::\n\n| 栏目                                                                 | ID                                                                |\n| -------------------------------------------------------------------- | ----------------------------------------------------------------- |\n| [今日谈](http://www.banyuetan.org/byt/jinritan/index.html)           | [jinritan](https://rsshub.app/banyuetan/jinritan)                 |\n| [时政讲解](http://www.banyuetan.org/byt/shizhengjiangjie/index.html) | [shizhengjiangjie](https://rsshub.app/banyuetan/shizhengjiangjie) |\n| [评论](http://www.banyuetan.org/byt/banyuetanpinglun/index.html)     | [banyuetanpinglun](https://rsshub.app/banyuetan/banyuetanpinglun) |\n| [基层治理](http://www.banyuetan.org/byt/jicengzhili/index.html)      | [jicengzhili](https://rsshub.app/banyuetan/jicengzhili)           |\n| [文化](http://www.banyuetan.org/byt/wenhua/index.html)               | [wenhua](https://rsshub.app/banyuetan/wenhua)                     |\n| [教育](http://www.banyuetan.org/byt/jiaoyu/index.html)               | [jiaoyu](https://rsshub.app/banyuetan/jiaoyu)                     |\n\n",
+        "categories": [
+          "traditional-media"
+        ],
+        "features": {
+          "requireConfig": false,
+          "requirePuppeteer": false,
+          "antiCrawler": false,
+          "supportRadar": true,
+          "supportBT": false,
+          "supportPodcast": false,
+          "supportScihub": false
+        },
+        "radar": [
+          {
+            "source": [
+              "www.banyuetan.org/byt/:id"
+            ],
+            "target": "/:id"
+          },
+          {
+            "title": "今日谈",
+            "source": [
+              "www.banyuetan.org/byt/jinritan/index.html"
+            ],
+            "target": "/jinritan"
+          },
+          {
+            "title": "时政讲解",
+            "source": [
+              "www.banyuetan.org/byt/shizhengjiangjie/index.html"
+            ],
+            "target": "/shizhengjiangjie"
+          },
+          {
+            "title": "评论",
+            "source": [
+              "www.banyuetan.org/byt/banyuetanpinglun/index.html"
+            ],
+            "target": "/banyuetanpinglun"
+          },
+          {
+            "title": "基层治理",
+            "source": [
+              "www.banyuetan.org/byt/jicengzhili/index.html"
+            ],
+            "target": "/jicengzhili"
+          },
+          {
+            "title": "文化",
+            "source": [
+              "www.banyuetan.org/byt/wenhua/index.html"
+            ],
+            "target": "/wenhua"
+          },
+          {
+            "title": "教育",
+            "source": [
+              "www.banyuetan.org/byt/jiaoyu/index.html"
+            ],
+            "target": "/jiaoyu"
+          }
+        ],
+        "view": 0,
+        "location": "index.ts",
+        "module": () => import('@/routes/banyuetan/index.ts')
+      }
+    },
+    "name": "半月谈",
+    "apiRoutes": {},
+    "url": "banyuetan.org",
+    "categories": [
+      "traditional-media"
+    ],
+    "description": "",
+    "lang": "zh-CN"
+  },
   "baobua": {
     "routes": {
       "/category/:category": {
@@ -13483,6 +13601,51 @@ export default {
     "apiRoutes": {},
     "url": "www.bestblogs.dev",
     "lang": "zh-CN"
+  },
+  "bfl": {
+    "routes": {
+      "/announcements": {
+        "path": "/announcements",
+        "categories": [
+          "multimedia"
+        ],
+        "example": "/bfl/announcements",
+        "parameters": {},
+        "features": {
+          "requireConfig": false,
+          "requirePuppeteer": false,
+          "antiCrawler": false,
+          "supportBT": false,
+          "supportPodcast": false,
+          "supportScihub": false
+        },
+        "radar": [
+          {
+            "source": [
+              "bfl.ai/announcements"
+            ],
+            "target": "/announcements",
+            "title": "Announcements"
+          }
+        ],
+        "name": "Announcements",
+        "maintainers": [
+          "thirteenkai"
+        ],
+        "url": "bfl.ai/announcements",
+        "description": "Fetches the latest announcements from Black Forest Labs (bfl.ai). Provides full article content by default with caching.",
+        "location": "announcements.ts",
+        "module": () => import('@/routes/bfl/announcements.ts')
+      }
+    },
+    "name": "BFL AI",
+    "apiRoutes": {},
+    "url": "bfl.ai",
+    "categories": [
+      "multimedia"
+    ],
+    "description": "来自黑森林实验室（bfl.ai）的公告和更新，这是一个前沿的人工智能实验室。",
+    "lang": "en"
   },
   "bgmlist": {
     "routes": {
@@ -22396,6 +22559,29 @@ export default {
     "url": "chinawriter.com.cn",
     "lang": "zh-CN"
   },
+  "chiphell": {
+    "routes": {
+      "/portal/:catId?": {
+        "path": "/portal/:catId?",
+        "name": "分类",
+        "categories": [
+          "bbs"
+        ],
+        "example": "/chiphell/portal/1",
+        "parameters": {
+          "catId": "分类 ID，可在 URL 中找到，默认为 1"
+        },
+        "maintainers": [
+          "tylinux"
+        ],
+        "location": "portal.ts",
+        "module": () => import('@/routes/chiphell/portal.ts')
+      }
+    },
+    "name": "Chiphell",
+    "url": "www.chiphell.com",
+    "lang": "zh-CN"
+  },
   "chlinlearn": {
     "routes": {
       "/daily-blog": {
@@ -23151,6 +23337,30 @@ export default {
         "url": "civitai.com/",
         "location": "models.ts",
         "module": () => import('@/routes/civitai/models.ts')
+      },
+      "/user/:username/articles": {
+        "path": "/user/:username/articles",
+        "categories": [
+          "program-update"
+        ],
+        "example": "/civitai/user/Chenkin/articles",
+        "parameters": {
+          "username": "Username"
+        },
+        "radar": [
+          {
+            "source": [
+              "civitai.com/user/:username",
+              "civitai.com/user/:username/articles"
+            ]
+          }
+        ],
+        "name": "User Article",
+        "maintainers": [
+          "TonyRL"
+        ],
+        "location": "user.ts",
+        "module": () => import('@/routes/civitai/user.ts')
       }
     },
     "name": "Civitai",
@@ -33663,6 +33873,95 @@ export default {
   },
   "everia": {
     "routes": {
+      "/category/:category": {
+        "path": "/category/:category",
+        "categories": [
+          "picture"
+        ],
+        "example": "/everia/category/cosplay",
+        "parameters": {
+          "category": "Category of the image stream"
+        },
+        "features": {
+          "requireConfig": false,
+          "requirePuppeteer": false,
+          "antiCrawler": false,
+          "supportBT": false,
+          "supportPodcast": false,
+          "supportScihub": false
+        },
+        "radar": [
+          {
+            "source": [
+              "everia.club/category/:category"
+            ],
+            "target": "/category/:category"
+          }
+        ],
+        "name": "Images with category",
+        "maintainers": [
+          "KTachibanaM",
+          "AiraNadih"
+        ],
+        "location": "category.ts",
+        "module": () => import('@/routes/everia/category.ts')
+      },
+      "/": {
+        "path": "/",
+        "categories": [
+          "picture"
+        ],
+        "example": "/everia",
+        "parameters": {},
+        "features": {
+          "requireConfig": false,
+          "requirePuppeteer": false,
+          "antiCrawler": false,
+          "supportBT": false,
+          "supportPodcast": false,
+          "supportScihub": false
+        },
+        "radar": [
+          {
+            "source": [
+              "everia.club/"
+            ],
+            "target": ""
+          }
+        ],
+        "name": "Latest",
+        "maintainers": [
+          "KTachibanaM",
+          "AiraNadih"
+        ],
+        "location": "latest.ts",
+        "module": () => import('@/routes/everia/latest.ts')
+      },
+      "/search/:keyword": {
+        "path": "/search/:keyword",
+        "categories": [
+          "picture"
+        ],
+        "example": "/everia/search/日向坂46",
+        "parameters": {
+          "keyword": "Keyword"
+        },
+        "features": {
+          "requireConfig": false,
+          "requirePuppeteer": false,
+          "antiCrawler": false,
+          "supportBT": false,
+          "supportPodcast": false,
+          "supportScihub": false
+        },
+        "name": "Search",
+        "maintainers": [
+          "KTachibanaM",
+          "AiraNadih"
+        ],
+        "location": "search.ts",
+        "module": () => import('@/routes/everia/search.ts')
+      },
       "/tag/:tag": {
         "path": "/tag/:tag",
         "categories": [
@@ -33690,13 +33989,15 @@ export default {
         ],
         "name": "Images with tag",
         "maintainers": [
-          "KTachibanaM"
+          "KTachibanaM",
+          "AiraNadih"
         ],
         "location": "tag.ts",
         "module": () => import('@/routes/everia/tag.ts')
       }
     },
     "name": "EVERIA.CLUB",
+    "apiRoutes": {},
     "url": "everia.club"
   },
   "f-droid": {
@@ -40265,6 +40566,58 @@ export default {
   },
   "go": {
     "routes": {
+      "/jihs/idwr/:year?": {
+        "path": "/jihs/idwr/:year?",
+        "name": "感染症発生動向調査週報",
+        "url": "id-info.jihs.go.jp",
+        "maintainers": [
+          "nczitzk"
+        ],
+        "example": "/go/jihs/idwr/2025",
+        "parameters": {
+          "year": {
+            "description": "Year, current year by default"
+          }
+        },
+        "description": ":::tip\nTo subscribe to [感染症発生動向調査週報](https://id-info.jihs.go.jp/surveillance/idwr/jp/idwr/2025/), where the source URL is `https://id-info.jihs.go.jp/surveillance/idwr/jp/idwr/2025/`, extract the certain parts from this URL to be used as parameters, resulting in the route as [`/go/jihs/idwr/2025`](https://rsshub.app/go/jihs/idwr/2025).\n:::\n",
+        "categories": [
+          "government"
+        ],
+        "features": {
+          "requireConfig": false,
+          "requirePuppeteer": false,
+          "antiCrawler": false,
+          "supportRadar": true,
+          "supportBT": false,
+          "supportPodcast": false,
+          "supportScihub": false
+        },
+        "radar": [
+          {
+            "source": [
+              "id-info.jihs.go.jp/surveillance/idwr/jp/idwr/:year"
+            ]
+          }
+        ],
+        "view": 0,
+        "zh": {
+          "path": "/jihs/idwr/:year?",
+          "name": "传染病发生动向调查周报",
+          "url": "id-info.jihs.go.jp",
+          "maintainers": [
+            "nczitzk"
+          ],
+          "example": "/go/jihs/idwr/2025",
+          "parameters": {
+            "year": {
+              "description": "年份，默认为当前年份，可在对应页 URL 中找到"
+            }
+          },
+          "description": ":::tip\n若订阅 [传染病发生动向调查周报](https://id-info.jihs.go.jp/surveillance/idwr/jp/idwr/2025/)，网址为 `https://id-info.jihs.go.jp/surveillance/idwr/jp/idwr/2025/`，请截取 `https://id-info.jihs.go.jp/surveillance/idwr/jp/idwr/` 到末尾 `/` 的部分 `2025` 作为 `year` 参数填入，此时目标路由为 [`/go/jihs/idwr/2025`](https://rsshub.app/go/jihs/idwr/2025)。\n:::\n"
+        },
+        "location": "jihs/idwr.ts",
+        "module": () => import('@/routes/go/jihs/idwr.ts')
+      },
       "/mhlw/pdf/:category{.+}?": {
         "path": "/mhlw/pdf/:category{.+}?",
         "name": "PDF",
@@ -40298,40 +40651,6 @@ export default {
         ],
         "location": "mhlw/pdf.ts",
         "module": () => import('@/routes/go/mhlw/pdf.ts')
-      },
-      "/niid/idwr-dl/:year?": {
-        "path": "/niid/idwr-dl/:year?",
-        "name": "感染症発生動向調査週報ダウンロード",
-        "url": "www.niid.go.jp",
-        "maintainers": [
-          "nczitzk"
-        ],
-        "example": "/go/niid/idwr-dl/:year?",
-        "parameters": {
-          "year": "Year, current year by default"
-        },
-        "description": "::: tip\n  If you subscribe to [感染症発生動向調査週報ダウンロード2024年](https://www.niid.go.jp/niid/ja/idwr-dl/2024.html)，where the URL is `https://www.niid.go.jp/niid/ja/idwr-dl/2024.html`, extract the part `https://www.niid.go.jp/niid/ja/idwr-dl/` to the end, which is `.html`, and use it as the parameter to fill in. Therefore, the route will be [`/go/niid/idwr-dl/2024`](https://rsshub.app/go/niid/idwr-dl/2024).\n:::",
-        "categories": [
-          "government"
-        ],
-        "features": {
-          "requireConfig": false,
-          "requirePuppeteer": false,
-          "antiCrawler": false,
-          "supportRadar": true,
-          "supportBT": false,
-          "supportPodcast": false,
-          "supportScihub": false
-        },
-        "radar": [
-          {
-            "source": [
-              "www.niid.go.jp/niid/ja/idwr-dl/:year"
-            ]
-          }
-        ],
-        "location": "niid/idwr-dl.ts",
-        "module": () => import('@/routes/go/niid/idwr-dl.ts')
       }
     },
     "name": "JapanGov",
@@ -40811,7 +41130,7 @@ export default {
         "example": "/google/search/rss/zh-CN,zh",
         "parameters": {
           "keyword": "Keyword",
-          "language": "Accept-Language. Example: zh-CN,zh;q=0.9,en;q=0.8,ja;q=0.7"
+          "language": "Accept-Language. Example: `zh-CN,zh;q=0.9,en;q=0.8,ja;q=0.7`"
         },
         "features": {
           "requireConfig": false,
@@ -42084,7 +42403,7 @@ export default {
         ],
         "example": "/gov/customs/list/paimai",
         "parameters": {
-          "gchannel": "支持 `paimai` 及 `fagui` 2个频道，默认为 `paimai`"
+          "gchannel": "支持 `paimai`, `fagui` 及 `latest` 3 个频道，默认为 `paimai`"
         },
         "features": {
           "requireConfig": false,
@@ -42102,7 +42421,7 @@ export default {
             "target": "/customs/list"
           }
         ],
-        "name": "拍卖信息 / 海关法规",
+        "name": "拍卖信息 / 海关法规 / 最新文件",
         "maintainers": [
           "Jeason0228",
           "TonyRL",
@@ -49937,6 +50256,42 @@ export default {
     "name": "环球网",
     "apiRoutes": {},
     "url": "huanqiu.com",
+    "lang": "zh-CN"
+  },
+  "huawei": {
+    "routes": {
+      "/developer/harmonyos/sample-code": {
+        "path": "/developer/harmonyos/sample-code",
+        "categories": [
+          "programming"
+        ],
+        "example": "/huawei/developer/harmonyos/sample-code",
+        "features": {
+          "requireConfig": false,
+          "requirePuppeteer": false,
+          "antiCrawler": false,
+          "supportBT": false,
+          "supportPodcast": false,
+          "supportScihub": false
+        },
+        "radar": [
+          {
+            "source": [
+              "developer.huawei.com/consumer/cn/samples"
+            ],
+            "target": "/huawei/developer/harmonyos/sample-code"
+          }
+        ],
+        "name": "HarmonyOS 示例代码",
+        "maintainers": [
+          "JiZhi-Error"
+        ],
+        "location": "developer/harmonyos/samplecode.ts",
+        "module": () => import('@/routes/huawei/developer/harmonyos/samplecode.ts')
+      }
+    },
+    "name": "华为开发者联盟",
+    "url": "developer.huawei.com",
     "lang": "zh-CN"
   },
   "hubu": {
@@ -59096,7 +59451,10 @@ export default {
   "konachan": {
     "routes": {
       "/post/popular_recent/:period?": {
-        "path": "/post/popular_recent/:period?",
+        "path": [
+          "/post/popular_recent/:period?",
+          "/sfw/post/popular_recent/:period?"
+        ],
         "categories": [
           "picture",
           "popular"
@@ -59125,19 +59483,82 @@ export default {
               }
             ],
             "default": "1d"
+          },
+          "safe_search": {
+            "description": "是否使用无r18的站点konachan.net，若是,则在路径前加上 `/sfw`，如`/konachan/sfw/post/popular_recent/1d`，若否则默认使用 konachan.com",
+            "default": "false"
           }
         },
         "radar": [
           {
             "source": [
-              "konachan.com/post"
+              "konachan.com/post",
+              "konachan.net/post"
             ]
           }
         ],
         "name": "Popular Recent Posts",
         "maintainers": [
           "magic-akari",
-          "NekoAria"
+          "NekoAria",
+          "sineeeee"
+        ],
+        "description": "| 最近 24 小时    | 最近一周     | 最近一月    | 最近一年     |\n| ------- | -------- | ------- | -------- |\n| 1d | 1w | 1m | 1y |",
+        "location": "post.ts",
+        "module": () => import('@/routes/konachan/post.ts')
+      },
+      "/sfw/post/popular_recent/:period?": {
+        "path": [
+          "/post/popular_recent/:period?",
+          "/sfw/post/popular_recent/:period?"
+        ],
+        "categories": [
+          "picture",
+          "popular"
+        ],
+        "view": 2,
+        "example": "/konachan/post/popular_recent/1d",
+        "parameters": {
+          "period": {
+            "description": "展示时间",
+            "options": [
+              {
+                "value": "1d",
+                "label": "最近 24 小时"
+              },
+              {
+                "value": "1w",
+                "label": "最近一周"
+              },
+              {
+                "value": "1m",
+                "label": "最近一月"
+              },
+              {
+                "value": "1y",
+                "label": "最近一年"
+              }
+            ],
+            "default": "1d"
+          },
+          "safe_search": {
+            "description": "是否使用无r18的站点konachan.net，若是,则在路径前加上 `/sfw`，如`/konachan/sfw/post/popular_recent/1d`，若否则默认使用 konachan.com",
+            "default": "false"
+          }
+        },
+        "radar": [
+          {
+            "source": [
+              "konachan.com/post",
+              "konachan.net/post"
+            ]
+          }
+        ],
+        "name": "Popular Recent Posts",
+        "maintainers": [
+          "magic-akari",
+          "NekoAria",
+          "sineeeee"
         ],
         "description": "| 最近 24 小时    | 最近一周     | 最近一月    | 最近一年     |\n| ------- | -------- | ------- | -------- |\n| 1d | 1w | 1m | 1y |",
         "location": "post.ts",
@@ -63037,29 +63458,233 @@ export default {
   },
   "mangadex": {
     "routes": {
-      "/:id/:lang?": {
-        "path": "/:id/:lang?",
+      "/manga/:id/:lang?": {
+        "path": "/manga/:id/:lang?",
         "radar": [
           {
             "source": [
-              "mangadex.org/title/:id/*",
+              "mangadex.org/title/:id/:suffix",
               "mangadex.org/title/:id"
             ],
-            "target": "/:id"
+            "target": "/manga/:id"
           }
         ],
-        "name": "Unknown",
+        "name": "Single Manga Feed",
         "maintainers": [
-          "vzz64"
+          "vzz64",
+          "chrisis58"
         ],
+        "example": "/mangadex/manga/f98660a1-d2e2-461c-960d-7bd13df8b76d/en",
         "location": "index.ts",
         "module": () => import('@/routes/mangadex/index.ts')
+      },
+      "/mdlist/:id/:lang?": {
+        "name": "MDList Feed",
+        "path": "/mdlist/:id/:lang?",
+        "radar": [
+          {
+            "source": [
+              "mangadex.org/list/:id/:suffix"
+            ],
+            "target": "/mdlist/:id"
+          }
+        ],
+        "description": "Sepcific MangaDex MDList Feed",
+        "example": "/mangadex/mdlist/10cca803-8dc9-4f0e-86a8-6659a3ce5188?limit=10&private=true",
+        "maintainers": [
+          "chrisis58"
+        ],
+        "categories": [
+          "anime"
+        ],
+        "parameters": {
+          "id": {
+            "description": "The list id of the manga list"
+          },
+          "private": {
+            "description": "(Query Param) Needed to access private lists, any value will be treated as true"
+          }
+        },
+        "features": {
+          "requireConfig": [
+            {
+              "name": "MANGADEX_USERNAME",
+              "description": "MangaDex Username, required when refresh-token is not set and the list is private",
+              "optional": true
+            },
+            {
+              "name": "MANGADEX_PASSWORD",
+              "description": "MangaDex Password, required when refresh-token is not set and the list is private",
+              "optional": true
+            },
+            {
+              "name": "MANGADEX_CLIENT_ID",
+              "description": "MangaDex Client ID, required when the list is private",
+              "optional": true
+            },
+            {
+              "name": "MANGADEX_CLIENT_SECRET",
+              "description": "MangaDex Client Secret, required when the list is private",
+              "optional": true
+            },
+            {
+              "name": "MANGADEX_REFRESH_TOKEN",
+              "description": "MangaDex Refresh Token, required when username and password are not set and the list is private",
+              "optional": true
+            }
+          ]
+        },
+        "location": "mdlist/feed.ts",
+        "module": () => import('@/routes/mangadex/mdlist/feed.ts')
+      },
+      "/user/feed/follow/:lang?": {
+        "path": "/user/feed/follow/:lang?",
+        "name": " Follows Feed",
+        "maintainers": [
+          "chrisis58"
+        ],
+        "description": "Get the latest updates of all the manga you follow on MangaDex.",
+        "example": "/mangadex/user/feed/follow/zh?limit=10",
+        "radar": [
+          {
+            "source": [
+              "mangadex.org/titles/feed"
+            ],
+            "target": "/user/feed/follow"
+          }
+        ],
+        "categories": [
+          "anime"
+        ],
+        "parameters": {
+          "lang": {
+            "description": "The language of the followed manga"
+          }
+        },
+        "features": {
+          "requireConfig": [
+            {
+              "name": "MANGADEX_USERNAME",
+              "description": "MangaDex Username, required when refresh-token is not set",
+              "optional": true
+            },
+            {
+              "name": "MANGADEX_PASSWORD",
+              "description": "MangaDex Password, required when refresh-token is not set",
+              "optional": true
+            },
+            {
+              "name": "MANGADEX_CLIENT_ID",
+              "description": "MangaDex Client ID",
+              "optional": false
+            },
+            {
+              "name": "MANGADEX_CLIENT_SECRET",
+              "description": "MangaDex Client Secret",
+              "optional": false
+            },
+            {
+              "name": "MANGADEX_REFRESH_TOKEN",
+              "description": "MangaDex Refresh Token, required when username and password are not set",
+              "optional": true
+            }
+          ]
+        },
+        "location": "user/feed.ts",
+        "module": () => import('@/routes/mangadex/user/feed.ts')
+      },
+      "/user/follow/:type?": {
+        "path": "/user/follow/:type?",
+        "name": "Logged User's Followed Mangas Feed",
+        "maintainers": [
+          "chrisis58"
+        ],
+        "example": "/mangadex/user/follow/reading",
+        "description": "Fetches the feed of mangas that you follow on MangaDex whick are in the specified status.\nCAUTION: With big amount of follows, it may take a long time to load or even fail.\nIt's recommended to use the `/mangadex/mdlist/:listId?` route instead for better performance, though it requires manual configuration.",
+        "categories": [
+          "anime"
+        ],
+        "parameters": {
+          "type": {
+            "description": "The type of follows to fetch",
+            "default": "reading",
+            "options": [
+              {
+                "value": "reading",
+                "label": "Reading"
+              },
+              {
+                "value": "plan-to-read",
+                "label": "Plan to Read"
+              },
+              {
+                "value": "completed",
+                "label": "Completed"
+              },
+              {
+                "value": "on-hold",
+                "label": "On Hold"
+              },
+              {
+                "value": "re-reading",
+                "label": "Re-reading"
+              },
+              {
+                "value": "dropped",
+                "label": "Dropped"
+              }
+            ]
+          }
+        },
+        "radar": [
+          {
+            "source": [
+              "mangadex.org/titles/follows"
+            ],
+            "target": "/user/follow/reading"
+          }
+        ],
+        "features": {
+          "requireConfig": [
+            {
+              "name": "MANGADEX_USERNAME",
+              "description": "MangaDex Username, required when refresh-token is not set",
+              "optional": true
+            },
+            {
+              "name": "MANGADEX_PASSWORD",
+              "description": "MangaDex Password, required when refresh-token is not set",
+              "optional": true
+            },
+            {
+              "name": "MANGADEX_CLIENT_ID",
+              "description": "MangaDex Client ID",
+              "optional": false
+            },
+            {
+              "name": "MANGADEX_CLIENT_SECRET",
+              "description": "MangaDex Client Secret",
+              "optional": false
+            },
+            {
+              "name": "MANGADEX_REFRESH_TOKEN",
+              "description": "MangaDex Refresh Token, required when username and password are not set",
+              "optional": true
+            }
+          ]
+        },
+        "location": "user/follows.ts",
+        "module": () => import('@/routes/mangadex/user/follows.ts')
       }
     },
     "name": "MangaDex",
     "apiRoutes": {},
     "url": "mangadex.org",
-    "lang": "en"
+    "lang": "en",
+    "categories": [
+      "anime"
+    ],
+    "description": "MangaDex is an non-profit and ad-free manga reader offering high-quality images."
   },
   "manhuagui": {
     "routes": {
@@ -89668,6 +90293,46 @@ export default {
     "url": "slowmist.com",
     "lang": "zh-CN"
   },
+  "smartlink": {
+    "routes": {
+      "/:site": {
+        "path": "/:site",
+        "categories": [
+          "social-media"
+        ],
+        "example": "/smartlink/bloombergpursuits",
+        "parameters": {
+          "site": "the site attached to smartlink.bio/"
+        },
+        "radar": [
+          {
+            "source": [
+              "smartlink.bio/"
+            ]
+          }
+        ],
+        "features": {
+          "requireConfig": false,
+          "requirePuppeteer": false,
+          "antiCrawler": false,
+          "supportBT": false,
+          "supportPodcast": false,
+          "supportScihub": false
+        },
+        "name": "Posts",
+        "maintainers": [
+          "nickyfoto"
+        ],
+        "description": "smartlink.bio link in bio takes your audience from Instagram and TikTok to your website in one easy step.",
+        "location": "index.ts",
+        "module": () => import('@/routes/smartlink/index.ts')
+      }
+    },
+    "name": "SmartLink",
+    "apiRoutes": {},
+    "url": "smartlink.bio",
+    "lang": "en"
+  },
   "smashingmagazine": {
     "routes": {
       "/:category?": {
@@ -102613,7 +103278,7 @@ export default {
     "name": "X (Twitter)",
     "apiRoutes": {},
     "url": "x.com",
-    "description": "Specify options (in the format of query string) in parameter `routeParams` to control some extra features for Tweets\n\n| Key                            | Description                                                                                                                          | Accepts                | Defaults to                               |\n| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ---------------------- | ----------------------------------------- |\n| `readable`                     | Enable readable layout                                                                                                               | `0`/`1`/`true`/`false` | `false`                                   |\n| `authorNameBold`               | Display author name in bold                                                                                                          | `0`/`1`/`true`/`false` | `false`                                   |\n| `showAuthorInTitle`            | Show author name in title                                                                                                            | `0`/`1`/`true`/`false` | `false` (`true` in `/twitter/followings`) |\n| `showAuthorAsTitleOnly`        | Show only author name as title                                                                                                            | `0`/`1`/`true`/`false` | `false`                                   |\n| `showAuthorInDesc`             | Show author name in description (RSS body)                                                                                           | `0`/`1`/`true`/`false` | `false` (`true` in `/twitter/followings`) |\n| `showQuotedAuthorAvatarInDesc` | Show avatar of quoted Tweet's author in description (RSS body) (Not recommended if your RSS reader extracts images from description) | `0`/`1`/`true`/`false` | `false`                                   |\n| `showAuthorAvatarInDesc`       | Show avatar of author in description (RSS body) (Not recommended if your RSS reader extracts images from description)                | `0`/`1`/`true`/`false` | `false`                                   |\n| `showEmojiForRetweetAndReply`  | Use \"🔁\" instead of \"RT\", \"↩️\" & \"💬\" instead of \"Re\"                                                                                | `0`/`1`/`true`/`false` | `false`                                   |\n| `showSymbolForRetweetAndReply` | Use \" RT \" instead of \"\", \" Re \" instead of \"\"                                                                                       | `0`/`1`/`true`/`false` | `true`                                    |\n| `showRetweetTextInTitle`       | Show quote comments in title (if `false`, only the retweeted tweet will be shown in the title)                                       | `0`/`1`/`true`/`false` | `true`                                    |\n| `addLinkForPics`               | Add clickable links for Tweet pictures                                                                                               | `0`/`1`/`true`/`false` | `false`                                   |\n| `showTimestampInDescription`   | Show timestamp in description                                                                                                        | `0`/`1`/`true`/`false` | `false`                                   |\n| `showQuotedInTitle`            | Show quoted tweet in title                                                                                                           | `0`/`1`/`true`/`false` | `false`                                   |\n| `widthOfPics`                  | Width of Tweet pictures                                                                                                              | Unspecified/Integer    | Unspecified                               |\n| `heightOfPics`                 | Height of Tweet pictures                                                                                                             | Unspecified/Integer    | Unspecified                               |\n| `sizeOfAuthorAvatar`           | Size of author's avatar                                                                                                              | Integer                | `48`                                      |\n| `sizeOfQuotedAuthorAvatar`     | Size of quoted tweet's author's avatar                                                                                               | Integer                | `24`                                      |\n| `includeReplies`               | Include replies, only available in `/twitter/user`                                                                                   | `0`/`1`/`true`/`false` | `false`                                   |\n| `includeRts`                   | Include retweets, only available in `/twitter/user`                                                                                  | `0`/`1`/`true`/`false` | `true`                                    |\n| `forceWebApi`                  | Force using Web API even if Developer API is configured, only available in `/twitter/user` and `/twitter/keyword`                    | `0`/`1`/`true`/`false` | `false`                                   |\n| `count`                        | `count` parameter passed to Twitter API, only available in `/twitter/user`                                                           | Unspecified/Integer    | Unspecified                               |\n| `onlyMedia`                    | Only get tweets with a media                                                                                                             | `0`/`1`/`true`/`false` | `false`                 |\n\nSpecify different option values than default values to improve readability. The URL\n\n```\nhttps://rsshub.app/twitter/user/durov/readable=1&authorNameBold=1&showAuthorInTitle=1&showAuthorInDesc=1&showQuotedAuthorAvatarInDesc=1&showAuthorAvatarInDesc=1&showEmojiForRetweetAndReply=1&showRetweetTextInTitle=0&addLinkForPics=1&showTimestampInDescription=1&showQuotedInTitle=1&heightOfPics=150\n```\n\ngenerates\n\n<img loading=\"lazy\" src=\"/img/readable-twitter.png\" alt=\"Readable Twitter RSS of Durov\" />\n\nCurrently supports two authentication methods:\n\n- Using `TWITTER_AUTH_TOKEN` (recommended): Configure a comma-separated list of `auth_token` cookies of logged-in Twitter Web. RSSHub will use this information to directly access Twitter's web API to obtain data.\n\n- Using `TWITTER_USERNAME` `TWITTER_PASSWORD` and `TWITTER_AUTHENTICATION_SECRET`: Configure a comma-separated list of Twitter username and password. RSSHub will use this information to log in to Twitter and obtain data using the mobile API. Please note that if you have not logged in with the current IP address before, it is easy to trigger Twitter's risk control mechanism.\n",
+    "description": "Specify options (in the format of query string) in parameter `routeParams` to control some extra features for Tweets\n\n| Key                            | Description                                                                                                                          | Accepts                | Defaults to                               |\n| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ---------------------- | ----------------------------------------- |\n| `readable`                     | Enable readable layout                                                                                                               | `0`/`1`/`true`/`false` | `false`                                   |\n| `authorNameBold`               | Display author name in bold                                                                                                          | `0`/`1`/`true`/`false` | `false`                                   |\n| `showAuthorInTitle`            | Show author name in title                                                                                                            | `0`/`1`/`true`/`false` | `false` (`true` in `/twitter/followings`) |\n| `showAuthorAsTitleOnly`        | Show only author name as title                                                                                                            | `0`/`1`/`true`/`false` | `false`                                   |\n| `showAuthorInDesc`             | Show author name in description (RSS body)                                                                                           | `0`/`1`/`true`/`false` | `false` (`true` in `/twitter/followings`) |\n| `showQuotedAuthorAvatarInDesc` | Show avatar of quoted Tweet's author in description (RSS body) (Not recommended if your RSS reader extracts images from description) | `0`/`1`/`true`/`false` | `false`                                   |\n| `showAuthorAvatarInDesc`       | Show avatar of author in description (RSS body) (Not recommended if your RSS reader extracts images from description)                | `0`/`1`/`true`/`false` | `false`                                   |\n| `showEmojiForRetweetAndReply`  | Use \"🔁\" instead of \"RT\", \"↩️\" & \"💬\" instead of \"Re\"                                                                                | `0`/`1`/`true`/`false` | `false`                                   |\n| `showSymbolForRetweetAndReply` | Use \" RT \" instead of \"\", \" Re \" instead of \"\"                                                                                       | `0`/`1`/`true`/`false` | `true`                                    |\n| `showRetweetTextInTitle`       | Show quote comments in title (if `false`, only the retweeted tweet will be shown in the title)                                       | `0`/`1`/`true`/`false` | `true`                                    |\n| `addLinkForPics`               | Add clickable links for Tweet pictures                                                                                               | `0`/`1`/`true`/`false` | `false`                                   |\n| `showTimestampInDescription`   | Show timestamp in description                                                                                                        | `0`/`1`/`true`/`false` | `false`                                   |\n| `showQuotedInTitle`            | Show quoted tweet in title                                                                                                           | `0`/`1`/`true`/`false` | `false`                                   |\n| `widthOfPics`                  | Width of Tweet pictures                                                                                                              | Unspecified/Integer    | Unspecified                               |\n| `heightOfPics`                 | Height of Tweet pictures                                                                                                             | Unspecified/Integer    | Unspecified                               |\n| `sizeOfAuthorAvatar`           | Size of author's avatar                                                                                                              | Integer                | `48`                                      |\n| `sizeOfQuotedAuthorAvatar`     | Size of quoted tweet's author's avatar                                                                                               | Integer                | `24`                                      |\n| `includeReplies`               | Include replies, only available in `/twitter/user`                                                                                   | `0`/`1`/`true`/`false` | `false`                                   |\n| `includeRts`                   | Include retweets, only available in `/twitter/user`                                                                                  | `0`/`1`/`true`/`false` | `true`                                    |\n| `forceWebApi`                  | Force using Web API even if Developer API is configured, only available in `/twitter/user` and `/twitter/keyword`                    | `0`/`1`/`true`/`false` | `false`                                   |\n| `count`                        | `count` parameter passed to Twitter API, only available in `/twitter/user`                                                           | Unspecified/Integer    | Unspecified                               |\n| `onlyMedia`                    | Only get tweets with a media                                                                                                             | `0`/`1`/`true`/`false` | `false`                 |\n| `mediaNumber `                 | Number the medias                                                                                                            | `0`/`1`/`true`/`false` | `false`                 |\n\nSpecify different option values than default values to improve readability. The URL\n\n```\nhttps://rsshub.app/twitter/user/durov/readable=1&authorNameBold=1&showAuthorInTitle=1&showAuthorInDesc=1&showQuotedAuthorAvatarInDesc=1&showAuthorAvatarInDesc=1&showEmojiForRetweetAndReply=1&showRetweetTextInTitle=0&addLinkForPics=1&showTimestampInDescription=1&showQuotedInTitle=1&heightOfPics=150\n```\n\ngenerates\n\n<img loading=\"lazy\" src=\"/img/readable-twitter.png\" alt=\"Readable Twitter RSS of Durov\" />\n\nCurrently supports two authentication methods:\n\n- Using `TWITTER_AUTH_TOKEN` (recommended): Configure a comma-separated list of `auth_token` cookies of logged-in Twitter Web. RSSHub will use this information to directly access Twitter's web API to obtain data.\n\n- Using `TWITTER_USERNAME` `TWITTER_PASSWORD` and `TWITTER_AUTHENTICATION_SECRET`: Configure a comma-separated list of Twitter username and password. RSSHub will use this information to log in to Twitter and obtain data using the mobile API. Please note that if you have not logged in with the current IP address before, it is easy to trigger Twitter's risk control mechanism.\n",
     "lang": "en"
   },
   "twreporter": {

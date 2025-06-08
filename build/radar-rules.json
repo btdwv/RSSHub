@@ -6048,6 +6048,67 @@
       }
     ]
   },
+  "banyuetan.org": {
+    "_name": "半月谈",
+    "www": [
+      {
+        "title": "栏目",
+        "docs": "https://docs.rsshub.app/routes/traditional-media",
+        "source": [
+          "/byt/:id"
+        ],
+        "target": "/banyuetan/:id"
+      },
+      {
+        "title": "今日谈",
+        "docs": "https://docs.rsshub.app/routes/traditional-media",
+        "source": [
+          "/byt/jinritan/index.html"
+        ],
+        "target": "/banyuetan/jinritan"
+      },
+      {
+        "title": "时政讲解",
+        "docs": "https://docs.rsshub.app/routes/traditional-media",
+        "source": [
+          "/byt/shizhengjiangjie/index.html"
+        ],
+        "target": "/banyuetan/shizhengjiangjie"
+      },
+      {
+        "title": "评论",
+        "docs": "https://docs.rsshub.app/routes/traditional-media",
+        "source": [
+          "/byt/banyuetanpinglun/index.html"
+        ],
+        "target": "/banyuetan/banyuetanpinglun"
+      },
+      {
+        "title": "基层治理",
+        "docs": "https://docs.rsshub.app/routes/traditional-media",
+        "source": [
+          "/byt/jicengzhili/index.html"
+        ],
+        "target": "/banyuetan/jicengzhili"
+      },
+      {
+        "title": "文化",
+        "docs": "https://docs.rsshub.app/routes/traditional-media",
+        "source": [
+          "/byt/wenhua/index.html"
+        ],
+        "target": "/banyuetan/wenhua"
+      },
+      {
+        "title": "教育",
+        "docs": "https://docs.rsshub.app/routes/traditional-media",
+        "source": [
+          "/byt/jiaoyu/index.html"
+        ],
+        "target": "/banyuetan/jiaoyu"
+      }
+    ]
+  },
   "baobua.com": {
     "_name": "BaoBua",
     ".": [
@@ -6243,6 +6304,19 @@
           "/"
         ],
         "target": "/bendibao/news/:city"
+      }
+    ]
+  },
+  "bfl.ai": {
+    "_name": "BFL AI",
+    ".": [
+      {
+        "title": "Announcements",
+        "docs": "https://docs.rsshub.app/routes/multimedia",
+        "source": [
+          "/announcements"
+        ],
+        "target": "/bfl/announcements"
       }
     ]
   },
@@ -10090,6 +10164,15 @@
           "/"
         ],
         "target": "/civitai/models"
+      },
+      {
+        "title": "User Article",
+        "docs": "https://docs.rsshub.app/routes/program-update",
+        "source": [
+          "/user/:username",
+          "/user/:username/articles"
+        ],
+        "target": "/civitai/user/:username/articles"
       }
     ]
   },
@@ -12852,6 +12935,22 @@
     "_name": "EVERIA.CLUB",
     ".": [
       {
+        "title": "Images with category",
+        "docs": "https://docs.rsshub.app/routes/picture",
+        "source": [
+          "/category/:category"
+        ],
+        "target": "/everia/category/:category"
+      },
+      {
+        "title": "Latest",
+        "docs": "https://docs.rsshub.app/routes/picture",
+        "source": [
+          "/"
+        ],
+        "target": "/everia/"
+      },
+      {
         "title": "Images with tag",
         "docs": "https://docs.rsshub.app/routes/picture",
         "source": [
@@ -14663,6 +14762,19 @@
       }
     ]
   },
+  "jihs.go.jp": {
+    "_name": "JapanGov",
+    "id-info": [
+      {
+        "title": "感染症発生動向調査週報",
+        "docs": "https://docs.rsshub.app/routes/government",
+        "source": [
+          "/surveillance/idwr/jp/idwr/:year"
+        ],
+        "target": "/goparams=>{const year=params.year;return`/go/jihs/idwr${year?`/${year}`:\"\"}`}"
+      }
+    ]
+  },
   "mhlw.go.jp": {
     "_name": "JapanGov",
     "www": [
@@ -14673,19 +14785,6 @@
           "/"
         ],
         "target": "/go(_,url)=>{const category=new URL(url).href.match(/mhlw\\.go\\.jp\\/(.*)$/)?.[1]??void 0;return`/mhlw/pdf${category?`/${category}`:\"\"}`}"
-      }
-    ]
-  },
-  "niid.go.jp": {
-    "_name": "JapanGov",
-    "www": [
-      {
-        "title": "感染症発生動向調査週報ダウンロード",
-        "docs": "https://docs.rsshub.app/routes/government",
-        "source": [
-          "/niid/ja/idwr-dl/:year"
-        ],
-        "target": "/goparams=>{const year=params.year;return`/niid/idwr-dl/${year?`/${year}`:\"\"}`}"
       }
     ]
   },
@@ -15511,7 +15610,7 @@
     "_name": "上海市人民政府",
     "www": [
       {
-        "title": "拍卖信息 / 海关法规",
+        "title": "拍卖信息 / 海关法规 / 最新文件",
         "docs": "https://docs.rsshub.app/routes/government",
         "source": [
           "/"
@@ -18464,6 +18563,19 @@
           "/"
         ],
         "target": "/huanqiu/news/:category?"
+      }
+    ]
+  },
+  "huawei.com": {
+    "_name": "华为开发者联盟",
+    "developer": [
+      {
+        "title": "HarmonyOS 示例代码",
+        "docs": "https://docs.rsshub.app/routes/programming",
+        "source": [
+          "/consumer/cn/samples"
+        ],
+        "target": "/huawei/huawei/developer/harmonyos/sample-code"
       }
     ]
   },
@@ -21551,9 +21663,19 @@
         "title": "Popular Recent Posts",
         "docs": "https://docs.rsshub.app/routes/picture",
         "source": [
+          "/post",
           "/post"
         ],
         "target": "/konachan/post/popular_recent/:period?"
+      },
+      {
+        "title": "Popular Recent Posts",
+        "docs": "https://docs.rsshub.app/routes/picture",
+        "source": [
+          "/post",
+          "/post"
+        ],
+        "target": "/konachan/sfw/post/popular_recent/:period?"
       }
     ]
   },
@@ -22745,13 +22867,37 @@
     "_name": "MangaDex",
     ".": [
       {
-        "title": "Unknown",
-        "docs": "https://docs.rsshub.app/routes/other",
+        "title": "Single Manga Feed",
+        "docs": "https://docs.rsshub.app/routes/anime",
         "source": [
-          "/title/:id/*",
+          "/title/:id/:suffix",
           "/title/:id"
         ],
-        "target": "/mangadex/:id"
+        "target": "/mangadex/manga/:id"
+      },
+      {
+        "title": "MDList Feed",
+        "docs": "https://docs.rsshub.app/routes/anime",
+        "source": [
+          "/list/:id/:suffix"
+        ],
+        "target": "/mangadex/mdlist/:id"
+      },
+      {
+        "title": " Follows Feed",
+        "docs": "https://docs.rsshub.app/routes/anime",
+        "source": [
+          "/titles/feed"
+        ],
+        "target": "/mangadex/user/feed/follow"
+      },
+      {
+        "title": "Logged User's Followed Mangas Feed",
+        "docs": "https://docs.rsshub.app/routes/anime",
+        "source": [
+          "/titles/follows"
+        ],
+        "target": "/mangadex/user/follow/reading"
       }
     ]
   },
@@ -32991,6 +33137,19 @@
           "/zh/news.html"
         ],
         "target": "/slowmist/:type?"
+      }
+    ]
+  },
+  "smartlink.bio": {
+    "_name": "SmartLink",
+    ".": [
+      {
+        "title": "Posts",
+        "docs": "https://docs.rsshub.app/routes/social-media",
+        "source": [
+          "/"
+        ],
+        "target": "/smartlink/:site"
       }
     ]
   },
