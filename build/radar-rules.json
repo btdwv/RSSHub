@@ -3310,6 +3310,24 @@
   },
   "aibase.com": {
     "_name": "AIbase",
+    "www": [
+      {
+        "title": "AI日报",
+        "docs": "https://docs.rsshub.app/routes/new-media",
+        "source": [
+          "/zh/daily"
+        ],
+        "target": "/aibase/daily"
+      },
+      {
+        "title": "资讯",
+        "docs": "https://docs.rsshub.app/routes/new-media",
+        "source": [
+          "/zh/news"
+        ],
+        "target": "/aibase/news"
+      }
+    ],
     "top": [
       {
         "title": "发现",
@@ -4407,16 +4425,6 @@
         ],
         "target": "/aibase/topic/室内设计"
       }
-    ],
-    "www": [
-      {
-        "title": "资讯",
-        "docs": "https://docs.rsshub.app/routes/new-media",
-        "source": [
-          "/zh/news"
-        ],
-        "target": "/aibase/news"
-      }
     ]
   },
   "ainvest.com": {
@@ -4944,6 +4952,18 @@
           "/"
         ],
         "target": "/android/platform-tools-releases"
+      }
+    ],
+    "source": [
+      {
+        "title": "Security Bulletins",
+        "docs": "https://docs.rsshub.app/routes/program-update",
+        "source": [
+          "/docs/security/bulletin",
+          "/docs/security/bulletin/asb-overview",
+          "/"
+        ],
+        "target": "/android/security-bulletin"
       }
     ]
   },
@@ -7272,6 +7292,16 @@
           "/"
         ],
         "target": "/bupt/rczp"
+      }
+    ],
+    "scss": [
+      {
+        "title": "网络空间安全学院 - 通知公告",
+        "docs": "https://docs.rsshub.app/routes/university",
+        "source": [
+          "/index/tzgg1.htm"
+        ],
+        "target": "/bupt/scss/tzgg"
       }
     ]
   },
@@ -11484,6 +11514,80 @@
       }
     ]
   },
+  "daum.net": {
+    "_name": "daum",
+    "potplayer": [
+      {
+        "title": "Potplayer Update History",
+        "docs": "https://docs.rsshub.app/routes/program-update",
+        "source": [
+          "/"
+        ],
+        "target": "/daum(_,url)=>{const urlObj=new URL(url);const lang=urlObj.searchParams.get(\"lang\")??void 0;return`/daum/potplayer${lang?`/${lang}`:\"\"}`}"
+      }
+    ]
+  },
+  "daumcdn.net": {
+    "_name": "daum",
+    "t1": [
+      {
+        "title": "한국어",
+        "docs": "https://docs.rsshub.app/routes/program-update",
+        "source": [
+          "/potplayer/PotPlayer/v4/Update2/Update.html"
+        ],
+        "target": "/daum/potplayer"
+      },
+      {
+        "title": "中文(简体)",
+        "docs": "https://docs.rsshub.app/routes/program-update",
+        "source": [
+          "/potplayer/PotPlayer/v4/Update2/UpdateChs.html"
+        ],
+        "target": "/daum/potplayer/Chs"
+      },
+      {
+        "title": "中文(繁体)",
+        "docs": "https://docs.rsshub.app/routes/program-update",
+        "source": [
+          "/potplayer/PotPlayer/v4/Update2/UpdateCht.html"
+        ],
+        "target": "/daum/potplayer/Cht"
+      },
+      {
+        "title": "English",
+        "docs": "https://docs.rsshub.app/routes/program-update",
+        "source": [
+          "/potplayer/PotPlayer/v4/Update2/UpdateEng.html"
+        ],
+        "target": "/daum/potplayer/Eng"
+      },
+      {
+        "title": "Українська",
+        "docs": "https://docs.rsshub.app/routes/program-update",
+        "source": [
+          "/potplayer/PotPlayer/v4/Update2/UpdateEng.html"
+        ],
+        "target": "/daum/potplayer/Eng"
+      },
+      {
+        "title": "Русский",
+        "docs": "https://docs.rsshub.app/routes/program-update",
+        "source": [
+          "/potplayer/PotPlayer/v4/Update2/UpdateRus.html"
+        ],
+        "target": "/daum/potplayer/Rus"
+      },
+      {
+        "title": "Polski",
+        "docs": "https://docs.rsshub.app/routes/program-update",
+        "source": [
+          "/potplayer/PotPlayer/v4/Update2/UpdatePol.html"
+        ],
+        "target": "/daum/potplayer/Pol"
+      }
+    ]
+  },
   "dayanzai.me": {
     "_name": "大眼仔旭",
     ".": [
@@ -14759,6 +14863,55 @@
           "/"
         ],
         "target": "/gmcmonline/chinacustoms"
+      }
+    ]
+  },
+  "gmu.cn": {
+    "_name": "赣南医科大学",
+    ".": [
+      {
+        "title": "新闻中心",
+        "docs": "https://docs.rsshub.app/routes/university",
+        "source": [
+          "/xwzx/gyyw.htm",
+          "/"
+        ],
+        "target": "/gmu/news/gyyw"
+      },
+      {
+        "title": "新闻中心",
+        "docs": "https://docs.rsshub.app/routes/university",
+        "source": [
+          "/xwzx/ybdt.htm"
+        ],
+        "target": "/gmu/news/ybdt"
+      },
+      {
+        "title": "新闻中心",
+        "docs": "https://docs.rsshub.app/routes/university",
+        "source": [
+          "/xwzx/mtgy.htm"
+        ],
+        "target": "/gmu/news/mtgy"
+      },
+      {
+        "title": "新闻中心",
+        "docs": "https://docs.rsshub.app/routes/university",
+        "source": [
+          "/xwzx/xsjz.htm"
+        ],
+        "target": "/gmu/news/xsjz"
+      }
+    ],
+    "yjs": [
+      {
+        "title": "研究生院",
+        "docs": "https://docs.rsshub.app/routes/university",
+        "source": [
+          "/:type/:subtype.htm",
+          "/"
+        ],
+        "target": "/gmu/yjs/:type/:subtype"
       }
     ]
   },
@@ -30633,6 +30786,20 @@
           "/"
         ],
         "target": "/pwc/strategyand/sustainability"
+      }
+    ]
+  },
+  "python.org": {
+    "_name": "Python",
+    "www": [
+      {
+        "title": "Active Python Releases",
+        "docs": "https://docs.rsshub.app/routes/programming",
+        "source": [
+          "/",
+          "/downloads"
+        ],
+        "target": "/python/release"
       }
     ]
   },

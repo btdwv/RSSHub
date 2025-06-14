@@ -386,6 +386,9 @@
   "/ahjzu/news": [
     "Yuk-0v0"
   ],
+  "/aibase/daily": [
+    "3tuuu"
+  ],
   "/aibase/discover/:id?": [
     "nczitzk"
   ],
@@ -503,6 +506,9 @@
   ],
   "/android/platform-tools-releases": [
     "nczitzk"
+  ],
+  "/android/security-bulletin": [
+    "TonyRL"
   ],
   "/anime1anime/:category/:name": [
     "cxheng315"
@@ -1161,6 +1167,9 @@
   ],
   "/bupt/rczp": [
     "nczitzk"
+  ],
+  "/bupt/scss/tzgg": [
+    "ziri2004"
   ],
   "/byau/news/:type_id": [
     "ueiu"
@@ -1914,6 +1923,9 @@
   ],
   "/dataguidance/news": [
     "harveyqiu"
+  ],
+  "/daum/potplayer/:lang?": [
+    "nczitzk"
   ],
   "/dayanzai/:category/:fulltext?": [],
   "/dbaplus/": [
@@ -2973,6 +2985,12 @@
   ],
   "/gmcmonline/chinacustoms": [
     "nczitzk"
+  ],
+  "/gmu/news/:type?": [
+    "FrankFahey"
+  ],
+  "/gmu/yjs/:type/:subtype": [
+    "FrankFahey"
   ],
   "/go/jihs/idwr/:year?": [
     "nczitzk"
@@ -6146,6 +6164,9 @@
   ],
   "/pwc/strategyand/sustainability": [
     "mintyfrankie"
+  ],
+  "/python/release": [
+    "nczitzk"
   ],
   "/qbitai/category/:category": [
     "FuryMartin, Geraldxm"
