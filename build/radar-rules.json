@@ -23124,6 +23124,19 @@
       }
     ]
   },
+  "mathpix.com": {
+    "_name": "Mathpix",
+    ".": [
+      {
+        "title": "Blog",
+        "docs": "https://docs.rsshub.app/routes/blog",
+        "source": [
+          "/blog"
+        ],
+        "target": "/mathpix/blog"
+      }
+    ]
+  },
   "matters.town": {
     "_name": "Matters",
     ".": [
@@ -36973,6 +36986,19 @@
           "/"
         ],
         "target": "/tvb/news/:category?/:language?"
+      }
+    ]
+  },
+  "tver.jp": {
+    "_name": "TVer",
+    ".": [
+      {
+        "title": "Series",
+        "docs": "https://docs.rsshub.app/routes/traditional-media",
+        "source": [
+          "/series/:id"
+        ],
+        "target": "/tver/series/:id"
       }
     ]
   },
