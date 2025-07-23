@@ -4942,6 +4942,9 @@
   "/manhuagui/subscribe": [
     "shininome"
   ],
+  "/manus/blog": [
+    "cscnk52"
+  ],
   "/manyvids/profile/vids/:uid": [
     "TonyRL"
   ],
@@ -5409,6 +5412,9 @@
   ],
   "/newsmarket/:category?": [
     "nczitzk"
+  ],
+  "/newswav/": [
+    "TonyRL"
   ],
   "/newyorker/:category": [
     "EthanWng97",
