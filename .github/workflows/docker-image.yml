@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ main ]
   schedule:
-    - cron: "0 4 1 * *"
+    - cron: '0 4 1 * *'
   workflow_dispatch:  # 使得工作流可通过 GitHub UI 手动触发
 
 jobs:
@@ -41,5 +41,5 @@ jobs:
       with:
         context: ./ # 如果你的Dockerfile不在根目录，请调整路径
         push: true
-        tags: ghcr.io/${{ github.repository }}:latest
-        platforms: linux/amd64 #,linux/arm64 # 指定支持的平台
+        tags: ghcr.io/rsshub:latest
+        platforms: linux/amd64 # ,linux/arm64 # 指定支持的平台
