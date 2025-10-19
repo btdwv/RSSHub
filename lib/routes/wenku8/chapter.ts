@@ -1,16 +1,15 @@
 import { Route } from '@/types';
-import got from '@/utils/got';
 import { load } from 'cheerio';
-import iconv from 'iconv-lite';
+import puppeteer from '@/utils/puppeteer';
 
 export const route: Route = {
-    path: '/chapter/:id',
+    path: '/chapter2/:id',
     categories: ['reading'],
     example: '/wenku8/chapter/74',
     parameters: { id: '小说 id, 可在对应小说页 URL 中找到' },
     features: {
         requireConfig: false,
-        requirePuppeteer: false,
+        requirePuppeteer: true,
         antiCrawler: true,
         supportBT: false,
         supportPodcast: false,
@@ -23,15 +22,21 @@ export const route: Route = {
 
 async function handler(ctx) {
     const id = ctx.req.param('id');
-    const index = Number.parseInt(id / 1000);
+    const index = Math.floor(Number.parseInt(id) / 1000);
 
-    const response = await got({
-        method: 'get',
-        url: `https://www.wenku8.net/novel/${index}/${id}/index.htm`,
-        responseType: 'buffer',
+    // const browser = await puppeteer.launch({headless: true, args: ["--no-sandbox"]});
+    const browser = await puppeteer();
+    const page = await browser.newPage();
+    // 启用请求拦截功能，允许控制页面发出的网络请求
+    await page.setRequestInterception(true);
+    // 监听页面的所有请求，只允许文档类型的请求通过，其他资源（如图片、CSS、JS等）都被阻止。提高爬取速度，减少不必要的资源加载
+    page.on('request', (request) => {
+        request.resourceType() === 'document' ? request.continue() : request.abort();
     });
-
-    const responseHtml = iconv.decode(response.data, 'gbk');
+    await page.goto(`https://www.wenku8.net/novel/${index}/${id}/index.htm`);
+    await page.waitForSelector('#headlink', { timeout: 10000 });
+    const responseHtml = await page.evaluate(() => document.querySelector('body').innerHTML);
+    browser.close();
 
     const $ = load(responseHtml);
 
