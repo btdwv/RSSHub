@@ -53,6 +53,13 @@ async function handler(ctx) {
         return result;
     };
 
+    const genResult = (chapter) => ({
+        link: chapter.link,
+        guid: chapter.link,
+        title: chapter.title,
+        description: `<h1>${chapter.title}</h1>`.trim(),
+    });
+
     let bookTitle = '';
     let bookIntro = '';
     const fetchChaptorxData = async () => {
