@@ -3060,7 +3060,7 @@
     ]
   },
   "abc.net.au": {
-    "_name": "ABC News",
+    "_name": "ABC News (Australian Broadcasting Corporation)",
     ".": [
       {
         "title": "Channel & Topic",
@@ -21978,7 +21978,7 @@
     "_name": "鹰角网络",
     "aneot": [
       {
-        "title": "期刊",
+        "title": "回归线",
         "docs": "https://docs.rsshub.app/routes/game",
         "source": [
           "/"
@@ -30880,6 +30880,19 @@
           "/:language/:id"
         ],
         "target": "/ntdtv/:language/:id"
+      }
+    ]
+  },
+  "ntrblog.com": {
+    "_name": "NTR BLOG（寝取られブログ）",
+    ".": [
+      {
+        "title": "Articles",
+        "docs": "https://docs.rsshub.app/routes/anime",
+        "source": [
+          "/"
+        ],
+        "target": "/ntrblog/articles"
       }
     ]
   },
