@@ -37,7 +37,6 @@ jobs:
       - name: Cleanup old GHCR package versions
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
-          GH_TOKEN: ${{ secrets.PAT }}
           DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
           RETENTION_DAYS: ${{ github.event.inputs.retention_days || '30' }}
           PACKAGE_NAME: rsshub
