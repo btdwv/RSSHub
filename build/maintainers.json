@@ -401,6 +401,9 @@
   "/ahjzu/news": [
     "Yuk-0v0"
   ],
+  "/aiaa/journal/:journalID": [
+    "HappyZhu99"
+  ],
   "/aibase/daily": [
     "3tuuu"
   ],
@@ -698,6 +701,9 @@
   "/azul/downloads": [
     "nczitzk"
   ],
+  "/azurlane/news/:server/:type?": [
+    "AnitsuriW"
+  ],
   "/baai/hub/events": [
     "TonyRL"
   ],
@@ -953,7 +959,7 @@
   "/bilibili/popular/all/:embed?": [
     "ziminliu"
   ],
-  "/bilibili/ranking/:rid_index?/:embed?/:redirect1?/:redirect2?": [
+  "/bilibili/ranking/:rid?/:embed?/:redirect1?/:redirect2?": [
     "DIYgod",
     "hyoban"
   ],
@@ -1725,13 +1731,30 @@
     "Derekmini",
     "pseudoyu"
   ],
-  "/cnljxh/:category?/:id?": [],
+  "/cnljxh/news/:id?": [
+    "nczitzk"
+  ],
   "/cntheory/paper/:id?": [
     "nczitzk"
   ],
   "/cntv/:column": [
     "WhoIsSure",
     "Fatpandac"
+  ],
+  "/cnu/iec": [
+    "liueic"
+  ],
+  "/cnu/jdxw": [
+    "liueic"
+  ],
+  "/cnu/jwc": [
+    "liueic"
+  ],
+  "/cnu/physics": [
+    "liueic"
+  ],
+  "/cnu/smkxxy": [
+    "liueic"
   ],
   "/cockroachlabs/blog/:category?": [
     "CookiePieWw"
@@ -1858,6 +1881,9 @@
   "/cqgas/tqtz": [
     "Mai19930513"
   ],
+  "/cqu/jwc/:path{.+}?": [
+    "AhsokaTano26"
+  ],
   "/cqwu/news/:type?": [
     "Fatpandac"
   ],
@@ -1931,6 +1957,9 @@
   ],
   "/ctbu/xxgg": [
     "Skylwn"
+  ],
+  "/ctinews/topic/:topic?": [
+    "TonyRL"
   ],
   "/cts/:category": [
     "miles170"
@@ -2141,6 +2170,12 @@
     "blade0910"
   ],
   "/dgjyw*": [],
+  "/dgtle/article/:id?/:pushed?": [
+    "nczitzk"
+  ],
+  "/dgtle/news/:id?": [
+    "nczitzk"
+  ],
   "/dgut/jwb/:type?": [
     "1200522928"
   ],
@@ -3349,6 +3384,9 @@
   "/gov/maoming/*": [],
   "/gov/maonan/:category": [
     "ShuiHuo"
+  ],
+  "/gov/mee/nnsa/:category{.+}?": [
+    "nczitzk"
   ],
   "/gov/mee/ywdt/:category?": [
     "liuxsdev"
@@ -4582,6 +4620,9 @@
   "/jjwxc/book/:id?": [
     "nczitzk"
   ],
+  "/jl1mall/forum/:type?/:key?": [
+    "nczitzk"
+  ],
   "/jlu/jwc": [
     "mayouxi"
   ],
@@ -5576,6 +5617,12 @@
   "/nenu/sohac/*": [],
   "/nenu/yjsy/*": [],
   "/netflav/": [
+    "TonyRL"
+  ],
+  "/netflix/newsroom/:category?/:region?": [
+    "nczitzk"
+  ],
+  "/netflix/research": [
     "TonyRL"
   ],
   "/neu/bmie/:type": [
