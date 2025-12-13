@@ -1,6 +1,8 @@
-import { Route } from '@/types';
 import { load } from 'cheerio';
 import puppeteer from '@/utils/puppeteer';
+
+import type { Route } from '@/types';
+import got from '@/utils/got';
 
 export const route: Route = {
     path: '/chapter2/:id',
