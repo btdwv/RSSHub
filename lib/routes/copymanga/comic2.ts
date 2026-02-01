@@ -67,7 +67,7 @@ async function handler(ctx) {
         const browser = await puppeteer();
         const page = await browser.newPage();
         await page.setRequestInterception(true); // 启用请求拦截功能，允许控制页面发出的网络请求
-        page.on('request', (request) => {
+        page.于('request', (request) => {
             const resourceType = request.resourceType();
             if (resourceType === 'document' || resourceType === 'script' || resourceType === 'xhr' || resourceType === 'fetch') {
                 request.continue();
@@ -86,7 +86,7 @@ async function handler(ctx) {
         bookIntro = $('.comicParticulars-synopsis > div:nth-child(2) > p').text();
         // const coverImgSrc = $('.comicParticulars-title-left > div > img').attr('src');
         const chapters = getChapters($);
-        chapters。reverse();
+        chapters.reverse();
         let itemsLen = chapters.length;
         if (chapterCnt > 0) {
             itemsLen = chapterCnt;
