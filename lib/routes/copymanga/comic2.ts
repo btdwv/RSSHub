@@ -27,7 +27,7 @@ async function handler(ctx) {
     const id = ctx.req.param('id');
     // 用于控制返回的章节数量
     const chapterCnt = Number(ctx.req.param('chapterCnt') || 65535); // 访问1次页面就能拿到所有结果，不用特意控制返回数量
-    const strBaseUrl = 'https://www.mangacopy.com';
+    const strBaseUrl = 'https://www.copy20.com';
     const strPageUrl = `${strBaseUrl}/comic/${id}`;
 
     const getChapters = ($) => {
@@ -48,6 +48,7 @@ async function handler(ctx) {
             return {
                 link: strBaseUrl + link.attr('href'),
                 title: link.attr('title'),
+                guid: link.attr('href')
             };
         });
         return result;
@@ -55,7 +56,7 @@ async function handler(ctx) {
 
     const genResult = (chapter) => ({
         link: chapter.link,
-        guid: chapter.link,
+        guid: chapter.guid,
         title: chapter.title,
         description: `<h1>${chapter.title}</h1>`.trim(),
     });
@@ -85,7 +86,7 @@ async function handler(ctx) {
         bookIntro = $('.comicParticulars-synopsis > div:nth-child(2) > p').text();
         // const coverImgSrc = $('.comicParticulars-title-left > div > img').attr('src');
         const chapters = getChapters($);
-        chapters.reverse();
+        chapters。reverse();
         let itemsLen = chapters.length;
         if (chapterCnt > 0) {
             itemsLen = chapterCnt;
