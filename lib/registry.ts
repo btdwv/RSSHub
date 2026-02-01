@@ -12,6 +12,7 @@ import metrics from '@/routes/metrics';
 import robotstxt from '@/routes/robots.txt';
 import type { APIRoute, Namespace, Route } from '@/types';
 import { directoryImport } from '@/utils/directory-import';
+import { isWorker } from '@/utils/is-worker';
 import logger from '@/utils/logger';
 
 const __dirname = import.meta.dirname;
@@ -256,11 +257,11 @@ for (const namespace in namespaces) {
 app.get('/', index);
 app.get('/healthz', healthz);
 app.get('/robots.txt', robotstxt);
-if (config.debugInfo) {
+if (config.debugInfo !== 'false') {
     // Only enable tracing in debug mode
     app.get('/metrics', metrics);
 }
-if (!config.isPackage && !process.env.VERCEL_ENV) {
+if (!config.isPackage && !process.env.VERCEL_ENV && !isWorker) {
     app.use(
         '/*',
         serveStatic({
