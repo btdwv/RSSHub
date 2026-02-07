@@ -1,7 +1,8 @@
-import { Route } from '@/types';
-import cache from '@/utils/cache';
 import { load } from 'cheerio';
+
 import { config } from '@/config';
+import type { Route } from '@/types';
+import cache from '@/utils/cache';
 import puppeteer from '@/utils/puppeteer';
 
 export const route: Route = {
@@ -48,7 +49,7 @@ async function handler(ctx) {
             return {
                 link: strBaseUrl + link.attr('href'),
                 title: link.attr('title'),
-                guid: link.attr('href')
+                guid: link.attr('href'),
             };
         });
         return result;
@@ -67,7 +68,7 @@ async function handler(ctx) {
         const browser = await puppeteer();
         const page = await browser.newPage();
         await page.setRequestInterception(true); // 启用请求拦截功能，允许控制页面发出的网络请求
-        page.于('request', (request) => {
+        page.on('request', (request) => {
             const resourceType = request.resourceType();
             if (resourceType === 'document' || resourceType === 'script' || resourceType === 'xhr' || resourceType === 'fetch') {
                 request.continue();
