@@ -102,6 +102,7 @@ type ConfigEnvKeys =
     | 'EH_STAR'
     | 'EH_IMG_PROXY'
     | `EMAIL_CONFIG_${string}`
+    | 'F95ZONE_COOKIE'
     | 'FANBOX_SESSION_ID'
     | 'FANFOU_CONSUMER_KEY'
     | 'FANFOU_CONSUMER_SECRET'
@@ -117,6 +118,7 @@ type ConfigEnvKeys =
     | 'GUOZAOKE_COOKIES'
     | 'HEFENG_KEY'
     | 'HEFENG_API_HOST'
+    | 'HUITUN_COOKIE'
     | 'INFZM_COOKIE'
     | 'INITIUM_USERNAME'
     | 'INITIUM_PASSWORD'
@@ -392,6 +394,9 @@ export type Config = {
     email: {
         config: Record<string, string | undefined>;
     };
+    f95zone: {
+        cookie?: string;
+    };
     fanbox: {
         session?: string;
     };
@@ -426,6 +431,9 @@ export type Config = {
     hefeng: {
         key?: string;
         apiHost?: string;
+    };
+    huitun: {
+        cookie?: string;
     };
     infzm: {
         cookie?: string;
@@ -871,6 +879,9 @@ const calculateValue = () => {
         email: {
             config: email_config,
         },
+        f95zone: {
+            cookie: envs.F95ZONE_COOKIE,
+        },
         fanbox: {
             session: envs.FANBOX_SESSION_ID,
         },
@@ -905,6 +916,9 @@ const calculateValue = () => {
         hefeng: {
             key: envs.HEFENG_KEY,
             apiHost: envs.HEFENG_API_HOST,
+        },
+        huitun: {
+            cookie: envs.HUITUN_COOKIE,
         },
         infzm: {
             cookie: envs.INFZM_COOKIE,
