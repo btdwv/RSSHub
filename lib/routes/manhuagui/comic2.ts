@@ -1,9 +1,11 @@
-import { Route } from '@/types';
 import { load } from 'cheerio';
-import got from '@/utils/got';
+// import got from '@/utils/got';
 import LZString from 'lz-string';
+
+import type { Route } from '@/types';
 import { parseDate } from '@/utils/parse-date';
-import { decodeOriginalBody } from './decode-utils';
+// import { decodeOriginalBody } from './decode-utils';
+import puppeteer from '@/utils/puppeteer';
 
 let baseUrl = '';
 let originalBaseUrl = '';
@@ -52,11 +54,12 @@ export const route: Route = {
     parameters: { id: '漫画ID', chapterCnt: '返回章节的数量，默认为0，返回所有章节' },
     features: {
         requireConfig: false,
-        requirePuppeteer: false,
+        requirePuppeteer: true,
         antiCrawler: true,
         supportBT: false,
         supportPodcast: false,
         supportScihub: false,
+        nsfw: true,
     },
     radar: [
         {
@@ -95,6 +98,28 @@ async function handler(ctx) {
     baseUrl = strProxyAddr + baseUrl;
 
     const chapterCnt = Number(ctx.req.param('chapterCnt') || 0);
+
+    const browser = await puppeteer();
+    const page = await browser.newPage();
+    await page.setExtraHTTPHeaders({
+        Cookie: strProxyCookie,
+    });
+    await page.setRequestInterception(true); // 启用请求拦截功能，允许控制页面发出的网络请求
+    page.on('request', (request) => {
+        const resourceType = request.resourceType();
+        if (resourceType === 'document' || resourceType === 'script' || resourceType === 'xhr' || resourceType === 'fetch') {
+            request.continue();
+        } else {
+            request.abort();
+        }
+    }); // 监听页面的所有请求，允许文档、JS脚本和网络请求通过，其他资源（如图片、CSS等）被阻止。提高爬取速度，减少不必要的资源加载
+    await page.goto(`${baseUrl}/comic/${id}/`);
+    await page.waitForSelector('.chapter-list > ul', { timeout: 10000 });
+    const html = await page.evaluate(() => document.querySelector('body').innerHTML);
+    browser.close();
+    const $ = load(html);
+
+    /*
     const { data } = await got(`${baseUrl}/comic/${id}/`, {
         headers: {
             Cookie: strProxyCookie,
@@ -103,6 +128,7 @@ async function handler(ctx) {
 
     // 如果通过代理访问，需要进行解码
     const $ = load(strProxyAddr === '' ? data : decodeOriginalBody(data));
+    */
 
     if ($('#__VIEWSTATE').length > 0) {
         const n = LZString.decompressFromBase64($('#__VIEWSTATE').val());
@@ -136,7 +162,7 @@ async function handler(ctx) {
         $.newChapterCnt = 0;
         const chapters = getChapters($);
         const genResult = (chapter) => ({
-            link: chapter.link,
+            link: chapter.link.replace(strProxyAddr, ''),
             title: chapter.title,
             pubDate: chapter.pub_date,
             category: chapter.category,
