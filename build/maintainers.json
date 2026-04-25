@@ -5553,14 +5553,14 @@
   "/manhuagui/:domain?/comic/:id/:chapterCnt?": [
     "MegrezZhu"
   ],
+  "/manhuagui/subscribe": [
+    "shininome"
+  ],
   "/manhuagui/comic2/:id/:chapterCnt?": [
     "MegrezZhu"
   ],
   "/manhuagui/:domain?/comic2/:id/:chapterCnt?": [
     "MegrezZhu"
-  ],
-  "/manhuagui/subscribe": [
-    "shininome"
   ],
   "/manus/blog": [
     "cscnk52"

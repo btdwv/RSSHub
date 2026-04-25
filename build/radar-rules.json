@@ -29521,28 +29521,28 @@
         "target": "/manhuagui/comic/:id"
       },
       {
-        "title": "漫画更新",
-        "docs": "https://docs.rsshub.app/routes/anime",
-        "source": [
-          "/comic/:id/"
-        ],
-        "target": "/manhuagui/comic2/:id"
-      },
-      {
-        "title": "漫画更新",
-        "docs": "https://docs.rsshub.app/routes/anime",
-        "source": [
-          "/comic/:id/"
-        ],
-        "target": "/manhuagui/comic2/:id"
-      },
-      {
         "title": "漫画个人订阅",
         "docs": "https://docs.rsshub.app/routes/anime",
         "source": [
           "/user/book/shelf"
         ],
         "target": "/manhuagui/subscribe"
+      },
+      {
+        "title": "漫画更新",
+        "docs": "https://docs.rsshub.app/routes/anime",
+        "source": [
+          "/comic/:id/"
+        ],
+        "target": "/manhuagui/comic2/:id"
+      },
+      {
+        "title": "漫画更新",
+        "docs": "https://docs.rsshub.app/routes/anime",
+        "source": [
+          "/comic/:id/"
+        ],
+        "target": "/manhuagui/comic2/:id"
       }
     ]
   },
