@@ -1,11 +1,12 @@
 import { load } from 'cheerio';
-// import got from '@/utils/got';
 import LZString from 'lz-string';
 
 import type { Route } from '@/types';
+import got from '@/utils/got';
 import { parseDate } from '@/utils/parse-date';
-// import { decodeOriginalBody } from './decode-utils';
-import puppeteer from '@/utils/puppeteer';
+
+import { decodeOriginalBody } from './decode-utils';
+// import puppeteer from '@/utils/puppeteer';
 
 let baseUrl = '';
 let originalBaseUrl = '';
@@ -54,7 +55,7 @@ export const route: Route = {
     parameters: { id: '漫画ID', chapterCnt: '返回章节的数量，默认为0，返回所有章节' },
     features: {
         requireConfig: false,
-        requirePuppeteer: true,
+        requirePuppeteer: false,
         antiCrawler: true,
         supportBT: false,
         supportPodcast: false,
@@ -99,41 +100,41 @@ async function handler(ctx) {
 
     const chapterCnt = Number(ctx.req.param('chapterCnt') || 0);
 
-    const browser = await puppeteer();
-    const page = await browser.newPage();
-    // 强制设置Headers为Windows环境一致的值，避免Docker因为系统差异被WAF拦截
-    await page.setExtraHTTPHeaders({
-        Cookie: strProxyCookie,
-        Referer: originalBaseUrl,
-        'Accept-Language': 'zh-CN,zh;q=0.9', // 强制中文，避免Docker生成en-US被识别为异常
-        Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-    });
-    await page.setRequestInterception(true); // 启用请求拦截功能，允许控制页面发出的网络请求
-    page.on('request', (request) => {
-        const resourceType = request.resourceType();
-        if (resourceType === 'document' || resourceType === 'script' || resourceType === 'xhr' || resourceType === 'fetch') {
-            request.continue();
-        } else {
-            request.abort();
-        }
-    }); // 监听页面的所有请求，允许文档、JS脚本和网络请求通过，其他资源（如图片、CSS等）被阻止。提高爬取速度，减少不必要的资源加载
-    await page.goto(`${baseUrl}/comic/${id}/`);
-    await page.waitForSelector('.chapter-list > ul', { timeout: 10000 });
-    // await new Promise(resolve => setTimeout(resolve, 10000));
-    const html = await page.evaluate(() => document.querySelector('body').innerHTML);
-    browser.close();
-    const $ = load(html);
+    // const browser = await puppeteer();
+    // const page = await browser.newPage();
+    // // 强制设置Headers为Windows环境一致的值，避免Docker因为系统差异被WAF拦截
+    // await page.setExtraHTTPHeaders({
+    //     Cookie: strProxyCookie,
+    //     Referer: originalBaseUrl,
+    //     'Accept-Language': 'zh-CN,zh;q=0.9', // 强制中文，避免Docker生成en-US被识别为异常
+    //     Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+    // });
+    // await page.setRequestInterception(true); // 启用请求拦截功能，允许控制页面发出的网络请求
+    // page.on('request', (request) => {
+    //     const resourceType = request.resourceType();
+    //     if (resourceType === 'document' || resourceType === 'script' || resourceType === 'xhr' || resourceType === 'fetch') {
+    //         request.continue();
+    //     } else {
+    //         request.abort();
+    //     }
+    // }); // 监听页面的所有请求，允许文档、JS脚本和网络请求通过，其他资源（如图片、CSS等）被阻止。提高爬取速度，减少不必要的资源加载
+    // await page.goto(`${baseUrl}/comic/${id}/`);
+    // await page.waitForSelector('.chapter-list > ul', { timeout: 10000 });
+    // // await new Promise(resolve => setTimeout(resolve, 10000));
+    // const html = await page.evaluate(() => document.querySelector('body').innerHTML);
+    // browser.close();
+    // const $ = load(html);
 
-    /*
     const { data } = await got(`${baseUrl}/comic/${id}/`, {
         headers: {
             Cookie: strProxyCookie,
+            'Accept-Language': 'zh-CN,zh;q=0.9',
+            Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
         },
     });
 
     // 如果通过代理访问，需要进行解码
     const $ = load(strProxyAddr === '' ? data : decodeOriginalBody(data));
-    */
 
     if ($('#__VIEWSTATE').length > 0) {
         const n = LZString.decompressFromBase64($('#__VIEWSTATE').val());
