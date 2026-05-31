@@ -3,7 +3,7 @@ import { load } from 'cheerio';
 import { config } from '@/config';
 import type { Route } from '@/types';
 import cache from '@/utils/cache';
-import puppeteer from '@/utils/puppeteer';
+import playwright from '@/utils/playwright';
 
 export const route: Route = {
     path: '/comic2/:id/:chapterCnt?',
@@ -17,6 +17,7 @@ export const route: Route = {
         supportBT: false,
         supportPodcast: false,
         supportScihub: false,
+        nsfw: true,
     },
     name: '漫画更新',
     maintainers: ['btdwv'],
@@ -65,7 +66,7 @@ async function handler(ctx) {
     let bookTitle = '';
     let bookIntro = '';
     const fetchChaptorxData = async () => {
-        const browser = await puppeteer();
+        const browser = await playwright();
         const page = await browser.newPage();
         await page.setRequestInterception(true); // 启用请求拦截功能，允许控制页面发出的网络请求
         page.on('request', (request) => {

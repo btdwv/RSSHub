@@ -1,9 +1,10 @@
-import { Route } from '@/types';
 import { load } from 'cheerio';
-import { parseDate } from '@/utils/parse-date';
-import timezone from '@/utils/timezone';
+
 import { config } from '@/config';
-import puppeteer from '@/utils/puppeteer';
+import type { Route } from '@/types';
+import { parseDate } from '@/utils/parse-date';
+import playwright from '@/utils/playwright';
+import timezone from '@/utils/timezone';
 
 export const route: Route = {
     path: '/post2/:tid/:authorId?',
@@ -69,7 +70,7 @@ async function handler(ctx) {
     const getPage = async (tid, authorId, pageId = 1) => {
         const link = getPageUrl(tid, authorId, pageId);
         const timestamp = Math.floor(Date.now() / 1000);
-        const browser = await puppeteer();
+        const browser = await playwright();
         const page = await browser.newPage();
         await page.setCookie({
             name: 'guestJs',

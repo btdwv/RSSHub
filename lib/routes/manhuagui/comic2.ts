@@ -6,7 +6,7 @@ import got from '@/utils/got';
 import { parseDate } from '@/utils/parse-date';
 
 import { decodeOriginalBody } from './decode-utils';
-// import puppeteer from '@/utils/puppeteer';
+// import playwright from '@/utils/playwright';
 
 let baseUrl = '';
 let originalBaseUrl = '';
@@ -100,7 +100,7 @@ async function handler(ctx) {
 
     const chapterCnt = Number(ctx.req.param('chapterCnt') || 0);
 
-    // const browser = await puppeteer();
+    // const browser = await playwright();
     // const page = await browser.newPage();
     // // 强制设置Headers为Windows环境一致的值，避免Docker因为系统差异被WAF拦截
     // await page.setExtraHTTPHeaders({

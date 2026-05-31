@@ -1,8 +1,7 @@
 import { load } from 'cheerio';
-import puppeteer from '@/utils/puppeteer';
 
 import type { Route } from '@/types';
-import got from '@/utils/got';
+import playwright from '@/utils/playwright';
 
 export const route: Route = {
     path: '/chapter2/:id',
@@ -26,8 +25,8 @@ async function handler(ctx) {
     const id = ctx.req.param('id');
     const index = Math.floor(Number.parseInt(id) / 1000);
 
-    // const browser = await puppeteer.launch({headless: true, args: ["--no-sandbox"]});
-    const browser = await puppeteer();
+    // const browser = await playwright.launch({headless: true, args: ["--no-sandbox"]});
+    const browser = await playwright();
     const page = await browser.newPage();
     // 启用请求拦截功能，允许控制页面发出的网络请求
     await page.setRequestInterception(true);
