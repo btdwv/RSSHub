@@ -98,17 +98,20 @@ async function handler(ctx) {
                 request.abort();
             }
         });
-        await page.goto(link);
-        // 如果没登陆就打开页面，页面可能提示“加载中 请稍候”，页面标题是“访客不能直接访问”，此时需要等待自动跳转
-        const pageContent = await page.content();
-        if (pageContent.includes('访客不能直接访问')) {
-            await new Promise((resolve) => setTimeout(resolve, 3000));
-        }
+        try {
+            await page.goto(link, { timeout: 30000, waitUntil: 'domcontentloaded' });
+            // 如果没登陆就打开页面，页面可能提示”加载中 请稍候”，页面标题是”访客不能直接访问”，此时需要等待自动跳转
+            const pageContent = await page.content();
+            if (pageContent.includes('访客不能直接访问')) {
+                await new Promise((resolve) => setTimeout(resolve, 3000));
+            }
 
-        const responseHtml = await page.evaluate(() => document.querySelector('html')?.innerHTML || '');
-        const $ = load(responseHtml);
-        browser.close();
-        return $;
+            const responseHtml = await page.evaluate(() => document.querySelector('html')?.innerHTML || '');
+            const $ = load(responseHtml);
+            return $;
+        } finally {
+            browser.close();
+        }
     };
 
     const getLastPageId = async (tid, authorId) => {

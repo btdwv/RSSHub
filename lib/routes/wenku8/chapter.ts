@@ -34,10 +34,14 @@ async function handler(ctx) {
     page.on('request', (request) => {
         request.resourceType() === 'document' ? request.continue() : request.abort();
     });
-    await page.goto(`https://www.wenku8.net/novel/${index}/${id}/index.htm`);
-    await page.waitForSelector('#headlink', { timeout: 10000 });
-    const responseHtml = await page.evaluate(() => document.querySelector('body').innerHTML);
-    browser.close();
+    let responseHtml;
+    try {
+        await page.goto(`https://www.wenku8.net/novel/${index}/${id}/index.htm`, { timeout: 30000, waitUntil: 'domcontentloaded' });
+        await page.waitForSelector('#headlink', { timeout: 10000 });
+        responseHtml = await page.evaluate(() => document.querySelector('body').innerHTML);
+    } finally {
+        browser.close();
+    }
 
     const $ = load(responseHtml);
 

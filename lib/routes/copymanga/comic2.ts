@@ -78,11 +78,15 @@ async function handler(ctx) {
             }
         }); // 监听页面的所有请求，允许文档、JS脚本和网络请求通过，其他资源（如图片、CSS等）被阻止。提高爬取速度，减少不必要的资源加载
 
-        await page.goto(strPageUrl);
-        await page.waitForSelector('.table-default-box > div > div > ul', { timeout: 10000 });
-        // await new Promise(resolve => setTimeout(resolve, 3000));// 加载页面后，页面通过js动态加载章节，等待3秒再继续
-        const html = await page.evaluate(() => document.querySelector('body').innerHTML);
-        browser.close();
+        let html;
+        try {
+            await page.goto(strPageUrl, { timeout: 30000, waitUntil: 'domcontentloaded' });
+            await page.waitForSelector('.table-default-box > div > div > ul', { timeout: 10000 });
+            // await new Promise(resolve => setTimeout(resolve, 3000));// 加载页面后，页面通过js动态加载章节，等待3秒再继续
+            html = await page.evaluate(() => document.querySelector('body').innerHTML);
+        } finally {
+            browser.close();
+        }
         const $ = load(html);
         bookTitle = $('.comicParticulars-title-right > ul > li:nth-child(1) > h6').text();
         bookIntro = $('.comicParticulars-synopsis > div:nth-child(2) > p').text();
