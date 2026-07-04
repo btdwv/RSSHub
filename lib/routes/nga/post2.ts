@@ -70,31 +70,34 @@ async function handler(ctx) {
     const getPage = async (tid, authorId, pageId = 1) => {
         const link = getPageUrl(tid, authorId, pageId);
         const timestamp = Math.floor(Date.now() / 1000);
-        const browser = await playwright();
-        const page = await browser.newPage();
-        await page.setCookie({
+        const context = await playwright();
+        const page = await context.newPage();
+        await context.addCookies([{
             name: 'guestJs',
             value: timestamp.toString(),
             domain: '.nga.178.com',
-        });
+            path: '/',
+        }]);
         if (config.nga.uid && config.nga.cid) {
-            await page.setCookie({
+            await context.addCookies([{
                 name: 'ngaPassportUid',
                 value: config.nga.uid,
                 domain: '.nga.178.com',
-            });
-            await page.setCookie({
+                path: '/',
+            }]);
+            await context.addCookies([{
                 name: 'ngaPassportCid',
                 value: config.nga.cid,
                 domain: '.nga.178.com',
-            });
+                path: '/',
+            }]);
         }
-        await page.setRequestInterception(true);
-        page.on('request', (request) => {
-            if (request.resourceType() === 'document' || request.resourceType() === 'script') {
-                request.continue();
+        await page.route('**/*', (route) => {
+            const resourceType = route.request().resourceType();
+            if (resourceType === 'document' || resourceType === 'script') {
+                route.continue();
             } else {
-                request.abort();
+                route.abort();
             }
         });
         try {
@@ -108,7 +111,7 @@ async function handler(ctx) {
             const $ = load(responseHtml);
             return $;
         } finally {
-            browser.close();
+            context.close();
         }
     };
 
@@ -125,12 +128,13 @@ async function handler(ctx) {
 
     const $ = await getPage(tid, authorId, pageId);
     const title = $('title').text() || '';
-    const posterMap = JSON.parse(
-        $('script')
-            .text()
-            .match(/commonui\.userInfo\.setAll\((.*)\)$/m)[1]
-    );
-    const authorName = authorId ? posterMap[authorId].username : undefined;
+    const scriptContent = $('script').text();
+    const userInfoMatch = scriptContent.match(/commonui\.userInfo\.setAll\((.*)\)$/m);
+    if (!userInfoMatch) {
+        throw new Error('Failed to parse user info from page');
+    }
+    const posterMap = JSON.parse(userInfoMatch[1]);
+    const authorName = authorId ? posterMap[authorId]?.username : undefined;
 
     const items = $('#m_posts_c')
         .children()
@@ -138,12 +142,13 @@ async function handler(ctx) {
         .toArray()
         .map((post_) => {
             const post = $(post_);
-            const posterId = post
+            const posterIdMatch = post
                 .find('.posterinfo a')
                 .first()
                 .attr('href')
-                .match(/&uid=(-?\d+)$/)[1];
-            const poster = authorName || posterMap[posterId].username;
+                ?.match(/&uid=(-?\d+)$/);
+            const posterId = posterIdMatch?.[1];
+            const poster = authorName || posterMap[posterId]?.username || 'unknown';
             const content = post.find('.postcontent').first();
             const description = formatContent(content.html());
             const postId = content.attr('id');
