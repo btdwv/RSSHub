@@ -2,7 +2,7 @@ import { Route } from '@/types';
 import cache from '@/utils/cache';
 import { load } from 'cheerio';
 import { config } from '@/config';
-import puppeteer from '@/utils/puppeteer';
+import playwright from '@/utils/playwright'
 import { decodeOriginalBody } from './decode-utils';
 
 export const route: Route = {
@@ -35,7 +35,7 @@ async function handler(ctx) {
     const strProxyPageUrl = `${strProxyAddr}${strPageUrl}`; // 通过cloudflare搭建的代理 https://github.com/gaboolic/cloudflare-reverse-proxy  https://github.com/1234567Yang/cf-proxy-ex
 
     const fetchChaptorxData = async () => {
-        const browser = await puppeteer();
+        const browser = await playwright();
         const page = await browser.newPage();
         await page.setRequestInterception(true); // 启用请求拦截功能，允许控制页面发出的网络请求
         page.on('request', (request) => {
