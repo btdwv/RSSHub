@@ -51,7 +51,21 @@ async function handler(ctx) {
     const sTitle = mangaData.title; // 标题
     const sDescription = mangaData.description; // 简介
     const sAuthor = mangaData.author; // 作者
-    const sSource = mangaData.source.name; // 来源
+    // 通过 sourceId 单独请求 source 接口
+    const sourceId = mangaData.sourceId;
+    let sSource = '未知来源';
+    if (sourceId) {
+        const sourceUrl = `${rootUrl}/api/v1/source/${sourceId}`;
+        const getSourceInfo = async () => {
+            const { data } = await got({
+                method: 'get',
+                url: sourceUrl,
+            });
+            return data;
+        };
+        const sourceData = await cache.tryGet(sourceUrl, getSourceInfo, config.cache.routeExpire, false);
+        sSource = sourceData.name || '未知来源';
+    }
 
     const fetchChaptorxData = async () => {
         const { data } = await got({
