@@ -68,15 +68,14 @@ async function handler(ctx) {
     const fetchChaptorxData = async () => {
         const browser = await playwright();
         const page = await browser.newPage();
-        await page.setRequestInterception(true); // 启用请求拦截功能，允许控制页面发出的网络请求
-        page.on('request', (request) => {
-            const resourceType = request.resourceType();
-            if (resourceType === 'document' || resourceType === 'script' || resourceType === 'xhr' || resourceType === 'fetch') {
-                request.continue();
+        await page.route('**/*', (route) => {
+            const resourceType = route.request().resourceType();
+            if (['document', 'script', 'xhr', 'fetch'].includes(resourceType)) {
+                route.continue();
             } else {
-                request.abort();
+                route.abort();
             }
-        }); // 监听页面的所有请求，允许文档、JS脚本和网络请求通过，其他资源（如图片、CSS等）被阻止。提高爬取速度，减少不必要的资源加载
+        });
 
         let html;
         try {

@@ -28,11 +28,8 @@ async function handler(ctx) {
     // const browser = await playwright.launch({headless: true, args: ["--no-sandbox"]});
     const browser = await playwright();
     const page = await browser.newPage();
-    // 启用请求拦截功能，允许控制页面发出的网络请求
-    await page.setRequestInterception(true);
-    // 监听页面的所有请求，只允许文档类型的请求通过，其他资源（如图片、CSS、JS等）都被阻止。提高爬取速度，减少不必要的资源加载
-    page.on('request', (request) => {
-        request.resourceType() === 'document' ? request.continue() : request.abort();
+    await page.route('**/*', (route) => {
+        route.request().resourceType() === 'document' ? route.continue() : route.abort();
     });
     let responseHtml;
     try {
