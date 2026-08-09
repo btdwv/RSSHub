@@ -37,17 +37,20 @@ async function handler(ctx) {
     const fetchChaptorxData = async () => {
         const browser = await playwright();
         const page = await browser.newPage();
-        await page.setRequestInterception(true); // 启用请求拦截功能，允许控制页面发出的网络请求
-        page.on('request', (request) => {
-            request.resourceType() === 'document' ? request.continue() : request.abort(); // 监听页面的所有请求，只允许文档类型的请求通过，其他资源（如图片、CSS、JS等）都被阻止。提高爬取速度，减少不必要的资源加载
+        // patchright 不支持 setRequestInterception，改用 page.route() 拦截请求
+        // 只允许文档类型的请求通过，其他资源（如图片、CSS、JS等）都被阻止。提高爬取速度，减少不必要的资源加载
+        await page.route('**/*', (route) => {
+            route.request().resourceType() === 'document' ? route.continue() : route.abort();
         });
         if (strProxyPwd !== '' && strProxyAddr !== '') {
-            await page.setCookie({
-                name: '__PROXY_PWD__',
-                value: strProxyPwd,
-                domain: strProxyAddr.replace('https://', '').replace('/', ''),
-                path: '/',
-            });
+            await browser.addCookies([
+                {
+                    name: '__PROXY_PWD__',
+                    value: strProxyPwd,
+                    domain: strProxyAddr.replace('https://', '').replace('/', ''),
+                    path: '/',
+                },
+            ]);
         }
         await page.goto(strProxyPageUrl);
         const html = await page.evaluate(() => document.querySelector('body')?.innerHTML || '');
