@@ -20,15 +20,17 @@ jobs:
         permissions:
             security-events: write
         steps:
-            - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-            - uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6.0.9
-            - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+            - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+            - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
               with:
                   node-version: lts/*
                   cache: 'pnpm'
             - run: pnpm i
             - name: Install oxlint to SARIF converter
               run: pnpm i -g oxlint-json-to-sarif
+            - name: Typecheck
+              run: pnpm typecheck
             - name: Lint
               run: pnpm exec oxlint --type-aware --config=.oxlintrc.ci.json
                   --format=json | oxlint-json-to-sarif > oxlint-results.sarif
@@ -65,7 +67,7 @@ jobs:
         runs-on: ubuntu-slim
         timeout-minutes: 5
         steps:
-            - uses: actions/labeler@b8dd2d9be0f68b860e7dae5dae7d772984eacd6d # v6.2.0
+            - uses: actions/labeler@bf12e9b00b37c5c0ca2b87b79b2daf7891dbda13 # v7.0.0
               with:
                   repo-token: ${{ secrets.GITHUB_TOKEN }}
                   sync-labels: true
@@ -81,13 +83,20 @@ jobs:
         timeout-minutes: 5
         steps:
             - name: Check if PR author is denounced
-              uses: mitchellh/vouch/action/check-pr@c6d80ead49839655b61b422700b7a3bc9d0804a9 # v1.4.2
+              id: vouch
+              uses: mitchellh/vouch/action/check-pr@d66fa29a64600490892131ad87597c30c91fcac4 # v1.5.0
               with:
                   pr-number: ${{ github.event.pull_request.number }}
                   auto-close: true
                   require-vouch: false
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            - name: Label denounced PR as spam
+              if: ${{ steps.vouch.outputs.status == 'closed' }}
+              run: gh pr edit ${{ github.event.pull_request.number }} --add-label spam
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GH_REPO: ${{ github.repository }}
 
     agentscan:
         name: AgentScan
@@ -99,15 +108,8 @@ jobs:
         runs-on: ubuntu-slim
         timeout-minutes: 10
         steps:
-            - name: Cache AgentScan analysis
-              uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-              with:
-                  path: .agentscan-cache
-                  key: agentscan-cache-${{ github.actor }}
-                  restore-keys: agentscan-cache-
-
             - name: AgentScan
-              uses: MatteoGabriele/agentscan-action@c7d61446e7aece6bdd3edcee4558bbfc0392615e # v2.0.1
+              uses: MatteoGabriele/agentscan-action@8112fb79b33fafb8506159df20129a34209ac410 # v2.5.0
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
                   trusted-author-associations: 'collaborator,member,owner'
@@ -134,6 +136,7 @@ jobs:
                   exempt-label: exempt
                   failure-add-pr-labels: spam
                   failure-pr-message: |
-                      Thanks for the contribution. This PR was automatically closed because
-                      it matched multiple low-quality/spam signals.
+                      Thanks for the contribution. This PR was automatically closed because it matched multiple low-quality/spam [signals](https://github.com/peakoss/anti-slop).
                   lock-pr: false
+                  max-changed-lines: 1000
+                  max-description-length: 2000

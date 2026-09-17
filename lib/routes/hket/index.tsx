@@ -139,16 +139,16 @@ async function handler(ctx) {
 
     const $ = load(response);
 
-    const list = $('.main-listing-container div.listing-title > a')
+    const list: DataItem[] = $('.main-listing-container div.listing-title > a')
         .toArray()
         .map((item) => {
-            item = $(item);
-            const url = item.parent().parent().find('.share-button').data('url');
+            const $item = $(item);
+            const url = $item.parent().parent().find('.share-button').data('url') as string;
             return {
-                title: item.text().trim(),
+                title: $item.text().trim(),
                 link: url.startsWith('http') ? url : baseUrl + url,
             };
-        }) as DataItem[];
+        });
 
     const items = await Promise.all(
         list.map((item) =>
@@ -209,14 +209,15 @@ async function handler(ctx) {
 
                 // fix lazyload image and caption
                 $('img').each((_, e) => {
-                    e = $(e);
-                    e.replaceWith(renderImage(e.data('alt'), e.data('src') ?? e.attr('src')));
+                    const $e = $(e);
+                    $e.replaceWith(renderImage($e.data('alt'), $e.data('src') ?? $e.attr('src')));
                 });
 
                 const ldJson = JSON.parse(
                     $('script[type="application/ld+json"]')
-                        .toArray()
-                        .find((e) => $(e).text().includes('NewsArticle'))?.children[0].data
+                        .filter((_, e) => $(e).text().includes('NewsArticle'))
+                        .first()
+                        .text()
                 );
 
                 item.description = $('div.article-detail-body-container').html()!;
@@ -229,10 +230,10 @@ async function handler(ctx) {
     );
 
     return {
-        title: $('head meta[name=title]').attr('content')?.trim(),
+        title: $('head meta[name=title]').attr('content')?.trim() ?? '',
         link: baseUrl + '/' + category,
         description: $('head meta[name=description]').attr('content')?.trim(),
         item: items,
-        language: 'zh-hk',
+        language: 'zh-HK' as const,
     };
 }

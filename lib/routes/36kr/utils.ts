@@ -42,6 +42,10 @@ export const getWafTokenId = () =>
             const payload = $('script')
                 .text()
                 .match(/atob\('(.*?)'\)\),/)?.[1];
+            if (!payload) {
+                return;
+            }
+
             const response = solveWafChallenge(payload);
 
             const tokenIdResponse = await ofetch.raw(rootUrl, {
@@ -57,7 +61,7 @@ export const getWafTokenId = () =>
                 ?.split(';', 1)[0]
                 .split('=', 2)[1];
 
-            return _wafTokenId as string;
+            return _wafTokenId;
         },
         300, // server-provided value
         false

@@ -1,6 +1,6 @@
 import { load } from 'cheerio';
 
-import type { Route } from '@/types';
+import type { DataItem, Language, Route } from '@/types';
 import cache from '@/utils/cache';
 import got from '@/utils/got';
 import { parseDate } from '@/utils/parse-date';
@@ -662,13 +662,13 @@ async function handler(ctx) {
     let items = $('ul.u-list li a')
         .slice(0, limit)
         .toArray()
-        .map((item) => {
-            item = $(item);
+        .map((item): DataItem & { link: string } => {
+            const $item = $(item);
 
             return {
-                title: item.prop('title') || item.text(),
-                link: new URL(item.prop('href'), currentUrl).href,
-                pubDate: parseDate(item.next().text(), 'YYYY/MM/DD'),
+                title: $item.prop('title') || $item.text(),
+                link: new URL($item.prop('href')!, currentUrl).href,
+                pubDate: parseDate($item.next().text(), 'YYYY/MM/DD'),
             };
         });
 
@@ -694,12 +694,14 @@ async function handler(ctx) {
 
     const image = $('div.logo a img').prop('src');
 
+    const language = $('html').prop('lang') as Language;
+
     return {
         item: items,
         title: $('title').text(),
         link: currentUrl,
         description: $('meta[name="ColumnDescription"]').prop('content'),
-        language: $('html').prop('lang'),
+        language,
         image,
         subtitle: $('meta[name="ColumnName"]').prop('content'),
         author: $('meta[name="SiteName"]').prop('content'),

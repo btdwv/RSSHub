@@ -1,6 +1,6 @@
 import { load } from 'cheerio';
 
-import type { Route } from '@/types';
+import type { Data, DataItem, Route } from '@/types';
 import cache from '@/utils/cache';
 import got from '@/utils/got';
 import { parseDate } from '@/utils/parse-date';
@@ -34,7 +34,7 @@ export const route: Route = {
 | 代码 | xyxw     | tzgg     | jyjx     | xsgz     | zsjy     |`,
 };
 
-async function handler(ctx) {
+async function handler(ctx): Promise<Data> {
     const url = `https://www.swpu.edu.cn/is/xydt/${ctx.req.param('code')}.htm`;
 
     const res = await got(url);
@@ -45,15 +45,15 @@ async function handler(ctx) {
 
     const items = $('tr[height="20"]')
         .toArray()
-        .map((elem) => ({
+        .map((elem): DataItem => ({
             title: $('a[title]', elem).text().trim(),
             pubDate: timezone(parseDate($('td:eq(1)', elem).text(), 'YYYY年MM月DD日'), 8),
-            link: `https://www.swpu.edu.cn/is/${$('a[href]', elem).attr('href').split('../', 2)[1]}`,
+            link: `https://www.swpu.edu.cn/is/${$('a[href]', elem).attr('href')!.split('../', 2)[1]}`,
         }));
 
     const out = await Promise.all(
         items.map((item) =>
-            cache.tryGet(item.link, async () => {
+            cache.tryGet(item.link!, async () => {
                 const res = await got(item.link);
                 const $ = load(res.data);
                 if ($('title').text().startsWith('系统提示')) {

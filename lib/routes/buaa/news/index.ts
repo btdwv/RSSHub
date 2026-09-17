@@ -48,19 +48,19 @@ async function handler(ctx: Context): Promise<Data> {
             };
         });
 
-    const result = (await Promise.all(
+    const result = await Promise.all(
         list.map((item) =>
             cache.tryGet(item.link!, async () => {
                 const response = await got(item.link);
                 const $ = load(response.data);
 
-                item.description = $('.v_news_content').html() || '';
+                item.description = $('.v_news_content').html();
                 item.author = $('.vsbcontent_end').text().trim();
 
                 return item;
             })
         )
-    )) as DataItem[];
+    );
 
     return {
         title: `北航新闻 - ${title}`,

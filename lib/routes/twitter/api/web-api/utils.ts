@@ -1,7 +1,7 @@
 import { cookie as HttpCookieAgentCookie, CookieAgent } from 'http-cookie-agent/undici';
 import queryString from 'query-string';
 import { Cookie, CookieJar } from 'tough-cookie';
-import undici, { Client, ProxyAgent } from 'undici';
+import undici, { ProxyAgent } from 'undici';
 
 import { config } from '@/config';
 import ConfigNotFoundError from '@/errors/types/config-not-found';
@@ -11,7 +11,9 @@ import ofetch from '@/utils/ofetch';
 import proxy from '@/utils/proxy';
 
 import { baseUrl, bearerToken, gqlFeatures, gqlMap, thirdPartySupportedAPI } from './constants';
-import login from './login';
+// import login from './login';
+
+export type ApiParams = Record<string, string | number | boolean | undefined>;
 
 let authTokenIndex = 0;
 
@@ -25,9 +27,8 @@ const token2Cookie = async (token) => {
     try {
         const agent = proxy.proxyUri
             ? new ProxyAgent({
-                  factory: (origin, opts) => new Client(origin as string, opts).compose(HttpCookieAgentCookie({ jar })),
                   uri: proxy.proxyUri,
-              })
+              }).compose(HttpCookieAgentCookie({ jar }))
             : new CookieAgent({ cookies: { jar } });
         if (token) {
             await ofetch('https://x.com', {
@@ -69,9 +70,9 @@ const getAuth = async (retry: number) => {
     await cache.set(`${lockPrefix}${token}`, '1', 20);
     return {
         token,
-        username: config.twitter.username?.[index],
-        password: config.twitter.password?.[index],
-        authenticationSecret: config.twitter.authenticationSecret?.[index],
+        // username: config.twitter.username?.[index],
+        // password: config.twitter.password?.[index],
+        // authenticationSecret: config.twitter.authenticationSecret?.[index],
     };
 };
 
@@ -90,14 +91,14 @@ export const twitterGot = async (
 
     const requestUrl = `${url}?${queryString.stringify(params)}`;
 
-    let cookie: string | Record<string, any> | null | undefined = await token2Cookie(auth?.token);
-    if (!cookie && auth) {
-        cookie = await login({
-            username: auth.username,
-            password: auth.password,
-            authenticationSecret: auth.authenticationSecret,
-        });
-    }
+    const cookie = await token2Cookie(auth?.token);
+    // if (!cookie && auth) {
+    //     cookie = await login({
+    //         username: auth.username,
+    //         password: auth.password,
+    //         authenticationSecret: auth.authenticationSecret,
+    //     });
+    // }
     let dispatchers:
         | {
               jar: CookieJar;
@@ -106,15 +107,11 @@ export const twitterGot = async (
         | undefined;
     if (cookie) {
         logger.debug(`twitter debug: got twitter cookie for token ${auth?.token}`);
-        if (typeof cookie === 'string') {
-            cookie = JSON.parse(cookie);
-        }
-        const jar = CookieJar.deserializeSync(cookie as any);
+        const jar = CookieJar.deserializeSync(JSON.parse(cookie));
         const agent = proxy.proxyUri
             ? new ProxyAgent({
-                  factory: (origin, opts) => new Client(origin as string, opts).compose(HttpCookieAgentCookie({ jar })),
                   uri: proxy.proxyUri,
-              })
+              }).compose(HttpCookieAgentCookie({ jar }))
             : new CookieAgent({ cookies: { jar } });
         if (proxy.proxyUri) {
             logger.debug(`twitter debug: Proxying request: ${requestUrl}`);
@@ -199,35 +196,35 @@ export const twitterGot = async (
             logger.debug(`twitter debug: twitter rate limit exceeded for token ${auth.token} with status ${response.status}`);
             await cache.set(`${lockPrefix}${auth.token}`, '1', 2000);
         } else if (response.status === 403 || response.status === 401) {
-            const newCookie = await login({
-                username: auth.username,
-                password: auth.password,
-                authenticationSecret: auth.authenticationSecret,
-            });
-            if (newCookie) {
-                logger.debug(`twitter debug: reset twitter cookie for token ${auth.token}, ${newCookie}`);
-                await cache.set(`twitter:cookie:${auth.token}`, newCookie, config.cache.contentExpire);
-                await cache.set(`${lockPrefix}${auth.token}`, '', 1);
-            } else {
-                const tokenIndex = config.twitter.authToken?.indexOf(auth.token);
-                if (tokenIndex !== undefined && tokenIndex !== -1) {
-                    config.twitter.authToken?.splice(tokenIndex, 1);
-                }
-                if (auth.username) {
-                    const usernameIndex = config.twitter.username?.indexOf(auth.username);
-                    if (usernameIndex !== undefined && usernameIndex !== -1) {
-                        config.twitter.username?.splice(usernameIndex, 1);
-                    }
-                }
-                if (auth.password) {
-                    const passwordIndex = config.twitter.password?.indexOf(auth.password);
-                    if (passwordIndex !== undefined && passwordIndex !== -1) {
-                        config.twitter.password?.splice(passwordIndex, 1);
-                    }
-                }
-                logger.debug(`twitter debug: delete twitter cookie for token ${auth.token} with status ${response.status}, remaining tokens: ${config.twitter.authToken?.length}`);
-                await cache.set(`${lockPrefix}${auth.token}`, '1', 3600);
+            // const newCookie = await login({
+            //     username: auth.username,
+            //     password: auth.password,
+            //     authenticationSecret: auth.authenticationSecret,
+            // });
+            // if (newCookie) {
+            //     logger.debug(`twitter debug: reset twitter cookie for token ${auth.token}, ${newCookie}`);
+            //     await cache.set(`twitter:cookie:${auth.token}`, newCookie, config.cache.contentExpire);
+            //     await cache.set(`${lockPrefix}${auth.token}`, '', 1);
+            // } else {
+            const tokenIndex = config.twitter.authToken?.indexOf(auth.token);
+            if (tokenIndex !== undefined && tokenIndex !== -1) {
+                config.twitter.authToken?.splice(tokenIndex, 1);
             }
+            // if (auth.username) {
+            //     const usernameIndex = config.twitter.username?.indexOf(auth.username);
+            //     if (usernameIndex !== undefined && usernameIndex !== -1) {
+            //         config.twitter.username?.splice(usernameIndex, 1);
+            //     }
+            // }
+            // if (auth.password) {
+            //     const passwordIndex = config.twitter.password?.indexOf(auth.password);
+            //     if (passwordIndex !== undefined && passwordIndex !== -1) {
+            //         config.twitter.password?.splice(passwordIndex, 1);
+            //     }
+            // }
+            logger.debug(`twitter debug: delete twitter cookie for token ${auth.token} with status ${response.status}, remaining tokens: ${config.twitter.authToken?.length}`);
+            await cache.set(`${lockPrefix}${auth.token}`, '1', 3600);
+            // }
         } else {
             logger.debug(`twitter debug: unlock twitter cookie with success for token ${auth.token}`);
             await cache.set(`${lockPrefix}${auth.token}`, '', 1);
@@ -246,7 +243,7 @@ export const twitterGot = async (
     return responseData;
 };
 
-export const paginationTweets = async (endpoint: string, userId: number | undefined, variables: Record<string, any>, path?: string[]) => {
+export const paginationTweets = async (endpoint: string, userId: number | undefined, variables: ApiParams, path?: string[]) => {
     const params = {
         variables: JSON.stringify({ ...variables, userId }),
         features: JSON.stringify(gqlFeatures[endpoint]),
@@ -298,24 +295,17 @@ export const paginationTweets = async (endpoint: string, userId: number | undefi
     return gridEntries || moduleItems || entries || [];
 };
 
-const getLegacyUser = (tweet: any) => tweet.core?.user_result?.result?.legacy || tweet.core?.user_results?.result?.legacy;
-
-const getCoreUser = (tweet: any) => tweet.core?.user_result?.result?.core || tweet.core?.user_results?.result?.core;
-
 const hydrateLegacyUser = (legacy: any, tweet: any) => {
-    legacy.user = getLegacyUser(tweet);
-
-    const coreUser = getCoreUser(tweet);
-    if (!legacy.user || !coreUser) {
+    const userResult = tweet.core?.user_results?.result;
+    if (!userResult) {
         return;
     }
 
-    if (coreUser.name) {
-        legacy.user.name = coreUser.name;
-    }
-    if (coreUser.screen_name) {
-        legacy.user.screen_name = coreUser.screen_name;
-    }
+    legacy.user = {
+        name: userResult.core?.name,
+        screen_name: userResult.core?.screen_name,
+        profile_image_url_https: userResult.avatar?.image_url,
+    };
 };
 
 export function gatherLegacyFromData(entries: any[], filterNested?: string[], userId?: number | string) {

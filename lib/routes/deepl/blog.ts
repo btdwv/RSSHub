@@ -3,16 +3,22 @@ import { load } from 'cheerio';
 import type { Element } from 'domhandler';
 import type { Context } from 'hono';
 
-import type { Data, DataItem, Route } from '@/types';
+import InvalidParameterError from '@/errors/types/invalid-parameter';
+import type { Data, DataItem, Language, Route } from '@/types';
 import { ViewType } from '@/types';
 import cache from '@/utils/cache';
 import ofetch from '@/utils/ofetch';
 import { parseDate } from '@/utils/parse-date';
+import { isValidHost } from '@/utils/valid-host';
 
 import { renderDescription } from './templates/description';
 
 export const handler = async (ctx: Context): Promise<Data> => {
     const { lang = 'en' } = ctx.req.param();
+    if (!isValidHost(lang)) {
+        throw new InvalidParameterError('Invalid lang');
+    }
+
     const limit = Number(ctx.req.query('limit') ?? '30');
 
     const baseUrl = 'https://www.deepl.com';
@@ -20,12 +26,12 @@ export const handler = async (ctx: Context): Promise<Data> => {
 
     const response = await ofetch(targetUrl);
     const $: CheerioAPI = load(response);
-    const language = $('html').attr('lang') ?? lang;
+    const language = ($('html').attr('lang') ?? lang) as Language;
 
     let items: DataItem[] = $('h4, h6')
         .slice(0, limit)
         .toArray()
-        .map((el): Element => {
+        .map((el) => {
             const $el: Cheerio<Element> = $(el).parent().parent();
 
             const title: string = $el.find('h4, h6').text();
@@ -77,14 +83,14 @@ export const handler = async (ctx: Context): Promise<Data> => {
             }
 
             return cache.tryGet(item.link, async (): Promise<DataItem> => {
-                const detailResponse = await ofetch(item.link);
+                const detailResponse = await ofetch(item.link!);
                 const $$: CheerioAPI = load(detailResponse);
 
                 const title: string = $$('h1[data-contentful-field-id="title"]').text();
                 const description: string | undefined =
                     item.description +
                     renderDescription({
-                        description: $$('div.my-redesign-3').html(),
+                        description: $$('div.my-redesign-3').html() ?? undefined,
                     });
                 const pubDateStr: string | undefined = $$('time').first().attr('datetime');
                 const authorsArr: string[] = $$('span[data-contentful-field-id="author"] span').last().text().split(/,\s/);

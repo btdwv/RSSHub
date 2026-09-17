@@ -1,5 +1,8 @@
+import { Context } from 'hono';
 import Parser from 'rss-parser';
-import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
+import { afterAll, afterEach, describe, expect, it, vi } from 'vitest';
+
+import type { Data } from '@/types';
 
 const parser = new Parser();
 
@@ -260,17 +263,14 @@ const expects = {
     },
 };
 
-const testAntiHotlink = async (path, expectObj, query?: string | Record<string, any>) => {
+const testAntiHotlink = async (path, expectObj, query?: Record<string, string>) => {
     const app = (await import('@/app')).default;
 
     let queryStr;
     if (query) {
-        queryStr =
-            typeof query === 'string'
-                ? query
-                : Object.entries(query)
-                      .map(([key, value]) => `${key}=${value}`)
-                      .join('&');
+        queryStr = Object.entries(query)
+            .map(([key, value]) => `${key}=${value}`)
+            .join('&');
     }
     path += queryStr ? `?${queryStr}` : '';
 
@@ -284,7 +284,7 @@ const testAntiHotlink = async (path, expectObj, query?: string | Record<string, 
     return parsed;
 };
 
-const testAntiHotlinkExtra = async (path, expectObj, query?: string | Record<string, any>) => {
+const testAntiHotlinkExtra = async (path, expectObj, query?: Record<string, string>) => {
     const app = (await import('@/app')).default;
 
     path += query ? `?${new URLSearchParams(query).toString()}` : '';
@@ -305,31 +305,31 @@ const testAntiHotlinkExtra = async (path, expectObj, query?: string | Record<str
     return parsed;
 };
 
-const expectImgOrigin = async (query?: string | Record<string, any>) => {
+const expectImgOrigin = async (query?: Record<string, string>) => {
     await testAntiHotlink('/test/complicated', expects.complicated.origin, query);
     await testAntiHotlinkExtra('/test/complicated', expects.extraComplicated.origin, query);
 };
-const expectImgProcessed = async (query?: string | Record<string, any>) => {
+const expectImgProcessed = async (query?: Record<string, string>) => {
     await testAntiHotlink('/test/complicated', expects.complicated.processed, query);
     await testAntiHotlinkExtra('/test/complicated', expects.extraComplicated.processed, query);
 };
 
-const expectImgUrlencoded = async (query?: string | Record<string, any>) => {
+const expectImgUrlencoded = async (query?: Record<string, string>) => {
     await testAntiHotlink('/test/complicated', expects.complicated.urlencoded, query);
     await testAntiHotlinkExtra('/test/complicated', expects.extraComplicated.urlencoded, query);
 };
 
-const expectMultimediaOrigin = async (query?: string | Record<string, any>) => {
+const expectMultimediaOrigin = async (query?: Record<string, string>) => {
     await testAntiHotlink('/test/multimedia', expects.multimedia.origin, query);
     await testAntiHotlinkExtra('/test/multimedia', expects.extraMultimedia.origin, query);
 };
 
-const expectMultimediaRelayed = async (query?: string | Record<string, any>) => {
+const expectMultimediaRelayed = async (query?: Record<string, string>) => {
     await testAntiHotlink('/test/multimedia', expects.multimedia.relayed, query);
     await testAntiHotlinkExtra('/test/multimedia', expects.extraMultimedia.relayed, query);
 };
 
-const expectMultimediaPartlyRelayed = async (query?: string | Record<string, any>) => {
+const expectMultimediaPartlyRelayed = async (query?: Record<string, string>) => {
     await testAntiHotlink('/test/multimedia', expects.multimedia.partlyRelayed, query);
     await testAntiHotlinkExtra('/test/multimedia', expects.extraMultimedia.partlyRelayed, query);
 };
@@ -439,50 +439,35 @@ describe('anti-hotlink', () => {
     });
 });
 
+const createCtx = (query: Record<string, string>, data: Data) => {
+    const url = new URL('http://localhost/test/path');
+    for (const [key, value] of Object.entries(query)) {
+        url.searchParams.set(key, value);
+    }
+    const ctx = new Context(new Request(url), { env: {}, path: url.pathname });
+    ctx.set('data', data);
+    return ctx;
+};
+
 describe('anti-hotlink edge cases', () => {
-    const errorSpy = vi.fn();
-
-    const createCtx = (query: Record<string, string | undefined>, data: any) => {
-        const store = new Map<string, unknown>([['data', data]]);
-        return {
-            req: {
-                path: '/test/path',
-                query: (key: string) => query[key],
-            },
-            get: (key: string) => store.get(key),
-            set: (key: string, value: unknown) => store.set(key, value),
-        };
-    };
-
-    beforeAll(() => {
-        vi.doMock('@/utils/logger', () => ({
-            default: {
-                error: errorSpy,
-                warn: vi.fn(),
-                info: vi.fn(),
-                debug: vi.fn(),
-            },
-        }));
-    });
-
-    afterAll(() => {
-        vi.doUnmock('@/utils/logger');
-    });
-
     it('logs parse errors and keeps invalid urls', async () => {
         const { config } = await import('@/config');
         config.feature.allow_user_hotlink_template = true;
 
+        const { default: logger } = await import('@/utils/logger');
+        const errorSpy = vi.spyOn(logger, 'error');
         const { default: antiHotlink } = await import('@/middleware/anti-hotlink');
         const data = {
+            title: 'test',
             image: 'http://invalid url',
         };
         const ctx = createCtx({ image_hotlink_template: 'https://img.test/${href}' }, data);
 
-        await antiHotlink(ctx as any, async () => {});
+        await antiHotlink(ctx, async () => {});
 
         expect(data.image).toBe('http://invalid url');
         expect(errorSpy).toHaveBeenCalled();
+        errorSpy.mockRestore();
     });
 
     it('returns original url when template is missing', async () => {
@@ -491,11 +476,12 @@ describe('anti-hotlink edge cases', () => {
 
         const { default: antiHotlink } = await import('@/middleware/anti-hotlink');
         const data = {
+            title: 'test',
             image: 'https://example.com/img.jpg',
         };
         const ctx = createCtx({ multimedia_hotlink_template: 'https://media.test/${href}' }, data);
 
-        await antiHotlink(ctx as any, async () => {});
+        await antiHotlink(ctx, async () => {});
 
         expect(data.image).toBe('https://example.com/img.jpg');
     });

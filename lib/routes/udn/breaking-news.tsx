@@ -45,7 +45,7 @@ async function handler(ctx) {
             let link = item.titleLink.startsWith('http') ? item.titleLink : `${rootUrl}${item.titleLink}`;
             const linkUrl = new URL(link);
             // cleanup query paramter
-            linkUrl.query = linkUrl.search = '';
+            linkUrl.search = '';
             link = linkUrl.href;
 
             return cache.tryGet(link, async () => {
@@ -89,7 +89,7 @@ async function handler(ctx) {
                 if (data.publisher.name.includes('轉角國際 udn Global')) {
                     // 轉角24小時
                     description = $('.story_body_content')
-                        .html()
+                        .html()!
                         .split(/<!--\d+-->/g)
                         .slice(1, -1)
                         .join('');
@@ -123,8 +123,8 @@ const getLinkName = async (link) => {
         const data = $('.cate-list__subheader a')
             .toArray()
             .map((item) => {
-                item = $(item);
-                return [item.attr('href'), item.text().trim()];
+                const $item = $(item);
+                return [$item.attr('href'), $item.text().trim()];
             });
         return Object.fromEntries(data);
     });

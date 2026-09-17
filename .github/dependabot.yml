@@ -22,6 +22,9 @@ updates:
           - dependency-name: art-template
             versions: ['>=4.13.3']
       groups:
+          bbob:
+              patterns:
+                  - '@bbob/*'
           cloudflare:
               patterns:
                   - '@cloudflare/*'
@@ -30,11 +33,17 @@ updates:
               patterns:
                   - 'eslint'
                   - '@eslint/*'
+          hono:
+              patterns:
+                  - '@hono/*'
+                  - '@scalar/hono-api-reference'
+                  - 'hono'
           opentelemetry:
               patterns:
                   - '@opentelemetry/*'
           oxc:
               patterns:
+                  - '@oxc-parser/*'
                   - '@oxlint/*'
                   - 'oxc-parser'
                   - 'oxfmt'
@@ -62,6 +71,10 @@ updates:
       open-pull-requests-limit: 100
       labels:
           - dependencies
+      groups:
+          nix:
+              patterns:
+                  - '*'
 
     - package-ecosystem: 'github-actions'
       directory: '/'

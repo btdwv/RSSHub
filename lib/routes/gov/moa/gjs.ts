@@ -3,7 +3,7 @@ import { load } from 'cheerio';
 import type { Element } from 'domhandler';
 import type { Context } from 'hono';
 
-import type { Data, DataItem, Route } from '@/types';
+import type { Data, DataItem, Language, Route } from '@/types';
 import { ViewType } from '@/types';
 import cache from '@/utils/cache';
 import ofetch from '@/utils/ofetch';
@@ -15,16 +15,16 @@ export const handler = async (ctx: Context): Promise<Data> => {
     const limit = Number(ctx.req.query('limit') ?? '30');
 
     const baseUrl = 'http://www.gjs.moa.gov.cn';
-    const targetUrl: string = new URL(category.endsWith('/') ? category : `${category}/`, baseUrl).href;
+    const targetUrl = `${baseUrl}/${category.endsWith('/') ? category : `${category}/`}`;
 
     const response = await ofetch(targetUrl);
     const $: CheerioAPI = load(response);
-    const language = $('html').attr('lang') ?? 'zh-CN';
+    const language = ($('html').attr('lang') ?? 'zh-CN') as Language;
 
     let items: DataItem[] = $('ul#div li')
         .slice(0, limit)
         .toArray()
-        .map((el): Element => {
+        .map((el) => {
             const $el: Cheerio<Element> = $(el);
 
             const aEl: Cheerio<Element> = $el.find('a');
@@ -53,15 +53,15 @@ export const handler = async (ctx: Context): Promise<Data> => {
                 }
 
                 return cache.tryGet(item.link, async (): Promise<DataItem> => {
-                    const detailResponse = await ofetch(item.link);
+                    const detailResponse = await ofetch(item.link!);
                     const $$: CheerioAPI = load(detailResponse);
 
                     const title: string = $$('meta[name="ArticleTitle"]').attr('content') ?? '';
-                    const description: string = $$('div.TRS_Editor').html() ?? '';
+                    const description = $$('div.TRS_Editor').html();
                     const pubDateStr: string | undefined = $$('meta[name="PubDate"]').attr('content');
                     const linkUrl: string | undefined = $$('meta[name="Url"]').attr('content');
                     const categoryEls: Element[] = $$('meta[name="ColumnName"], meta[name="ContentSource"], meta[name="Keywords"]').toArray();
-                    const categories: string[] = [...new Set(categoryEls.map((el) => $$(el).attr('content') as string).filter(Boolean))];
+                    const categories: string[] = [...new Set(categoryEls.map((el) => $$(el).attr('content')).filter((content): content is string => Boolean(content)))];
                     const authors: DataItem['author'] = $$('meta[name="Author"]').attr('content');
                     const upDatedStr: string | undefined = pubDateStr;
 

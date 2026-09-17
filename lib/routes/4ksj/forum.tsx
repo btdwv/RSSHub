@@ -2,12 +2,14 @@ import { load } from 'cheerio';
 import { raw } from 'hono/html';
 import { renderToString } from 'hono/jsx/dom/server';
 
-import type { Route } from '@/types';
+import InvalidParameterError from '@/errors/types/invalid-parameter';
+import type { DataItem, Language, Route } from '@/types';
 import cache from '@/utils/cache';
 import md5 from '@/utils/md5';
 import ofetch from '@/utils/ofetch';
 import { parseDate } from '@/utils/parse-date';
 import timezone from '@/utils/timezone';
+import { isValidHost } from '@/utils/valid-host';
 
 const renderDescription = ({ images, title, keys, details, description, info, links }) =>
     renderToString(
@@ -79,6 +81,10 @@ function stringtoHex(acSTR) {
 
 async function handler(ctx) {
     const { id = '4k-uhd-1' } = ctx.req.param();
+    if (!isValidHost(id)) {
+        throw new InvalidParameterError('Invalid id');
+    }
+
     const limit = ctx.req.query('limit') ? Number.parseInt(ctx.req.query('limit')) : 25;
 
     const rootUrl = 'https://www.4ksj.com';
@@ -92,17 +98,18 @@ async function handler(ctx) {
 
     const $ = load(decoder.decode(response));
 
-    const language = 'zh';
+    const language = 'zh' as const satisfies Language;
     const image = $('div.nexlogo img').prop('src');
 
     let items = $('div.nex_cmo_piv a')
         .slice(0, limit)
         .toArray()
-        .map((item) => {
-            item = $(item);
+        .map((item): DataItem & { link: string } => {
+            const $item = $(item);
 
             return {
-                link: new URL(item.prop('href'), rootUrl).href,
+                link: new URL($item.prop('href')!, rootUrl).href,
+                title: '',
             };
         });
 
@@ -137,7 +144,7 @@ async function handler(ctx) {
                 const detailResponse = await ofetch(item.link, {
                     responseType: 'arrayBuffer',
                     headers: {
-                        Cookie: cookie as string,
+                        Cookie: cookie,
                     },
                 });
 
@@ -145,28 +152,28 @@ async function handler(ctx) {
 
                 $$('div.nex_drama_intros em').first().remove();
                 $$('strong font').each((_, el) => {
-                    el = $$(el);
+                    const $el = $$(el);
 
-                    el.parent().remove();
+                    $el.parent().remove();
                 });
 
                 const title = $$('div.nex_drama_Top h5').text();
                 const description = $$('div.nex_drama_intros').html();
                 const picture =
                     $$('div.nex_drama_pic')
-                        .html()
+                        .html()!
                         .match(/background:url\((.*?)\)/)?.[1] ?? '';
 
                 const details = $$('li.nex_drama_Detail_li, li.nex_drama_Detail_lis dd')
                     .toArray()
                     .map((li) => {
-                        li = $$(li);
+                        const $li = $$(li);
 
-                        const key = li
+                        const key = $li
                             .find('em')
                             .text()
                             .replaceAll(/：|\s/g, '');
-                        const value = li.find('span').length === 0 ? li.contents().last().text().trim() : li.find('span').text().trim();
+                        const value = $li.find('span').length === 0 ? $li.contents().last().text().trim() : $li.find('span').text().trim();
 
                         return { [key]: value };
                     });
@@ -177,10 +184,10 @@ async function handler(ctx) {
                         ? $$('td.t_f strong')
                               .toArray()
                               .map((l) => {
-                                  l = $$(l);
+                                  const $l = $$(l);
 
-                                  const title = l.contents().first().text();
-                                  const link = l.next().prop('href') ?? l.nextUntil('a').next().prop('href');
+                                  const title = $l.contents().first().text();
+                                  const link = $l.next().prop('href') ?? $l.nextUntil('a').next().prop('href');
 
                                   item.enclosure_url ??= link;
                                   item.enclosure_type ??= 'application/x-bittorrent';
@@ -188,7 +195,7 @@ async function handler(ctx) {
 
                                   return {
                                       title,
-                                      tags: l
+                                      tags: $l
                                           .contents()
                                           .last()
                                           .text()
@@ -199,15 +206,15 @@ async function handler(ctx) {
                         : $$('div.newfujian')
                               .toArray()
                               .map((l) => {
-                                  l = $$(l);
+                                  const $l = $$(l);
 
                                   return {
-                                      title: l.find('p.filename').prop('title') || l.find('p.filename').text(),
-                                      tags: l
+                                      title: $l.find('p.filename').prop('title') || $l.find('p.filename').text(),
+                                      tags: $l
                                           .find('div.fileaq')
                                           .text()
                                           .match(/【(.*?)】/g),
-                                      link: l.find('div.down_2 a').prop('href'),
+                                      link: $l.find('div.down_2 a').prop('href'),
                                   };
                               });
 
@@ -238,7 +245,7 @@ async function handler(ctx) {
                     links,
                 });
                 item.pubDate = timezone(parseDate(pubDate, 'YYYY-M-D HH:mm:ss'), 8);
-                item.category = Object.values(mergedDetails)
+                item.category = Object.values<string>(mergedDetails)
                     .flatMap((c) => c.split(/\s/))
                     .filter(Boolean);
                 item.author = mergedDetails['导演'];

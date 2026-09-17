@@ -1,7 +1,7 @@
 import { load } from 'cheerio';
 import iconv from 'iconv-lite';
 
-import type { Route } from '@/types';
+import type { DataItem, Language, Route } from '@/types';
 import cache from '@/utils/cache';
 import got from '@/utils/got';
 import { parseDate } from '@/utils/parse-date';
@@ -21,18 +21,18 @@ export const handler = async (ctx) => {
 
     const $ = load(iconv.decode(response, 'gbk'));
 
-    const language = $('html').prop('lang');
+    const language = $('html').prop('lang') as Language;
 
     let items = $('div.news-list-item ul li.list-item')
         .slice(0, limit)
         .toArray()
-        .map((item) => {
-            item = $(item);
+        .map((item): DataItem & { link: string } => {
+            const $item = $(item);
 
             return {
-                title: item.find('p').text(),
-                pubDate: parseDate(item.find('span.date').text()),
-                link: new URL(item.find('a.clearfix').prop('href'), rootUrl).href,
+                title: $item.find('p').text(),
+                pubDate: parseDate($item.find('span.date').text()),
+                link: new URL($item.find('a.clearfix').prop('href')!, rootUrl).href,
             };
         });
 

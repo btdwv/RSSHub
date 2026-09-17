@@ -1,6 +1,6 @@
 import { load } from 'cheerio';
 
-import type { Route } from '@/types';
+import type { Language, Route } from '@/types';
 import cache from '@/utils/cache';
 import ofetch from '@/utils/ofetch';
 import { parseDate } from '@/utils/parse-date';
@@ -83,7 +83,7 @@ export const handler = async (ctx) => {
 
     $('a.lyxd').remove();
 
-    const language = $('html').prop('lang') || '';
+    const language = ($('html').prop('lang') || '') as Language;
 
     const imageSrc = $('div.header-left img').prop('src');
     const image = imageSrc ? new URL(imageSrc, rootUrl).href : '';

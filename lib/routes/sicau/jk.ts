@@ -126,8 +126,8 @@ export const route: Route = {
         return {
             title: '二课活动 - 四川农业大学',
             link: 'https://jk.sicau.edu.cn/act/actInfo/v1.0.0/getUserSchoolActList',
-            language: 'zh-cn',
-            item: items as DataItem[],
+            language: 'zh-CN',
+            item: items,
         };
     },
 };

@@ -198,6 +198,10 @@ const idOptions = [
 const defaultType = 1;
 const siteTitle = '艾瑞咨询';
 
+interface ReportItem extends DataItem {
+    detailId?: string | number;
+}
+
 export const handler = async (ctx: Context): Promise<Data> => {
     const { type: paramType = defaultType, id: paramId = '' } = ctx.req.param();
     const limit = Number(ctx.req.query('limit') ?? '50');
@@ -228,7 +232,7 @@ export const handler = async (ctx: Context): Promise<Data> => {
         },
     });
 
-    let items: DataItem[] = response.List.slice(0, limit).map((item): DataItem => {
+    let items: ReportItem[] = response.List.slice(0, limit).map((item): ReportItem => {
         const title: string =
             item.reportname ??
             (() => {
@@ -240,7 +244,7 @@ export const handler = async (ctx: Context): Promise<Data> => {
                 return item.sTitle ?? item.Content;
             })();
 
-        const images: string[] = [item.BigImg, item.SmallImg, item.reportpic].filter(Boolean) as string[];
+        const images: string[] = [item.BigImg, item.SmallImg, item.reportpic].filter(Boolean);
         const description: string | undefined = renderDescription({
             images: images.map((src) => ({
                 src,
@@ -257,7 +261,7 @@ export const handler = async (ctx: Context): Promise<Data> => {
         const image: string | undefined = images?.[0] ?? undefined;
         const updated: number | string = pubDate;
 
-        let processedItem: DataItem = {
+        let processedItem: ReportItem = {
             title,
             description,
             pubDate: pubDate ? timezone(parseDate(pubDate), 8) : undefined,
@@ -344,7 +348,7 @@ export const handler = async (ctx: Context): Promise<Data> => {
                         },
                         (_, index) => `${imageBaseUrl}/${typeObj.imageSlug}/${item.detailId}/${index + 1}.jpg`
                     ),
-                ].filter(Boolean) as string[];
+                ].filter(Boolean);
                 const description: string | undefined = renderDescription({
                     images: images.map((src) => ({
                         src,

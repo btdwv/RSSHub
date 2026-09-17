@@ -20,17 +20,18 @@ const RSS: FC<{ data: Data }> = ({ data }) => (
         {data.item?.map((item) => (
             <entry>
                 <title>{item.title}</title>
-                <content type="html">{item.description}</content>
+                {item.description ? <content type="html">{item.description}</content> : item.content?.text ? <content type="text">{item.content.text}</content> : <content src={item.link} type="text/html" />}
                 <link href={item.link} />
                 <id>{item.guid || item.link || item.title}</id>
                 {item.pubDate && <published>{new Date(item.pubDate).toISOString()}</published>}
                 <updated>{new Date(item.updated || item.pubDate || new Date()).toISOString()}</updated>
+                {item.summary && <summary>{item.summary}</summary>}
                 {item.author && (
                     <author>
                         <name>{item.author}</name>
                     </author>
                 )}
-                {typeof item.category === 'string' ? <category term={item.category}></category> : item.category?.map((c) => <category term={c}></category>)}
+                {item.category !== undefined && (Array.isArray(item.category) ? item.category : [item.category]).map((c) => <category term={c}></category>)}
                 {item.media &&
                     Object.entries(item.media).map(([key, value]) => {
                         const Tag = `media:${key}`;

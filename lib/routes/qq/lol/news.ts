@@ -3,7 +3,7 @@ import { load } from 'cheerio';
 import type { Context } from 'hono';
 import iconv from 'iconv-lite';
 
-import type { Data, DataItem, Route } from '@/types';
+import type { Data, DataItem, Language, Route } from '@/types';
 import { ViewType } from '@/types';
 import cache from '@/utils/cache';
 import ofetch from '@/utils/ofetch';
@@ -32,7 +32,7 @@ export const handler = async (ctx: Context): Promise<Data> => {
     });
 
     const $: CheerioAPI = load(iconv.decode(Buffer.from(targetResponse), 'gbk'));
-    const language = $('html').attr('lang') ?? 'zh-CN';
+    const language = ($('html').attr('lang') ?? 'zh-CN') as Language;
 
     let items: DataItem[] = response.data.result.slice(0, limit).map((item): DataItem => {
         const title: string = item.sTitle;

@@ -1,10 +1,10 @@
 import { load } from 'cheerio';
-import { JSDOM } from 'jsdom';
 import { RateLimiterMemory, RateLimiterQueue } from 'rate-limiter-flexible';
 
 import { config } from '@/config';
 import cache from '@/utils/cache';
 import got from '@/utils/got';
+import { isWorker } from '@/utils/is-worker';
 import logger from '@/utils/logger';
 import { getPlaywrightPage } from '@/utils/playwright';
 
@@ -80,10 +80,8 @@ const getRenderData = (uid) => {
                 Cookie: cookie,
             },
         });
-        const dom = new JSDOM(response);
-        const document = dom.window.document;
-        const scriptElement = document.querySelector('#__RENDER_DATA__');
-        const innerText = scriptElement ? scriptElement.textContent || '{}' : '{}';
+        const $ = load(response);
+        const innerText = $('#__RENDER_DATA__').first().text() || '{}';
         const renderData = JSON.parse(decodeURIComponent(innerText));
         const accessId = renderData.access_id;
         return accessId;
@@ -121,7 +119,7 @@ const getWbiVerifyString = () => {
         //     62, 11, 36, 20, 34, 44, 52,
         // ];
         const array = JSON.parse(jsResponse.match(/\[(?:\d+,){63}\d+\]/));
-        const o = [];
+        const o: any[] = [];
         for (const t of array) {
             if (r.charAt(t)) {
                 o.push(r.charAt(t));
@@ -265,7 +263,8 @@ const getVideoSubtitle = async (
         lan_doc: string;
     }>
 > => {
-    if (!bvid) {
+    // Workers skip subtitle metadata and downloads, regardless of route configuration.
+    if (isWorker || !bvid) {
         return [];
     }
 
@@ -328,7 +327,7 @@ const getAidFromBvid = async (bvid) => {
         if (response.data && response.data.data && response.data.data.aid) {
             aid = response.data.data.aid;
         }
-        cache.set(key, aid);
+        cache.set(key, aid ?? '');
     }
     return aid;
 };
@@ -355,7 +354,7 @@ const getArticleDataFromCvid = async (cvid, uid) => {
             const newFormatData = JSON.parse(
                 $('script:contains("window.__INITIAL_STATE__")')
                     .text()
-                    .match(/window\.__INITIAL_STATE__\s*=\s*(\S.*?)?;\(/)[1]
+                    .match(/window\.__INITIAL_STATE__\s*=\s*(\S.*?)?;\(/)![1]
             );
 
             if (newFormatData?.readInfo?.opus?.content?.paragraphs) {

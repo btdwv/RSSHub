@@ -72,7 +72,7 @@ async function handler(ctx) {
         title: [author, subtitle, category].filter(Boolean).join(' - '),
         link: currentUrl,
         description: '向公众提供服务和开展互动交流',
-        language: 'zh',
+        language: 'zh' as const,
         image,
         icon,
         logo: icon,

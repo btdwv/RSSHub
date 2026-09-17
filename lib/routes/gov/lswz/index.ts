@@ -1,6 +1,6 @@
 import { load } from 'cheerio';
 
-import type { Route } from '@/types';
+import type { DataItem, Language, Route } from '@/types';
 import cache from '@/utils/cache';
 import got from '@/utils/got';
 import { parseDate } from '@/utils/parse-date';
@@ -11,24 +11,24 @@ export const handler = async (ctx) => {
     const limit = ctx.req.query('limit') ? Number(ctx.req.query('limit')) : 25;
 
     const rootUrl = 'https://www.lswz.gov.cn';
-    const currentUrl = new URL(`${category}.shtml`, rootUrl).href;
+    const currentUrl = `${rootUrl}/${category}.shtml`;
 
     const { data: response } = await got(currentUrl);
 
     const $ = load(response);
 
-    const language = $('html').prop('lang');
+    const language = $('html').prop('lang') as Language;
 
     let items = $('ul.lists li')
         .slice(0, limit)
         .toArray()
-        .map((item) => {
-            item = $(item);
+        .map((item): DataItem & { link: string } => {
+            const $item = $(item);
 
             return {
-                title: item.find('a').text(),
-                pubDate: parseDate(item.find('span').text()),
-                link: new URL(item.find('a').prop('href'), rootUrl).href,
+                title: $item.find('a').text(),
+                pubDate: parseDate($item.find('span').text()),
+                link: new URL($item.find('a').prop('href')!, rootUrl).href,
             };
         });
 
@@ -61,7 +61,7 @@ export const handler = async (ctx) => {
         )
     );
 
-    const image = new URL($('div.lsj-index-logo img').prop('src'), rootUrl).href;
+    const image = new URL($('div.lsj-index-logo img').prop('src')!, rootUrl).href;
 
     return {
         title: $('title').text(),

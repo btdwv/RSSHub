@@ -23,7 +23,7 @@ export const route: Route = {
 
 async function handler(ctx) {
     const id = ctx.req.param('id');
-    const index = Math.floor(Number.parseInt(id) / 1000);
+    const index = Number.parseInt(String(id / 1000));
 
     // const browser = await playwright.launch({headless: true, args: ["--no-sandbox"]});
     const browser = await playwright();
@@ -47,7 +47,7 @@ async function handler(ctx) {
 
     const name = $('#title').text();
 
-    const chapter_item = [];
+    const chapter_item: any[] = [];
 
     $('.ccss>a').each((_, el) => {
         chapter_item.push({

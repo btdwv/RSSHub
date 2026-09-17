@@ -56,7 +56,7 @@ async function handler(ctx) {
                     }
                     return cache.tryGet(link, () => loadArticle(link));
                 })
-                .filter(Boolean)
+                .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry))
         ),
     };
 }

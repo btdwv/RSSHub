@@ -2,7 +2,7 @@ import { load } from 'cheerio';
 import { raw } from 'hono/html';
 import { renderToString } from 'hono/jsx/dom/server';
 
-import type { Route } from '@/types';
+import type { DataItem, Language, Route } from '@/types';
 import cache from '@/utils/cache';
 import got from '@/utils/got';
 import { parseDate } from '@/utils/parse-date';
@@ -28,32 +28,32 @@ export const handler = async (ctx) => {
     const limit = ctx.req.query('limit') ? Number(ctx.req.query('limit')) : 20;
 
     const rootUrl = 'https://fgw.sh.gov.cn';
-    const currentUrl = new URL(`${category}/index.html`, rootUrl).href;
+    const currentUrl = `${rootUrl}/${category}/index.html`;
 
     const { data: response } = await got(currentUrl);
 
     const $ = load(response);
 
-    const language = $('html').prop('lang');
+    const language = $('html').prop('lang') as Language;
 
     let items = $('ul.nowrapli li')
         .slice(0, limit)
         .toArray()
-        .map((item) => {
-            item = $(item);
+        .map((item): DataItem => {
+            const $item = $(item);
 
             return {
-                title: item.find('a').prop('title'),
-                pubDate: parseDate(item.find('span.time').text()),
-                link: new URL(item.find('a').prop('href'), rootUrl).href,
+                title: $item.find('a').prop('title')!,
+                pubDate: parseDate($item.find('span.time').text()),
+                link: new URL($item.find('a').prop('href')!, rootUrl).href,
                 language,
             };
         });
 
     items = await Promise.all(
         items.map((item) =>
-            cache.tryGet(item.link, async () => {
-                if (!item.link.endsWith('.html')) {
+            cache.tryGet(item.link!, async () => {
+                if (!item.link!.endsWith('.html')) {
                     item.enclosure_url = item.link;
                     item.enclosure_type = item.link ? `application/${item.link.split(/\./).pop()}` : undefined;
                     item.enclosure_title = item.title;

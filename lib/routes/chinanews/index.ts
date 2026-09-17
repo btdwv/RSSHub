@@ -1,6 +1,6 @@
 import { load } from 'cheerio';
 
-import type { Route } from '@/types';
+import type { DataItem, Language, Route } from '@/types';
 import cache from '@/utils/cache';
 import got from '@/utils/got';
 import { parseDate } from '@/utils/parse-date';
@@ -10,19 +10,22 @@ const rootUrl = 'https://www.chinanews.com.cn';
 
 export const route: Route = {
     path: '/',
+    categories: ['traditional-media'],
+    example: '/chinanews',
     radar: [
         {
             source: ['chinanews.com.cn/'],
             target: '',
         },
     ],
-    name: 'Unknown',
+    name: '最新',
     maintainers: ['yuxinliu-alex'],
     handler,
     url: 'chinanews.com.cn/',
 };
 
 async function handler(ctx) {
+    const language: Language = 'zh-CN';
     const currentUrl = `${rootUrl}/scroll-news/news1.html`;
     const response = await got({
         method: 'get',
@@ -32,7 +35,7 @@ async function handler(ctx) {
     const limit = ctx.req.query('limit');
     const list = $('a', '.dd_bt')
         .toArray()
-        .map((item) => ({
+        .map((item): DataItem => ({
             link: rootUrl + $(item).attr('href'),
             title: $(item).text(),
         }))
@@ -40,7 +43,7 @@ async function handler(ctx) {
 
     const items = await Promise.all(
         list.map((item) =>
-            cache.tryGet(item.link, async () => {
+            cache.tryGet(item.link!, async () => {
                 const detailResponse = await got({
                     method: 'get',
                     url: item.link,
@@ -76,7 +79,7 @@ async function handler(ctx) {
         title: '中国新闻网',
         link: currentUrl,
         description: '中国新闻网（简称“中新网”），由中国新闻社主办，为中央重点新闻网站。',
-        language: 'zh-cn',
+        language,
         item: items,
     };
 }

@@ -7,13 +7,16 @@ import { config } from '@/config';
 import NotFoundError from '@/errors/types/not-found';
 import type { Data } from '@/types';
 import cache from '@/utils/cache';
+import { isWorker } from '@/utils/is-worker';
 import ofetch from '@/utils/ofetch';
 import { parseDate } from '@/utils/parse-date';
 
-import utils, { getVideoUrl } from '../utils';
+import { formatDescription, getChannelWithId, getChannelWithUsername, getPlaylist, getPlaylistItems, getPlaylistWithShortsFilter, getThumbnail, getVideos, getVideoUrl, renderYoutube } from '../utils';
 import { getSrtAttachmentBatch } from './subtitles';
 
 const { OAuth2 } = googleAuth;
+const workerFetch: typeof fetch = (input, init) => fetch(input, init);
+const transportOptions = isWorker ? { fetchImplementation: workerFetch } : {};
 
 dayjs.extend(duration);
 
@@ -30,6 +33,7 @@ if (config.youtube && config.youtube.key) {
         youtube[index] = googleYoutube({
             version: 'v3',
             auth: key,
+            ...transportOptions,
         });
         count = index + 1;
     }
@@ -53,7 +57,12 @@ const exec = async (func) => {
 
 let youtubeOAuth2Client;
 if (config.youtube && config.youtube.clientId && config.youtube.clientSecret && config.youtube.refreshToken) {
-    youtubeOAuth2Client = new OAuth2(config.youtube.clientId, config.youtube.clientSecret, 'https://developers.google.com/oauthplayground');
+    youtubeOAuth2Client = new OAuth2({
+        clientId: config.youtube.clientId,
+        clientSecret: config.youtube.clientSecret,
+        redirectUri: 'https://developers.google.com/oauthplayground',
+        transporterOptions: transportOptions,
+    });
     youtubeOAuth2Client.setCredentials({ refresh_token: config.youtube.refreshToken });
 }
 
@@ -77,7 +86,7 @@ export const getDataByUsername = async ({ username, embed, filterShorts, isJsonF
             const channelName = metadataRenderer.title;
             const image = metadataRenderer.avatar?.thumbnails?.[0]?.url;
             const description = metadataRenderer.description;
-            const playlistId = (await utils.getChannelWithId(channelId, 'contentDetails', cache)).data.items[0].contentDetails.relatedPlaylists.uploads;
+            const playlistId = (await getChannelWithId(channelId, 'contentDetails', cache)).data.items[0].contentDetails.relatedPlaylists.uploads;
 
             return {
                 channelName,
@@ -93,9 +102,9 @@ export const getDataByUsername = async ({ username, embed, filterShorts, isJsonF
         if (userHandleData?.playlistId) {
             const origPlaylistId = userHandleData.playlistId;
 
-            return utils.getPlaylistWithShortsFilter(origPlaylistId, filterShorts);
+            return getPlaylistWithShortsFilter(origPlaylistId, filterShorts);
         }
-        const channelData = await utils.getChannelWithUsername(username, 'contentDetails', cache);
+        const channelData = await getChannelWithUsername(username, 'contentDetails', cache);
         const items = channelData.data.items;
 
         if (!items) {
@@ -104,15 +113,15 @@ export const getDataByUsername = async ({ username, embed, filterShorts, isJsonF
 
         const channelId = items[0].id;
 
-        return filterShorts ? utils.getPlaylistWithShortsFilter(channelId, filterShorts) : items[0].contentDetails.relatedPlaylists.uploads;
+        return filterShorts ? getPlaylistWithShortsFilter(channelId, filterShorts) : items[0].contentDetails.relatedPlaylists.uploads;
     })();
 
-    const playlistItems = await utils.getPlaylistItems(playlistId, 'snippet', cache);
+    const playlistItems = await getPlaylistItems(playlistId, 'snippet', cache);
     if (!playlistItems) {
         throw new NotFoundError("This channel doesn't have any content.");
     }
     const videoIds = playlistItems.data.items.map((item) => item.snippet.resourceId.videoId);
-    const videoDetails = await utils.getVideos(videoIds.join(','), 'contentDetails', cache);
+    const videoDetails = await getVideos(videoIds.join(','), 'contentDetails', cache);
     const subtitlesMap = isJsonFeed ? await getSrtAttachmentBatch(videoIds) : {};
 
     return {
@@ -125,13 +134,13 @@ export const getDataByUsername = async ({ username, embed, filterShorts, isJsonF
             .map((item) => {
                 const snippet = item.snippet;
                 const videoId = snippet.resourceId.videoId;
-                const img = utils.getThumbnail(snippet.thumbnails);
+                const img = getThumbnail(snippet.thumbnails);
                 const detail = videoDetails?.data.items.find((d) => d.id === videoId);
                 const srtAttachments = subtitlesMap ? subtitlesMap[videoId] || [] : [];
 
                 return {
                     title: snippet.title,
-                    description: utils.renderDescription(embed, videoId, img, utils.formatDescription(snippet.description)),
+                    description: renderYoutube(embed, videoId, img, formatDescription(snippet.description)),
                     pubDate: parseDate(snippet.publishedAt),
                     link: `https://www.youtube.com/watch?v=${videoId}`,
                     author: snippet.videoOwnerChannelTitle,
@@ -151,14 +160,14 @@ export const getDataByUsername = async ({ username, embed, filterShorts, isJsonF
 
 export const getDataByChannelId = async ({ channelId, embed, filterShorts, isJsonFeed }: { channelId: string; embed: boolean; filterShorts: boolean; isJsonFeed: boolean }): Promise<Data> => {
     // Get original uploads playlist ID if needed
-    const originalPlaylistId = filterShorts ? null : (await utils.getChannelWithId(channelId, 'contentDetails', cache)).data.items[0].contentDetails.relatedPlaylists.uploads;
+    const originalPlaylistId = filterShorts ? null : (await getChannelWithId(channelId, 'contentDetails', cache)).data.items[0].contentDetails.relatedPlaylists.uploads;
 
     // Use the utility function to get the appropriate playlist ID based on filterShorts setting
-    const playlistId = filterShorts ? utils.getPlaylistWithShortsFilter(channelId) : originalPlaylistId;
+    const playlistId = filterShorts ? getPlaylistWithShortsFilter(channelId) : originalPlaylistId;
 
-    const data = (await utils.getPlaylistItems(playlistId, 'snippet', cache)).data.items;
+    const data = (await getPlaylistItems(playlistId, 'snippet', cache)).data.items;
     const videoIds = data.map((item) => item.snippet.resourceId.videoId);
-    const videoDetails = await utils.getVideos(videoIds.join(','), 'contentDetails', cache);
+    const videoDetails = await getVideos(videoIds.join(','), 'contentDetails', cache);
     const subtitlesMap = isJsonFeed ? await getSrtAttachmentBatch(videoIds) : {};
 
     return {
@@ -170,13 +179,13 @@ export const getDataByChannelId = async ({ channelId, embed, filterShorts, isJso
             .map((item) => {
                 const snippet = item.snippet;
                 const videoId = snippet.resourceId.videoId;
-                const img = utils.getThumbnail(snippet.thumbnails);
+                const img = getThumbnail(snippet.thumbnails);
                 const detail = videoDetails?.data.items.find((d) => d.id === videoId);
                 const srtAttachments = subtitlesMap ? subtitlesMap[videoId] || [] : [];
 
                 return {
                     title: snippet.title,
-                    description: utils.renderDescription(embed, videoId, img, utils.formatDescription(snippet.description)),
+                    description: renderYoutube(embed, videoId, img, formatDescription(snippet.description)),
                     pubDate: parseDate(snippet.publishedAt),
                     link: `https://www.youtube.com/watch?v=${videoId}`,
                     author: snippet.videoOwnerChannelTitle,
@@ -195,11 +204,11 @@ export const getDataByChannelId = async ({ channelId, embed, filterShorts, isJso
 };
 
 export const getDataByPlaylistId = async ({ playlistId, embed, isJsonFeed }: { playlistId: string; embed: boolean; isJsonFeed: boolean }): Promise<Data> => {
-    const playlistTitle = (await utils.getPlaylist(playlistId, 'snippet', cache)).data.items[0].snippet.title;
+    const playlistTitle = (await getPlaylist(playlistId, 'snippet', cache)).data.items[0].snippet.title;
 
-    const data = (await utils.getPlaylistItems(playlistId, 'snippet', cache)).data.items.filter((d) => d.snippet.title !== 'Private video' && d.snippet.title !== 'Deleted video');
+    const data = (await getPlaylistItems(playlistId, 'snippet', cache)).data.items.filter((d) => d.snippet.title !== 'Private video' && d.snippet.title !== 'Deleted video');
     const videoIds = data.map((item) => item.snippet.resourceId.videoId);
-    const videoDetails = await utils.getVideos(videoIds.join(','), 'contentDetails', cache);
+    const videoDetails = await getVideos(videoIds.join(','), 'contentDetails', cache);
     const subtitlesMap = isJsonFeed ? await getSrtAttachmentBatch(videoIds) : {};
 
     return {
@@ -209,13 +218,13 @@ export const getDataByPlaylistId = async ({ playlistId, embed, isJsonFeed }: { p
         item: data.map((item) => {
             const snippet = item.snippet;
             const videoId = snippet.resourceId.videoId;
-            const img = utils.getThumbnail(snippet.thumbnails);
+            const img = getThumbnail(snippet.thumbnails);
             const detail = videoDetails?.data.items.find((d) => d.id === videoId);
             const srtAttachments = subtitlesMap ? subtitlesMap[videoId] || [] : [];
 
             return {
                 title: snippet.title,
-                description: utils.renderDescription(embed, videoId, img, utils.formatDescription(snippet.description)),
+                description: renderYoutube(embed, videoId, img, formatDescription(snippet.description)),
                 pubDate: parseDate(snippet.publishedAt),
                 link: `https://www.youtube.com/watch?v=${videoId}`,
                 author: snippet.videoOwnerChannelTitle,

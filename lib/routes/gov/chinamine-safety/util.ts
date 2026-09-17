@@ -61,7 +61,7 @@ const fetchData = ($, currentUrl) => {
         title: $('title').text(),
         link: currentUrl,
         description: $('meta[name="ColumnDescription"]').prop('content') || $('meta[name="Description"]').prop('content'),
-        language: 'zh',
+        language: 'zh' as const,
         image,
         icon,
         logo: icon,

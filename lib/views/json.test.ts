@@ -16,8 +16,9 @@ describe('JSON view', () => {
                 {
                     title: 'Item One',
                     link: 'https://example.com/one',
-                    description: 'Entry One',
+                    summary: 'Entry One',
                     guid: 'guid-1',
+                    description: '<p>hello</p>',
                     content: {
                         html: '<p>hello</p>',
                         text: 'hello',
