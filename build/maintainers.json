@@ -9045,6 +9045,9 @@
   "/weidian/goods/:id": [
     "LogicJake"
   ],
+  "/wenku8/chapter/:id": [
+    "zsakvo"
+  ],
   "/wenku8/chapter2/:id": [
     "zsakvo"
   ],

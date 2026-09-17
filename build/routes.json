@@ -51670,7 +51670,8 @@
           "antiCrawler": false,
           "supportBT": false,
           "supportPodcast": false,
-          "supportScihub": false
+          "supportScihub": false,
+          "nsfw": true
         },
         "name": "作者作品",
         "maintainers": [
@@ -121590,12 +121591,36 @@
   },
   "wenku8": {
     "routes": {
+      "/chapter/:id": {
+        "path": "/chapter/:id",
+        "categories": [
+          "reading"
+        ],
+        "example": "/wenku8/chapter/74",
+        "parameters": {
+          "id": "小说 id, 可在对应小说页 URL 中找到"
+        },
+        "features": {
+          "requireConfig": false,
+          "requirePuppeteer": true,
+          "antiCrawler": true,
+          "supportBT": false,
+          "supportPodcast": false,
+          "supportScihub": false
+        },
+        "name": "章节",
+        "maintainers": [
+          "zsakvo"
+        ],
+        "location": "chapter.ts",
+        "module": "() => import('@/routes/wenku8/chapter.ts')"
+      },
       "/chapter2/:id": {
         "path": "/chapter2/:id",
         "categories": [
           "reading"
         ],
-        "example": "/wenku8/chapter/74",
+        "example": "/wenku8/chapter2/74",
         "parameters": {
           "id": "小说 id, 可在对应小说页 URL 中找到"
         },

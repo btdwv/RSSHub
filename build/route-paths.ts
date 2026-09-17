@@ -3572,6 +3572,7 @@ export type RoutePath =
   | `/wellcee/rent/:city/:district?`
   | `/wellcee/support-city`
   | `/wenku8/:category?`
+  | `/wenku8/chapter/:id`
   | `/wenku8/chapter2/:id`
   | `/wenku8/volume/:id`
   | `/wenxuecity/bbs/:cat/:elite?`
