@@ -1,6 +1,6 @@
 import { load } from 'cheerio';
 
-import type { Route } from '@/types';
+import type { DataItem, Route } from '@/types';
 import playwright from '@/utils/playwright';
 
 export const route: Route = {
@@ -31,25 +31,25 @@ async function handler(ctx) {
     await page.route('**/*', (route) => {
         route.request().resourceType() === 'document' ? route.continue() : route.abort();
     });
-    let responseHtml;
+    let responseHtml = '';
     try {
         await page.goto(`https://www.wenku8.net/novel/${index}/${id}/index.htm`, { timeout: 30000, waitUntil: 'domcontentloaded' });
         await page.waitForSelector('#headlink', { timeout: 10000 });
-        responseHtml = await page.evaluate(() => document.querySelector('body').innerHTML);
+        responseHtml = (await page.evaluate(() => document.querySelector('body')?.innerHTML)) ?? '';
     } finally {
-        browser.close();
+        await browser.close();
     }
 
     const $ = load(responseHtml);
 
     const name = $('#title').text();
 
-    const chapter_item = [];
+    const chapter_item: DataItem[] = [];
 
     $('.ccss>a').each((_, el) => {
         chapter_item.push({
             title: $(el).text(),
-            link: `https://www.wenku8.net/novel/${index}/${id}/` + $(el).attr('href'),
+            link: `https://www.wenku8.net/novel/${index}/${id}/` + ($(el).attr('href') ?? ''),
         });
     });
 

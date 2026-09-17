@@ -1,4 +1,4 @@
-import { Route } from '@/types';
+import type { DataItem, Route } from '@/types';
 import cache from '@/utils/cache';
 import got from '@/utils/got';
 import dayjs from 'dayjs';
@@ -73,15 +73,16 @@ async function handler(ctx) {
             url: chaptersUrl,
         });
 
-        const items = [];
+        const items: DataItem[] = [];
         for (const datum of data) {
-            const listItem = {};
-            listItem.title = datum.name;
-            listItem.link = `${pageUrl}/chapter/${datum.index}`;
-            listItem.author = sAuthor;
-            listItem.pubDate = dayjs(datum.uploadDate).format('YYYY-MM-DD HH:mm:ss');
-            listItem.description = `<h1>${datum.pageCount}P </h1><a href="${listItem.link}">Suwayomi-Server </a><p></p><a href="${datum.realUrl}">${sSource} </a>`;
-            items.push(listItem);
+            const link = `${pageUrl}/chapter/${datum.index}`;
+            items.push({
+                title: datum.name,
+                link,
+                author: sAuthor,
+                pubDate: dayjs(datum.uploadDate).format('YYYY-MM-DD HH:mm:ss'),
+                description: `<h1>${datum.pageCount}P </h1><a href="${link}">Suwayomi-Server </a><p></p><a href="${datum.realUrl}">${sSource} </a>`,
+            });
         }
         return items;
     };

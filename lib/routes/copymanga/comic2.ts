@@ -77,12 +77,12 @@ async function handler(ctx) {
             }
         });
 
-        let html;
+        let html = '';
         try {
             await page.goto(strPageUrl, { timeout: 30000, waitUntil: 'domcontentloaded' });
             await page.waitForSelector('.table-default-box > div > div > ul', { timeout: 10000 });
             // await new Promise(resolve => setTimeout(resolve, 3000));// 加载页面后，页面通过js动态加载章节，等待3秒再继续
-            html = await page.evaluate(() => document.querySelector('body').innerHTML);
+            html = (await page.evaluate(() => document.querySelector('body')?.innerHTML)) ?? '';
         } finally {
             browser.close();
         }

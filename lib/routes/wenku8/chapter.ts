@@ -1,6 +1,6 @@
 import { load } from 'cheerio';
 
-import type { Route } from '@/types';
+import type { DataItem, Route } from '@/types';
 import playwright from '@/utils/playwright';
 
 export const route: Route = {
@@ -28,31 +28,30 @@ async function handler(ctx) {
     // const browser = await playwright.launch({headless: true, args: ["--no-sandbox"]});
     const browser = await playwright();
     const page = await browser.newPage();
-    // 启用请求拦截功能，允许控制页面发出的网络请求
-    await page.setRequestInterception(true);
-    // 监听页面的所有请求，只允许文档类型的请求通过，其他资源（如图片、CSS、JS等）都被阻止。提高爬取速度，减少不必要的资源加载
-    page.on('request', (request) => {
-        request.resourceType() === 'document' ? request.continue() : request.abort();
+    // 启用请求拦截功能，允许控制页面发出的网络请求（patchright/Playwright 用 page.route）
+    await page.route('**/*', (route) => {
+        // 只允许文档类型的请求通过，其他资源（如图片、CSS、JS等）都被阻止。提高爬取速度，减少不必要的资源加载
+        route.request().resourceType() === 'document' ? route.continue() : route.abort();
     });
-    let responseHtml;
+    let responseHtml = '';
     try {
         await page.goto(`https://www.wenku8.net/novel/${index}/${id}/index.htm`, { timeout: 30000, waitUntil: 'domcontentloaded' });
         await page.waitForSelector('#headlink', { timeout: 10000 });
-        responseHtml = await page.evaluate(() => document.querySelector('body').innerHTML);
+        responseHtml = (await page.evaluate(() => document.querySelector('body')?.innerHTML)) ?? '';
     } finally {
-        browser.close();
+        await browser.close();
     }
 
     const $ = load(responseHtml);
 
     const name = $('#title').text();
 
-    const chapter_item: any[] = [];
+    const chapter_item: DataItem[] = [];
 
     $('.ccss>a').each((_, el) => {
         chapter_item.push({
             title: $(el).text(),
-            link: `https://www.wenku8.net/novel/${index}/${id}/` + $(el).attr('href'),
+            link: `https://www.wenku8.net/novel/${index}/${id}/` + ($(el).attr('href') ?? ''),
         });
     });
 

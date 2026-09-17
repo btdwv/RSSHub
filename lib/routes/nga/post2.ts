@@ -118,8 +118,8 @@ async function handler(ctx) {
     const getLastPageId = async (tid, authorId) => {
         const $ = await getPage(tid, authorId);
         const nav = $('#pagebtop');
-        const match = nav.html().match(/\{0:'\/read\.php\?tid=(\d+).*?',1:(\d+),.*?\}/);
-        return match ? match[2] : 1;
+        const match = (nav.html() ?? '').match(/\{0:'\/read\.php\?tid=(\d+).*?',1:(\d+),.*?\}/);
+        return match ? Number(match[2]) : 1;
     };
 
     const tid = ctx.req.param('tid');
@@ -148,7 +148,7 @@ async function handler(ctx) {
                 .attr('href')
                 ?.match(/&uid=(-?\d+)$/);
             const posterId = posterIdMatch?.[1];
-            const poster = authorName || posterMap[posterId]?.username || 'unknown';
+            const poster = authorName || (posterId ? posterMap[posterId]?.username : undefined) || 'unknown';
             const content = post.find('.postcontent').first();
             const description = formatContent(content.html());
             const postId = content.attr('id');

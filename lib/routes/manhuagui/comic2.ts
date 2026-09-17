@@ -11,11 +11,20 @@ import { decodeOriginalBody } from './decode-utils';
 let baseUrl = '';
 let originalBaseUrl = '';
 
-const getChapters = ($) => {
+interface ChapterItem {
+    link: string;
+    title: string;
+    pub_date: Date;
+    num: string;
+    category: string;
+}
+
+const getChapters = ($, pubDate: Date) => {
     let time_mark = 100;
     // 用于一次更新多个新章节的排序
     let new_time_mark = 0;
-    const result: DataItem[] = [];
+    let newChapterCnt = 0;
+    const result: ChapterItem[] = [];
     $('h4').each((_, ele) => {
         const categoryName = $(ele).text();
         let nextEle = ele.next;
@@ -29,15 +38,15 @@ const getChapters = ($) => {
             for (const li of $(ul).children('li').toArray()) {
                 const a = $(li).children('a');
                 // 通过操作发布时间来对章节进行排序,如果是刚刚更新的单行本或者番外,保留最新更新时间
-                let pDate = new Date(new Date($.pubDate) - time_mark++ * 1000);
+                let pDate = new Date(pubDate.getTime() - time_mark++ * 1000);
                 if (a.find('em').length > 0) {
                     // 对更新的章节也进行排序
-                    pDate = new Date(new Date($.pubDate) - new_time_mark++ * 1000);
-                    $.newChapterCnt++;
+                    pDate = new Date(pubDate.getTime() - new_time_mark++ * 1000);
+                    newChapterCnt++;
                 }
                 result.push({
-                    link: new URL(a.attr('href'), originalBaseUrl).href,
-                    title: a.attr('title'),
+                    link: new URL(a.attr('href') ?? '', originalBaseUrl).href,
+                    title: a.attr('title') ?? '',
                     pub_date: pDate,
                     num: a.find('i').text(),
                     category: categoryName,
@@ -45,7 +54,7 @@ const getChapters = ($) => {
             }
         }
     });
-    return result;
+    return { items: result, newChapterCnt };
 };
 
 export const route: Route = {
@@ -137,7 +146,8 @@ async function handler(ctx) {
     const $ = load(strProxyAddr === '' ? data : decodeOriginalBody(data));
 
     if ($('#__VIEWSTATE').length > 0) {
-        const n = LZString.decompressFromBase64($('#__VIEWSTATE').val());
+        const viewState = $('#__VIEWSTATE').val();
+        const n = typeof viewState === 'string' ? LZString.decompressFromBase64(viewState) : null;
         if (n) {
             $('#erroraudit_show').replaceWith(n);
             $('#__VIEWSTATE').remove();
@@ -146,7 +156,7 @@ async function handler(ctx) {
 
     const bookTitle = $('.book-title > h1').text();
     const bookIntro = $('#intro-all').text();
-    const coverImgSrc = $('.book-cover img').attr('src').replace(strProxyAddr, '');
+    const coverImgSrc = ($('.book-cover img').attr('src') ?? '').replace(strProxyAddr, '');
     // 对最新更新的章节增加了pubDate
     const reg = /最近[于於].+更新至/;
     // 处理已下架的漫画
@@ -158,15 +168,12 @@ async function handler(ctx) {
             item: [{ link: `${originalBaseUrl}/comic/${id}/`, title: bookTitle, description: '已下架' }],
         };
     } else {
-        const pub_date_str = $('.status > span')
-            .text()
-            .match(reg)[0]
-            .replace(/最近[于於] \[/, '')
-            .replace('] 更新至', '');
+        const statusText = $('.status > span').text();
+        const pubDateMatch = statusText.match(reg);
+        const pub_date_str = pubDateMatch ? pubDateMatch[0].replace(/最近[于於] \[/, '').replace('] 更新至', '') : '';
         // 为了能在闭包内访问到这个日期而不是每次需要处理这个最近更新日期
-        $.pubDate = parseDate(pub_date_str);
-        $.newChapterCnt = 0;
-        const chapters = getChapters($);
+        const pubDate = parseDate(pub_date_str);
+        const { items: chapters, newChapterCnt } = getChapters($, pubDate);
         const genResult = (chapter) => ({
             link: chapter.link.replace(strProxyAddr, ''),
             title: chapter.title,
@@ -180,7 +187,7 @@ async function handler(ctx) {
         const items = chapters.map((element) => genResult(element));
         let itemsLen = items.length;
         if (chapterCnt > 0) {
-            itemsLen = Math.max(chapterCnt, $.newChapterCnt);
+            itemsLen = Math.max(chapterCnt, newChapterCnt);
         }
 
         return {
