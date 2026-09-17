@@ -37,5 +37,5 @@ export function decodeOriginalBody(htmlContent: string): string {
  * @returns 是否包含编码内容
  */
 export function hasEncodedContent(htmlContent: string): boolean {
-    return /const originalBodyBase64Encoded = "([^"]+)"/.test(htmlContent);
+    return /const originalBodyBase64Encoded = "[^"]+"/.test(htmlContent);
 }

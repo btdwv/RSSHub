@@ -1,9 +1,10 @@
+import dayjs from 'dayjs';
+
+import { config } from '@/config';
+import ConfigNotFoundError from '@/errors/types/config-not-found';
 import type { DataItem, Route } from '@/types';
 import cache from '@/utils/cache';
 import got from '@/utils/got';
-import dayjs from 'dayjs';
-import { config } from '@/config';
-import ConfigNotFoundError from '@/errors/types/config-not-found';
 
 export const route: Route = {
     path: '/manga/:id',

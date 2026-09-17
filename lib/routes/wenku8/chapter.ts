@@ -4,7 +4,7 @@ import type { DataItem, Route } from '@/types';
 import playwright from '@/utils/playwright';
 
 export const route: Route = {
-    path: '/chapter2/:id',
+    path: '/chapter/:id',
     categories: ['reading'],
     example: '/wenku8/chapter/74',
     parameters: { id: '小说 id, 可在对应小说页 URL 中找到' },
@@ -37,7 +37,7 @@ async function handler(ctx) {
     try {
         await page.goto(`https://www.wenku8.net/novel/${index}/${id}/index.htm`, { timeout: 30000, waitUntil: 'domcontentloaded' });
         await page.waitForSelector('#headlink', { timeout: 10000 });
-        responseHtml = (await page.evaluate(() => document.querySelector('body')?.innerHTML)) ?? '';
+        responseHtml = (await page.evaluate(() => document.querySelector('body')?.getHTML())) ?? '';
     } finally {
         await browser.close();
     }

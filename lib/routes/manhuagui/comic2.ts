@@ -167,34 +167,34 @@ async function handler(ctx) {
             description: bookIntro,
             item: [{ link: `${originalBaseUrl}/comic/${id}/`, title: bookTitle, description: '已下架' }],
         };
-    } else {
-        const statusText = $('.status > span').text();
-        const pubDateMatch = statusText.match(reg);
-        const pub_date_str = pubDateMatch ? pubDateMatch[0].replace(/最近[于於] \[/, '').replace('] 更新至', '') : '';
-        // 为了能在闭包内访问到这个日期而不是每次需要处理这个最近更新日期
-        const pubDate = parseDate(pub_date_str);
-        const { items: chapters, newChapterCnt } = getChapters($, pubDate);
-        const genResult = (chapter) => ({
-            link: chapter.link.replace(strProxyAddr, ''),
-            title: chapter.title,
-            pubDate: chapter.pub_date,
-            category: chapter.category,
-            description: `
-            <h1>${chapter.num}</h1>
-            <img src='${coverImgSrc}' />
-        `.trim(),
-        });
-        const items = chapters.map((element) => genResult(element));
-        let itemsLen = items.length;
-        if (chapterCnt > 0) {
-            itemsLen = Math.max(chapterCnt, newChapterCnt);
-        }
-
-        return {
-            title: `${bookTitle} - 漫画柜`,
-            link: `${originalBaseUrl}/comic/${id}/`,
-            description: bookIntro,
-            item: items.slice(0, itemsLen),
-        };
     }
+
+    const statusText = $('.status > span').text();
+    const pubDateMatch = statusText.match(reg);
+    const pub_date_str = pubDateMatch ? pubDateMatch[0].replace(/最近[于於] \[/, '').replace('] 更新至', '') : '';
+    // 为了能在闭包内访问到这个日期而不是每次需要处理这个最近更新日期
+    const pubDate = parseDate(pub_date_str);
+    const { items: chapters, newChapterCnt } = getChapters($, pubDate);
+    const genResult = (chapter) => ({
+        link: chapter.link.replace(strProxyAddr, ''),
+        title: chapter.title,
+        pubDate: chapter.pub_date,
+        category: chapter.category,
+        description: `
+        <h1>${chapter.num}</h1>
+        <img src='${coverImgSrc}' />
+    `.trim(),
+    });
+    const items = chapters.map((element) => genResult(element));
+    let itemsLen = items.length;
+    if (chapterCnt > 0) {
+        itemsLen = Math.max(chapterCnt, newChapterCnt);
+    }
+
+    return {
+        title: `${bookTitle} - 漫画柜`,
+        link: `${originalBaseUrl}/comic/${id}/`,
+        description: bookIntro,
+        item: items.slice(0, itemsLen),
+    };
 }

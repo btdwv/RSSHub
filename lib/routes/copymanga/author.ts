@@ -1,8 +1,10 @@
-import { Route } from '@/types';
-import cache from '@/utils/cache';
 import { load } from 'cheerio';
+
 import { config } from '@/config';
-import playwright from '@/utils/playwright'
+import type { Route } from '@/types';
+import cache from '@/utils/cache';
+import playwright from '@/utils/playwright';
+
 import { decodeOriginalBody } from './decode-utils';
 
 export const route: Route = {
@@ -17,6 +19,7 @@ export const route: Route = {
         supportBT: false,
         supportPodcast: false,
         supportScihub: false,
+        nsfw: true,
     },
     name: '作者作品',
     maintainers: ['btdwv'],
@@ -53,7 +56,7 @@ async function handler(ctx) {
             ]);
         }
         await page.goto(strProxyPageUrl);
-        const html = await page.evaluate(() => document.querySelector('body')?.innerHTML || '');
+        const html = await page.evaluate(() => document.querySelector('body')?.getHTML() || '');
         browser.close();
         // 如果通过代理访问，需要进行解码
         const $ = load(strProxyAddr === '' ? html : decodeOriginalBody(html));
@@ -61,23 +64,25 @@ async function handler(ctx) {
         const bookNames = $("div[class='correlationItem-txt'] > a > p");
         const authorMatch = $("div[class='correlation-title-top'] h4 span")
             .text()
-            .match(/\[(.*?)]/);
+            .match(/\[(.*?)\]/);
         authorName = authorMatch ? authorMatch[1] : '';
         const covers = $("div[class='correlationItem-img loadingIcon hoverImage'] a img");
         const count = bookUrls.length;
 
         const items: any[] = [];
         for (let i = 0; i < count; i++) {
-            const listItem: any = {};
-            listItem.link = strBaseUrl + bookUrls[i].attribs.href.replace(strProxyAddr, '').replace(strBaseUrl, '');
-            listItem.title = bookNames[i].attribs.title;
+            let description: string | undefined;
             if (covers[i].attribs.src !== undefined) {
-                listItem.description = `<img src=${covers[i].attribs.src.replace(strProxyAddr, '')}></img>`.trim();
+                description = `<img src=${covers[i].attribs.src.replace(strProxyAddr, '')}></img>`.trim();
             } else if (covers[i].attribs['data-src'] !== undefined) {
-                listItem.description = `<img src=${covers[i].attribs['data-src'].replace(strProxyAddr, '')}></img>`.trim();
+                description = `<img src=${covers[i].attribs['data-src'].replace(strProxyAddr, '')}></img>`.trim();
             }
-            listItem.author = authorName;
-            items.push(listItem);
+            items.push({
+                link: strBaseUrl + bookUrls[i].attribs.href.replace(strProxyAddr, '').replace(strBaseUrl, ''),
+                title: bookNames[i].attribs.title,
+                description,
+                author: authorName,
+            });
         }
         return items;
     };
@@ -86,7 +91,7 @@ async function handler(ctx) {
 
     return {
         title: `拷贝漫画 - [${authorName}] 相关作品`,
-        link: String(strPageUrl),
+        link: strPageUrl,
         description: `[${authorName}] 相关作品`,
         item: chapterArray,
     };
