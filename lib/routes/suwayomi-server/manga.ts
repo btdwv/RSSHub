@@ -33,7 +33,7 @@ async function handler(ctx) {
     const site = process.env.SUWAYOMI_INTERNAL_ADDRESS || ''; // rsshub怎样访问suwayomi-server，填写rsshub能访问到的地址 如: http://Suwayomi:4567
     const pageAddress = process.env.SUWAYOMI_EXTERNAL_ADDRESS || ''; // 用户怎样访问suwayomi-server，填写浏览器中看到的地址 如: http://192.168.50.50:14567
 
-    const rootUrl = String(site);
+    const rootUrl = site;
     const pageUrl = `${pageAddress}/manga/${id}`; // 漫画的网页
 
     const titleUrl = `${rootUrl}/api/v1/manga/${id}/?onlineFetch=false`; // 获取标题、简介

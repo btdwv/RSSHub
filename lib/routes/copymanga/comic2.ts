@@ -90,8 +90,7 @@ async function handler(ctx) {
         bookTitle = $('.comicParticulars-title-right > ul > li:nth-child(1) > h6').text();
         bookIntro = $('.comicParticulars-synopsis > div:nth-child(2) > p').text();
         // const coverImgSrc = $('.comicParticulars-title-left > div > img').attr('src');
-        const chapters = getChapters($);
-        chapters.reverse();
+        const chapters = getChapters($).toReversed();
         let itemsLen = chapters.length;
         if (chapterCnt > 0) {
             itemsLen = chapterCnt;
